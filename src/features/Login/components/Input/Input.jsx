@@ -9,10 +9,10 @@ const Input = ({ type = 'text', placeholder, lable, id, name, getInputValue }) =
     }
     return (
         <div className="input-template">
-            <label className="input-template-label"
+            {/* <label className="input-template-label"
                 htmlFor={id}>
                 {lable}
-            </label>
+            </label> */}
             <input className="input-template-input"
                 type={type}
                 id={id}
