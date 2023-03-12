@@ -6,6 +6,9 @@ import "./Home.scss"
 const Home = () => {
     return (
         <div className="home">
+<<<<<<< HEAD
+            Home page QuangNV
+=======
             <h1>BÀI VIẾT MỚI NHẤT</h1>
             <div className='home-line' />
             <div className="home-content">
@@ -28,6 +31,7 @@ const Home = () => {
                 <HomeItem image={sample} title="Tiêu đề" />
             </div>
             <span className="home-more">XEM THÊM</span>
+>>>>>>> 69302bb475caf2c2b4ce94f65b5f4ef1563775de
         </div>
     )
 }
