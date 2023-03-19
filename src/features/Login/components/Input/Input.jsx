@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Input.scss';
+import styles from './Input.module.scss';
 
 const Input = ({ type = 'text', placeholder, lable, id, name, getInputValue }) => {
     const [inputValue, setInputValue] = useState('');
@@ -8,12 +8,12 @@ const Input = ({ type = 'text', placeholder, lable, id, name, getInputValue }) =
         getInputValue(inputValue);
     }
     return (
-        <div className="input-template">
+        <div className={styles.input_template}>
             {/* <label className="input-template-label"
                 htmlFor={id}>
                 {lable}
             </label> */}
-            <input className="input-template-input"
+            <input className={styles.input_template_input}
                 type={type}
                 id={id}
                 name={name}
