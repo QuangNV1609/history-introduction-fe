@@ -6,6 +6,7 @@ import userApi from "../../api/user";
 import headerLogo from '../../image/header-logo.png';
 import headerClose from '../../image/header-close.png';
 import OtpInput from 'otp-input-react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUserName] = useState('');
@@ -17,6 +18,9 @@ const Login = () => {
     const [showRegisterProfileForm, setShowRegisterProfileForm] = useState(false);
     const [showVerifyForm, setShowVerifyForm] = useState(false);
 
+    const navigate = useNavigate();
+
+    //console.log(location.pathname);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -24,9 +28,20 @@ const Login = () => {
             username: username,
             password: password
         }
-        userApi.signIn(user).then(res => {
+        userApi.login(user).then(res => {
             console.log(res);
-        });
+            if (res.status === 200) {
+                localStorage.setItem("token", res.data.token);
+
+                navigate('/home');
+                return res.data.JSON;
+            }
+            throw Error("Sai tên email hoặc mật khẩu")
+        })
+            .catch(function (error) {
+                alert(error);
+                console.log(error);
+            });
     }
 
     const getUsername = (value) => {
@@ -62,8 +77,8 @@ const Login = () => {
                             id="login_email"
                             name="Username"
                             value={username}
-                            getInputValue={getUsername}>
-                        </Input>
+                            getInputValue={getUsername}
+                        ></Input>
 
                         <div class={styles.label_container}>
                             <label for="login_password" class={styles.auth_label}>Mật khẩu</label>
@@ -102,8 +117,8 @@ const Login = () => {
                             id="register_email"
                             name=""
                             value={''}
-                            getInputValue={''}>
-                        </Input>
+                            getInputValue={''}
+                        ></Input>
 
                         <div class={styles.label_container}>
                             <label for="register_password" class={styles.auth_label}>Mật khẩu</label>
@@ -137,16 +152,16 @@ const Login = () => {
                         <Input
                             type="text"
                             id="auth_last_name"
-                            placeholder="Điền họ của bạn">
-                        </Input>
+                            placeholder="Điền họ của bạn"
+                        ></Input>
                         <div className={styles.label_container}>
                             <label for="auth_first_name" className={styles.auth_label}>Tên</label>
                         </div>
                         <Input
                             type="text"
                             id="auth_first_name"
-                            placeholder="Điền tên của bạn">
-                        </Input>
+                            placeholder="Điền tên của bạn"
+                        ></Input>
                         <button class={styles.auth_form_btn}
                             onClick={() => (setShowRegisterProfileForm(false), setShowVerifyForm(true))}>Tiếp tục</button>
                     </form>
