@@ -12,7 +12,7 @@ const axiosClient = axios.create({
         encode: parse,
         serialize: stringify,
     },
-    
+
 })
 
 axiosClient.interceptors.request.use(async (config) => {
