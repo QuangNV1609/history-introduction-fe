@@ -1,47 +1,95 @@
 import { useState } from "react";
 import React from 'react'
-import Input from "./components/Input/Input";
 import styles from './Login.module.scss';
 import userApi from "../../api/user";
 import headerLogo from '../../image/header-logo.png';
 import headerClose from '../../image/header-close.png';
 import OtpInput from 'otp-input-react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [username, setUserName] = useState('');
-    const [password, setPassword] = useState('');
+    //Login
+    const [loginUsername, setLoginUserName] = useState('');
+    const [loginPassword, setLoginPassword] = useState('');
+
+    //Register
     const [otp, setOtp] = useState('');
+    const [registerUsername, setRegisterUserName] = useState('');
+    const [registerPassword, setRegisterPassword] = useState('');
+    const [active, setActive] = useState(true);
 
     const [showLoginForm, setShowLoginForm] = useState(true);
     const [showRegisterForm, setShowRegisterForm] = useState(false);
     const [showRegisterProfileForm, setShowRegisterProfileForm] = useState(false);
     const [showVerifyForm, setShowVerifyForm] = useState(false);
+    const [showLoginSuccess, setShowLoginSuccess] = useState(false);
+    const [showRegisterSuccess, setShowRegisterSuccess] = useState(false);
+    const [showSpace, setShowSpace] = useState(true);
 
+
+    const navigate = useNavigate();
+
+    //console.log(location.pathname);
 
     const handleLogin = (e) => {
         e.preventDefault();
         const user = {
-            username: username,
-            password: password
+            username: loginUsername,
+            password: loginPassword
         }
-        userApi.signIn(user).then(res => {
+
+        console.log(loginUsername);
+        console.log(loginPassword);
+        userApi.login(user).then(res => {
             console.log(res);
-        });
+            if (res.status === 200) {
+                localStorage.setItem("token", res.data.token);
+
+                navigate('/home');
+                return res.data.JSON;
+            }
+            throw Error("Sai tên email hoặc mật khẩu")
+        })
+            .catch(function (error) {
+                setShowSpace(false);
+                setShowLoginSuccess(true);
+                console.log(error);
+            });
     }
 
-    const getUsername = (value) => {
-        setUserName(value);
-    }
+    const handleRegister = (e) => {
+        e.preventDefault();
 
-    const getPassword = (value) => {
-        setPassword(value);
+        const user = {
+            username: registerUsername,
+            password: registerPassword,
+            active: active
+        }
+
+        console.log(user);
+        userApi.signIn(user).then(res => {
+            console.log(res.status);
+            if (res.status === 201) {
+                window.location.reload();
+                alert("Bạn đã đăng ký thành công!");
+                setShowRegisterForm(false);
+                setShowLoginForm(true);
+                return res.data.JSON;
+            }
+            throw Error("Tài khoản đã tồn tại")
+        })
+            .catch(function (error) {
+                setShowSpace(false);
+                setShowRegisterSuccess(true);
+                console.log(error);
+            });
     }
 
     return (
         <div>
             <div className={styles.header}>
-                <img src={headerLogo} alt="logo" class={styles.header_logo_img} />
-                <img src={headerClose} alt="close button" class={styles.header_close_img} />
+                <img src={headerLogo} alt="logo" className={styles.header_logo_img} />
+                <img src={headerClose} alt="close button" className={styles.header_close_img} />
             </div>
 
             <div className={styles.auth}>
@@ -49,39 +97,42 @@ const Login = () => {
                     // Login form
                     <form action="" className={`${styles.auth_form} ${styles.login_form}`}>
                         <h2>Đăng nhập</h2>
-                        <div class={styles.label_container}>
-                            <label for="login_email" class={styles.auth_label}>Email</label>
-                            <span class={styles.auth_span}>
+                        <div className={styles.label_container}>
+                            <label for="login_email" className={styles.auth_label}>Email</label>
+                            <span className={styles.auth_span}>
                                 Chưa có tài khoản?
-                                <span class={`${styles.span_action}`}
-                                    onClick={() => (setShowLoginForm(false), setShowRegisterForm(true))}> Đăng ký</span>
+                                <span className={`${styles.span_action}`}
+                                    onClick={() => (setShowLoginForm(false), setShowRegisterForm(true), setShowLoginSuccess(false), setShowSpace(true))}> Đăng ký</span>
                             </span>
                         </div>
-                        <Input
-                            type="email"
+                        <input
+                            type="text"
                             id="login_email"
-                            name="Username"
-                            value={username}
-                            getInputValue={getUsername}>
-                        </Input>
-
-                        <div class={styles.label_container}>
-                            <label for="login_password" class={styles.auth_label}>Mật khẩu</label>
-                            <span class={`${styles.auth_span} ${styles.span_action}`}>
+                            value={loginUsername}
+                            onChange={(e) => (setLoginUserName(e.target.value), setShowLoginSuccess(false), setShowSpace(true))}
+                            className={styles.auth_input}
+                        />
+                        <div className={styles.label_container}>
+                            <label for="login_password" className={styles.auth_label}>Mật khẩu</label>
+                            <span className={`${styles.auth_span} ${styles.span_action}`}>
                                 Xem
                             </span>
                         </div>
-                        <Input
+                        <input
                             type="password"
                             id="login_password"
-                            value={password}
-                            getInputValue={getPassword}
-                        ></Input>
+                            value={loginPassword}
+                            onChange={(e) => (setLoginPassword(e.target.value), setShowLoginSuccess(false), setShowSpace(true))}
+                            className={styles.auth_input}
+                        />
+                        {showLoginSuccess && (<p className={styles.login_success}>Email đăng nhập hoặc Mật khẩu của bạn không chính xác, vui lòng thử lại.</p>)}
 
-                        <button class={styles.auth_form_btn} onClick={(e) => { handleLogin(e) }}>
+                        {showSpace && (<div style={{ height: 20 }}></div>)}
+
+                        <button className={styles.auth_form_btn} onClick={handleLogin}>
                             Đăng nhập
                         </button>
-                        <a href="#" class={styles.forgot_password}>Quên mật khẩu?</a>
+                        <a href="#" className={styles.forgot_password}>Quên mật khẩu?</a>
                     </form>
                 )}
 
@@ -89,39 +140,47 @@ const Login = () => {
                     // Register Form
                     <form action="" className={`${styles.auth_form} ${styles.register_form}`}>
                         <h2>Đăng ký</h2>
-                        <div class={styles.label_container}>
-                            <label for="register_email" class={styles.auth_label}>Email</label>
-                            <span class={styles.auth_span}>
+                        <div className={styles.label_container}>
+                            <label for="register_email" className={styles.auth_label}>Email</label>
+                            <span className={styles.auth_span}>
                                 Đã có tài khoản?
-                                <span class={`${styles.span_action}`}
-                                    onClick={() => (setShowRegisterForm(false), setShowLoginForm(true))}> Đăng nhập</span>
+                                <span className={`${styles.span_action}`}
+                                    onClick={() => (setShowRegisterForm(false), setShowLoginForm(true), setShowLoginSuccess(false), setShowSpace(true))}> Đăng nhập</span>
                             </span>
                         </div>
-                        <Input
-                            type="email"
+                        <input
+                            type="text"
                             id="register_email"
-                            name=""
-                            value={''}
-                            getInputValue={''}>
-                        </Input>
+                            value={registerUsername}
+                            onChange={(e) => (setRegisterUserName(e.target.value), setShowRegisterSuccess(false), setShowSpace(true))}
+                            className={styles.auth_input}
+                        />
 
-                        <div class={styles.label_container}>
-                            <label for="register_password" class={styles.auth_label}>Mật khẩu</label>
-                            <span class={`${styles.auth_span} ${styles.span_action}`}>
+                        <div className={styles.label_container}>
+                            <label for="register_password" className={styles.auth_label}>Mật khẩu</label>
+                            <span className={`${styles.auth_span} ${styles.span_action}`}>
                                 Xem
                             </span>
                         </div>
-                        <Input
+                        <input
                             type="password"
                             id="register_password"
-                            value={''}
-                            getInputValue={''}
-                        ></Input>
-                        <button class={styles.auth_form_btn}
-                            onClick={() => (setShowRegisterForm(false), setShowRegisterProfileForm(true))}>
+                            value={registerPassword}
+                            onChange={(e) => (setRegisterPassword(e.target.value), setShowRegisterSuccess(false), setShowSpace(true))}
+                            className={styles.auth_input}
+                        />
+
+                        {showRegisterSuccess && (<p className={styles.login_success}>Email đã đăng ký tài khoản trước đó, vui lòng thử lại.</p>)}
+
+                        {showSpace && (<div style={{ height: 20 }}></div>)}
+
+                        <button className={styles.auth_form_btn}
+                            // onClick={() => (setShowRegisterForm(false), setShowRegisterProfileForm(true))}
+                            onClick={handleRegister}
+                        >
                             Đăng ký miễn phí
                         </button>
-                        <p class={styles.auth_policy}>Bằng cách bấm nút “Đăng ký miễn phí, bạn đang tạo một tài khoản và đồng ý với "<a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a>" của Lịch Sử Việt Nam.
+                        <p className={styles.auth_policy}>Bằng cách bấm nút “Đăng ký miễn phí, bạn đang tạo một tài khoản và đồng ý với "<a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a>" của Lịch Sử Việt Nam.
                         </p>
                     </form>
                 )}
@@ -134,20 +193,25 @@ const Login = () => {
                         <div className={styles.label_container}>
                             <label for="auth_last_name" className={styles.auth_label}>Họ</label>
                         </div>
-                        <Input
+                        <input
                             type="text"
                             id="auth_last_name"
-                            placeholder="Điền họ của bạn">
-                        </Input>
+                            placeholder="Điền họ của bạn"
+                            className={styles.auth_input}
+                        />
                         <div className={styles.label_container}>
                             <label for="auth_first_name" className={styles.auth_label}>Tên</label>
                         </div>
-                        <Input
+                        <input
                             type="text"
                             id="auth_first_name"
-                            placeholder="Điền tên của bạn">
-                        </Input>
-                        <button class={styles.auth_form_btn}
+                            placeholder="Điền tên của bạn"
+                            className={styles.auth_input}
+                        />
+                        {showLoginSuccess && (<p className={styles.login_success}>Email đăng nhập hoặc Mật khẩu của bạn không chính xác, vui lòng thử lại.</p>)}
+
+                        {showSpace && (<div style={{ height: 20 }}></div>)}
+                        <button className={styles.auth_form_btn}
                             onClick={() => (setShowRegisterProfileForm(false), setShowVerifyForm(true))}>Tiếp tục</button>
                     </form>
                 )}
@@ -174,11 +238,11 @@ const Login = () => {
                         <div className={styles.verify_sub_desc}>
                             <p>Nếu bạn không nhìn thấy email, hãy kiểm tra thư mục thư rác của bạn. Chúng tôi gửi từ login@lichsuvietnam.com</p>
                         </div>
-                        <button class={styles.auth_form_btn}>Xác nhận</button>
-                        <a href="#" class={styles.forgot_password}>Gửi lại mã xác minh</a>
+                        <div style={{ height: 20 }}></div>
+                        <button className={styles.auth_form_btn}>Xác nhận</button>
+                        <a href="#" className={styles.forgot_password}>Gửi lại mã xác minh</a>
                     </form>
                 )}
-
             </div>
         </div>
     );

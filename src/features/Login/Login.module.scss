@@ -45,7 +45,6 @@
 
         h2 {
             font-size: 26px;
-            margin-bottom: 35px;
         }
 
         .label_container {
@@ -53,6 +52,7 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
+            margin-top: 35px;
             margin-bottom: 6px;
 
             .auth_label {
@@ -71,6 +71,28 @@
             .span_action:hover {
                 cursor: pointer;
             }
+        }
+
+        .auth_input {
+            width: 100%;
+            padding: 14px;
+            font-size: 14px;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+
+        .login_success {
+            width: 100%;
+            font-size: 14px;
+            height: 72px;
+            padding: 15px;
+            background-color: #ffc0c7;
+            border-radius: 4px;
+            display: flex;
+            margin: auto;
+            align-items: center;
         }
 
         &_btn {
@@ -104,7 +126,6 @@
 
         .auth_policy {
             font-size: 11px;
-            margin-top: 20px;
         }
 
         .auth_policy a {
@@ -116,15 +137,15 @@
         .fullName_desc {
             font-size: 13px;
             color: #6C757D;
-            margin-top: -25px;
-            margin-bottom: 55px;
+            margin-top: 8px;
+            margin-bottom: 40px;
         }
 
         .verify_desc {
             font-size: 14px;
             background-color: #ededed;
             padding: 16px;
-            margin-top: -15px;
+            margin-top: 8px;
             border-radius: 4px;
         }
 

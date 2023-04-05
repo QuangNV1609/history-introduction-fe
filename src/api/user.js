@@ -9,7 +9,7 @@ const userApi = {
         return axiosClient.post(url, user);
     },
     signIn: (user) => {
-        const url = baseUrl + '/signIn';
+        const url = baseUrl + '/register-user';
         return axiosClient.post(url, user);
     },
     test: () => {
