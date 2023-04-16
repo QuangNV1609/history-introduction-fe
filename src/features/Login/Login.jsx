@@ -2,8 +2,8 @@ import { useState } from "react";
 import React from 'react'
 import styles from './Login.module.scss';
 import userApi from "../../api/user";
-import headerLogo from '../../image/header-logo.png';
-import headerClose from '../../image/header-close.png';
+import headerLogo from '../../assets/image/header-logo.png';
+import headerClose from '../../assets/image/header-close.png';
 import OtpInput from 'otp-input-react';
 import { useNavigate } from 'react-router-dom';
 
