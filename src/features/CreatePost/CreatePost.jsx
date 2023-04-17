@@ -1,12 +1,11 @@
 import styles from './CreatePost.module.scss';
-import avatar from "../../resource/avatar.svg"
-import logo from "../../resource/logo2.png";
 import React, { useRef } from 'react';
-import { Link } from "react-router-dom"
 import { useState } from "react"
 import Select from 'react-select';
 import JoditEditor from 'jodit-react';
 import HeaderAdmin2 from '../HeaderAdmin2/HeaderAdmin2';
+import SunEditor from 'suneditor-react'
+import 'suneditor/dist/css/suneditor.min.css'
 
 const CreatePost = () => {
     
@@ -44,7 +43,6 @@ const CreatePost = () => {
         file.preview = URL.createObjectURL(file)
         setThumbnail(file)
     }
-
 
     return (
         <div className={styles.container}>
@@ -123,11 +121,41 @@ const CreatePost = () => {
                             </div>
                         </div>
 
+                        <div className={styles.message}>Cái này là dán link ảnh</div>
+
                         <div className={styles.post_editor}>
                             <JoditEditor
                                 ref={editor}
                                 value={content}
                                 onChange={newContent => setContent(newContent)}
+                            />
+                        </div>
+                        <div className={styles.message}>Cái này là load được ảnh</div>
+                        <div>
+                        <SunEditor 
+                                autoFocus = {true}
+                                placeholder='Bắt đầu viết...'
+                                height='300'
+                                onChange={e => setContent(e)}
+                                setDefaultStyle='font-size:14px'
+                                setOptions={{
+                                    buttonList:[
+                                        [
+                                            "bold",
+                                            "underline",
+                                            "italic",
+                                            "strike",
+                                            "list",
+                                            "align",
+                                            "fontSize",
+                                            "formatBlock",
+                                            "table",
+                                            "image",
+                                            "video",
+                                            "audio"
+                                        ]
+                                    ]
+                                }}
                             />
                         </div>
                     </div>

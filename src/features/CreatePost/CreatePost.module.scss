@@ -159,9 +159,11 @@ html {
             }
         }
 
+        .message {
+            font-size: 2rem;
+            margin: 24px 0;
+        }
         .post_editor {
-            margin-top: 40px;
-            min-height: 500px;
         }
     }
 }
