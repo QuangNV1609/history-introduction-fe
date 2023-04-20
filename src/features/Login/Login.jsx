@@ -16,6 +16,8 @@ const Login = () => {
     const [otp, setOtp] = useState('');
     const [registerUsername, setRegisterUserName] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [active, setActive] = useState(true);
 
     const [showLoginForm, setShowLoginForm] = useState(true);
@@ -43,8 +45,8 @@ const Login = () => {
         userApi.login(user).then(res => {
             console.log(res);
             if (res.status === 200) {
-                localStorage.setItem("token", res.data.token);
-
+                window.localStorage.setItem("jwtToken", res.data);
+                console.log(res.data);
                 navigate('/home');
                 return res.data.JSON;
             }
@@ -70,10 +72,9 @@ const Login = () => {
         userApi.signIn(user).then(res => {
             console.log(res.status);
             if (res.status === 201) {
-                window.location.reload();
-                alert("Bạn đã đăng ký thành công!");
                 setShowRegisterForm(false);
-                setShowLoginForm(true);
+                setShowLoginForm(false);
+                setShowRegisterProfileForm(true);
                 return res.data.JSON;
             }
             throw Error("Tài khoản đã tồn tại")
@@ -83,6 +84,27 @@ const Login = () => {
                 setShowRegisterSuccess(true);
                 console.log(error);
             });
+    }
+
+    const handleInsertInfo = (e) => {
+        e.preventDefault();
+        const userInfo = {
+            lastName: lastName,
+            firstName: firstName
+        }
+        console.log(userInfo);
+        userApi.insertInfo(userInfo).then(res => {
+            if (res.status === 200) {
+                alert("Dang ky thanh cong");
+                setShowRegisterProfileForm(false);
+                setShowLoginForm(true);
+                return res.data.JSON;
+            }
+            throw Error("Them ten loi")
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
     return (
@@ -98,7 +120,7 @@ const Login = () => {
                     <form action="" className={`${styles.auth_form} ${styles.login_form}`}>
                         <h2>Đăng nhập</h2>
                         <div className={styles.label_container}>
-                            <label for="login_email" className={styles.auth_label}>Email</label>
+                            <label htmlFor="login_email" className={styles.auth_label}>Email</label>
                             <span className={styles.auth_span}>
                                 Chưa có tài khoản?
                                 <span className={`${styles.span_action}`}
@@ -113,7 +135,7 @@ const Login = () => {
                             className={styles.auth_input}
                         />
                         <div className={styles.label_container}>
-                            <label for="login_password" className={styles.auth_label}>Mật khẩu</label>
+                            <label htmlFor="login_password" className={styles.auth_label}>Mật khẩu</label>
                             <span className={`${styles.auth_span} ${styles.span_action}`}>
                                 Xem
                             </span>
@@ -141,7 +163,7 @@ const Login = () => {
                     <form action="" className={`${styles.auth_form} ${styles.register_form}`}>
                         <h2>Đăng ký</h2>
                         <div className={styles.label_container}>
-                            <label for="register_email" className={styles.auth_label}>Email</label>
+                            <label htmlFor="register_email" className={styles.auth_label}>Email</label>
                             <span className={styles.auth_span}>
                                 Đã có tài khoản?
                                 <span className={`${styles.span_action}`}
@@ -157,7 +179,7 @@ const Login = () => {
                         />
 
                         <div className={styles.label_container}>
-                            <label for="register_password" className={styles.auth_label}>Mật khẩu</label>
+                            <label htmlFor="register_password" className={styles.auth_label}>Mật khẩu</label>
                             <span className={`${styles.auth_span} ${styles.span_action}`}>
                                 Xem
                             </span>
@@ -175,9 +197,7 @@ const Login = () => {
                         {showSpace && (<div style={{ height: 20 }}></div>)}
 
                         <button className={styles.auth_form_btn}
-                            // onClick={() => (setShowRegisterForm(false), setShowRegisterProfileForm(true))}
-                            onClick={handleRegister}
-                        >
+                            onClick={handleRegister}>
                             Đăng ký miễn phí
                         </button>
                         <p className={styles.auth_policy}>Bằng cách bấm nút “Đăng ký miễn phí, bạn đang tạo một tài khoản và đồng ý với "<a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a>" của Lịch Sử Việt Nam.
@@ -191,28 +211,30 @@ const Login = () => {
                         <h2>Tên của bạn là gì?</h2>
                         <p className={styles.fullName_desc}>Tên này sẽ được hiển thị trên profile của bạn.</p>
                         <div className={styles.label_container}>
-                            <label for="auth_last_name" className={styles.auth_label}>Họ</label>
+                            <label htmlFor="auth_last_name" className={styles.auth_label}>Họ</label>
                         </div>
                         <input
                             type="text"
                             id="auth_last_name"
                             placeholder="Điền họ của bạn"
                             className={styles.auth_input}
+                            onChange={e => setLastName(e.target.value)}
                         />
                         <div className={styles.label_container}>
-                            <label for="auth_first_name" className={styles.auth_label}>Tên</label>
+                            <label htmlFor="auth_first_name" className={styles.auth_label}>Tên</label>
                         </div>
                         <input
                             type="text"
                             id="auth_first_name"
                             placeholder="Điền tên của bạn"
                             className={styles.auth_input}
+                            onChange={e => setFirstName(e.target.value)}
                         />
                         {showLoginSuccess && (<p className={styles.login_success}>Email đăng nhập hoặc Mật khẩu của bạn không chính xác, vui lòng thử lại.</p>)}
 
                         {showSpace && (<div style={{ height: 20 }}></div>)}
                         <button className={styles.auth_form_btn}
-                            onClick={() => (setShowRegisterProfileForm(false), setShowVerifyForm(true))}>Tiếp tục</button>
+                            onClick={handleInsertInfo}>Tiếp tục</button>
                     </form>
                 )}
 

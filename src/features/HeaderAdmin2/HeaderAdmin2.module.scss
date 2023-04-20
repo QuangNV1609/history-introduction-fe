@@ -4,6 +4,11 @@
     padding: 0 18px;
     display: flex;
     justify-content: space-between;
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 
     &_left {
         display: flex;
@@ -38,10 +43,10 @@
             }
 
             text-decoration: none;
-            font-family: sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 1.4rem;
             color: white;
-            font-weight: 700;
+            font-weight: 800;
             margin-right: 25px;
         }
     }
@@ -90,6 +95,8 @@
         &_name {
             font-size: 1.4rem;
             margin-right: 7px;
+            font-weight: 400;
+            font-family: 'Open Sans', sans-serif;
             color: #fff;
         }
 
@@ -131,6 +138,7 @@
             a {
                 padding: 9px 0px;
                 text-decoration: none;
+                font-weight: 400;
                 color: #fff;
                 display: block;
                 font-size: 1.4rem;

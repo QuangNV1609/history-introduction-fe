@@ -2,8 +2,8 @@ import styles from './HeaderAdmin2.module.scss';
 import avatar from "../../resource/avatar.svg"
 import logo from "../../resource/logo2.png";
 import React, { useRef } from 'react';
-import { Link } from "react-router-dom"
-import { useState } from "react"
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const HeaderAdmin2 = () => {
     const titleNavbar = [["TRANG CHỦ", "home"], ["NGÀY NÀY TRONG LỊCH SỬ", "historyDay"], ["THỜI KỲ", "period"], ["NHÂN VẬT", "figure"], ["Q&A", "qa"]]
