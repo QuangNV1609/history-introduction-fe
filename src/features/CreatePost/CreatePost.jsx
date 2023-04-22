@@ -2,7 +2,6 @@ import styles from './CreatePost.module.scss';
 import React, { useRef } from 'react';
 import { useState } from "react"
 import Select from 'react-select';
-import JoditEditor from 'jodit-react';
 import HeaderAdmin2 from '../HeaderAdmin2/HeaderAdmin2';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
@@ -27,7 +26,6 @@ import {
 
 
 const CreatePost = () => {
-    const editor = useRef(null)
     const [content, setContent] = useState('')
     const [title, setTitle] = useState('');
     const [theme, setTheme] = useState('');

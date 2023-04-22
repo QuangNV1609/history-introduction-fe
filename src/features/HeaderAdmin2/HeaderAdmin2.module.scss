@@ -57,6 +57,11 @@
             align-items: center;
             position: relative;
 
+            div {
+                display: flex;
+                align-items: center;
+            }
+
             i {
                 font-size: 1.2rem;
                 color: #fff;
@@ -108,21 +113,11 @@
             margin-right: 7px;
         }
 
-        &_separate::after {
-            content: '';
-            display: block;
-            border-right: 1px solid #fff;
-            position: absolute;
-            top: calc(100% - 31px);
-            right: 0;
-            height: 30px;
-        }
-
         &_list {
             position: absolute;
             top: calc(100% + 10px);
             left: 0;
-            width: 190px;
+            width: 200px;
             padding: 8px 24px;
             border-radius: 8px;
             list-style: none;

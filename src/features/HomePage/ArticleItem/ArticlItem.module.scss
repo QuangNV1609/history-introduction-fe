@@ -1,0 +1,16 @@
+.new_article_grid_item {
+    min-width: 0;
+
+    img {
+        width: 100%;
+    }
+
+    .title_container {
+        margin-top: 10px;
+        min-height: 50px;
+        font-size: 1.8rem;
+        h4 {
+            font-weight: 700;
+        }
+    }
+}

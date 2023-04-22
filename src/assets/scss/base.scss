@@ -4,12 +4,15 @@
     --link-color: #1f58c2;
     --background-color: #f8f8f8;
     --shadow-color: rgba(76, 74, 69, 0.2);
+    --shadow-box: 0 0 14px 0 var(--shadow-color);
     --heading-font: 'Merriweather', serif;
     --text-font: 'Open Sans', sans-serif;
 }
 
 * {
     box-sizing: inherit;
+    margin: 0;
+    padding: 0;
 }
 
 html {

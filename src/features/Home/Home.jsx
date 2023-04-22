@@ -1,6 +1,6 @@
 import React from 'react'
 import HomeItem from './HomeItem/HomeItem'
-import sample from '../../resource/sample.svg'
+import sample from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
 import "./Home.scss"
 
 const Home = () => {

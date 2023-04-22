@@ -41,26 +41,30 @@ const PostDetail = () => {
                             <div className={styles.line_cross}></div>
                         </div>
                         <div className={styles.content_body_footer}>
-                            <div>
+                            <div className={styles.content_body_footer_info}>
                                 <p className={styles.article_info}>Thông tin trích dẫn</p>
                                 <p>
-                                <span className={styles.article_info_key}>Tiêu đề bài viết</span>
-                                <span className={styles.article_info_value}>Tên tiêu đề</span>
+                                    <span className={styles.article_info_key}>Tiêu đề bài viết</span>
+                                    <span className={styles.article_info_value}>Tên tiêu đề</span>
                                 </p>
                                 <p>
-                                <span className={styles.article_info_key}>Tác giả</span>
-                                <span className={styles.article_info_value}>Biên tập viên Lịch Sử Việt Nam</span>
+                                    <span className={styles.article_info_key}>Tác giả</span>
+                                    <span className={styles.article_info_value}>Biên tập viên Lịch Sử Việt Nam</span>
                                 </p>
                                 <p>
-                                <span className={styles.article_info_key}>Ngày cập nhật</span>
-                                <span className={styles.article_info_value}>18 tháng Năm, 2023</span>
+                                    <span className={styles.article_info_key}>Ngày cập nhật</span>
+                                    <span className={styles.article_info_value}>18 tháng Năm, 2023</span>
                                 </p>
                                 <p>
-                                <span className={styles.article_info_key}>Ngày xuất bản</span>
-                                <span className={styles.article_info_value}>13 tháng Chín, 2022</span>
+                                    <span className={styles.article_info_key}>Ngày xuất bản</span>
+                                    <span className={styles.article_info_value}>13 tháng Chín, 2022</span>
                                 </p>
+                                <span className={styles.print_btn}>
+                                    <i class="fa-solid fa-print"></i>
+                                    IN TRANG
+                                </span>
                             </div>
-                            <div>
+                            <div className={styles.content_body_footer_fact}>
                                 <div className={styles.line_cross_fact}></div>
                                 <span className={styles.article_info}>Fact Check</span>
                                 <p>Chúng tôi luôn cố gắng đem đến sự chính xác và công bằng. Nếu bạn phát hiện điều gì đó, hãy <a href="">nhấp vào đây</a> để liên hệ với chúng tôi! LỊCH SỬ VIỆT NAM sẽ xem xét và cập nhật nội dung thường xuyên để đảm bảo nội dung đầy đủ và chính xác.</p>
