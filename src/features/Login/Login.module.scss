@@ -1,31 +1,62 @@
-.header {
+.container {
     position: relative;
-    height: 72px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    height: 100vh;
 
-    &_logo_img {
+    .header_logo_img {
+        position: absolute;
+        top: 18px;
+        left: 32px;
         width: 67px;
     }
 
-    &_logo_img:hover {
+    .header_logo_img:hover {
         cursor: pointer;
     }
 
-    &_close_img {
-        width: 30px;
+    .header_close_img {
+        position: absolute;
+        width: 28px;
+        top: 25px;
+        right: 70px;
     }
 
-    &_close_img:hover {
+    .header_close_img:hover {
         cursor: pointer;
     }
+
 }
 
+// .header {
+//     position: relative;
+//     height: 72px;
+//     padding: 16px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
 
+//     &_logo_img {
+//         width: 67px;
+//     }
+
+//     &_logo_img:hover {
+//         cursor: pointer;
+//     }
+
+//     &_close_img {
+//         width: 30px;
+//     }
+
+//     &_close_img:hover {
+//         cursor: pointer;
+//     }
+// }
 
 .auth {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,17 +80,23 @@
             margin-bottom: 6px;
 
             .auth_label {
-                font-size: 16px;
-                font-weight: 550;
+                font-size: 1.6rem;
+                font-weight: 700;
             }
 
             .auth_span {
-                font-size: 14px;
+                font-size: 1.3rem;
             }
 
             .span_action {
-                font-size: 1.4rem;
-                font-weight: 550;
+                font-size: 1.3rem;
+                font-weight: 700;
+
+                i {
+                    margin-right: 4px;
+                    font-size: 1rem;
+                    transform: translateY(calc(50% - 6.5px));
+                }
             }
 
             .span_action:hover {
@@ -70,7 +107,7 @@
         .auth_input {
             width: 100%;
             padding: 14px;
-            font-size: 14px;
+            font-size: 1.3rem;
             background-color: #fff;
             border: 1px solid #ced4da;
             border-radius: 4px;
@@ -79,25 +116,32 @@
 
         .login_success {
             width: 100%;
-            font-size: 14px;
-            height: 72px;
-            padding: 15px;
+            font-size: 1.3rem;
+            display: inline-block;
+            padding: 14px;
             background-color: #ffc0c7;
             border-radius: 4px;
             display: flex;
             margin: auto;
             align-items: center;
+
+            i {
+                font-size: 1.3rem;
+                margin-right: 6px;
+                color: #D9212C
+            }
         }
 
         &_btn {
             background: #000;
+            font-family: var(--text-font);
             color: #fff;
             width: 100%;
             font-size: 16px;
             border-radius: 25px;
             border: none;
             height: 50px;
-            font-weight: 550;
+            font-weight: 700;
             margin-top: 15px;
             margin-bottom: 20px;
         }
@@ -109,13 +153,13 @@
 
         .forgot_password {
             text-decoration: none;
-            font-size: 12px;
+            font-size: 1.2rem;
             color: #000;
             font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 550;
+            font-weight: 700;
         }
 
         .auth_policy {
@@ -126,7 +170,7 @@
             text-decoration: none;
             color: #000;
             font-size: 1.1rem;
-            font-weight: 550;
+            font-weight: 700;
         }
 
         .fullName_desc {

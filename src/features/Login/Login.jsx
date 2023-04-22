@@ -27,11 +27,15 @@ const Login = () => {
     const [showLoginSuccess, setShowLoginSuccess] = useState(false);
     const [showRegisterSuccess, setShowRegisterSuccess] = useState(false);
     const [showSpace, setShowSpace] = useState(true);
-
+    const [passwordShown, setPasswordShown] = useState(false);
 
     const navigate = useNavigate();
 
     //console.log(location.pathname);
+
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown);
+    };
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -102,19 +106,16 @@ const Login = () => {
             }
             throw Error("Them ten loi")
         })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .catch(function (error) {
+                console.log(error);
+            });
     }
-
+    
     return (
-        <div>
-            <div className={styles.header}>
-                <img src={headerLogo} alt="logo" className={styles.header_logo_img} />
-                <img src={headerClose} alt="close button" className={styles.header_close_img} />
-            </div>
-
+        <div className={styles.container}>
             <div className={styles.auth}>
+                <img src={headerLogo} alt="logo" className={styles.header_logo_img}  onClick={e => navigate('/')}/>
+                <img src={headerClose} alt="close button" className={styles.header_close_img} onClick={e => navigate('/')} />
                 {showLoginForm && (
                     // Login form
                     <form action="" className={`${styles.auth_form} ${styles.login_form}`}>
@@ -136,18 +137,30 @@ const Login = () => {
                         />
                         <div className={styles.label_container}>
                             <label htmlFor="login_password" className={styles.auth_label}>Mật khẩu</label>
-                            <span className={`${styles.auth_span} ${styles.span_action}`}>
-                                Xem
+                            <span className={`${styles.auth_span} ${styles.span_action}`}
+                                onClick={togglePassword}>
+                                {!passwordShown && (
+                                    <div>
+                                        <i class="fa-solid fa-eye"></i>
+                                        Xem
+                                    </div>
+                                )}
+                                {passwordShown && (
+                                    <div>
+                                        <i class="fa-solid fa-eye-slash"></i>
+                                        Ẩn
+                                    </div>
+                                )}
                             </span>
                         </div>
                         <input
-                            type="password"
+                            type={passwordShown ? "text" : "password"}
                             id="login_password"
                             value={loginPassword}
                             onChange={(e) => (setLoginPassword(e.target.value), setShowLoginSuccess(false), setShowSpace(true))}
                             className={styles.auth_input}
                         />
-                        {showLoginSuccess && (<p className={styles.login_success}>Email đăng nhập hoặc Mật khẩu của bạn không chính xác, vui lòng thử lại.</p>)}
+                        {showLoginSuccess && (<p className={styles.login_success}><i class="fa-solid fa-triangle-exclamation"></i>Email hoặc mật khẩu không chính xác, vui lòng thử lại.</p>)}
 
                         {showSpace && (<div style={{ height: 20 }}></div>)}
 
@@ -180,19 +193,31 @@ const Login = () => {
 
                         <div className={styles.label_container}>
                             <label htmlFor="register_password" className={styles.auth_label}>Mật khẩu</label>
-                            <span className={`${styles.auth_span} ${styles.span_action}`}>
-                                Xem
+                            <span className={`${styles.auth_span} ${styles.span_action}`}
+                                onClick={togglePassword}>
+                                {!passwordShown && (
+                                    <div>
+                                        <i class="fa-solid fa-eye"></i>
+                                        Xem
+                                    </div>
+                                )}
+                                {passwordShown && (
+                                    <div>
+                                        <i class="fa-solid fa-eye-slash"></i>
+                                        Ẩn
+                                    </div>
+                                )}
                             </span>
                         </div>
                         <input
-                            type="password"
+                            type={passwordShown ? "text" : "password"}
                             id="register_password"
                             value={registerPassword}
                             onChange={(e) => (setRegisterPassword(e.target.value), setShowRegisterSuccess(false), setShowSpace(true))}
                             className={styles.auth_input}
                         />
 
-                        {showRegisterSuccess && (<p className={styles.login_success}>Email đã đăng ký tài khoản trước đó, vui lòng thử lại.</p>)}
+                        {showRegisterSuccess && (<p className={styles.login_success}><i class="fa-solid fa-triangle-exclamation"></i>Email đã đăng ký tài khoản trước đó, vui lòng thử lại.</p>)}
 
                         {showSpace && (<div style={{ height: 20 }}></div>)}
 
@@ -200,7 +225,7 @@ const Login = () => {
                             onClick={handleRegister}>
                             Đăng ký miễn phí
                         </button>
-                        <p className={styles.auth_policy}>Bằng cách bấm nút “Đăng ký miễn phí, bạn đang tạo một tài khoản và đồng ý với "<a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a>" của Lịch Sử Việt Nam.
+                        <p className={styles.auth_policy}>Bằng cách bấm nút “Đăng ký miễn phí", bạn đang tạo một tài khoản và đồng ý với "<a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a>" của Lịch Sử Việt Nam.
                         </p>
                     </form>
                 )}
@@ -230,7 +255,7 @@ const Login = () => {
                             className={styles.auth_input}
                             onChange={e => setFirstName(e.target.value)}
                         />
-                        {showLoginSuccess && (<p className={styles.login_success}>Email đăng nhập hoặc Mật khẩu của bạn không chính xác, vui lòng thử lại.</p>)}
+                        {/* {showLoginSuccess && (<p className={styles.login_success}><i class="fa-solid fa-circle-exclamation"></i>Email đăng nhập hoặc Mật khẩu của bạn không chính xác, vui lòng thử lại.</p>)} */}
 
                         {showSpace && (<div style={{ height: 20 }}></div>)}
                         <button className={styles.auth_form_btn}

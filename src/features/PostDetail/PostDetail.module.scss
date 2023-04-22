@@ -64,9 +64,11 @@ body {
 
         &_body {
             background-color: #fff;
-            box-shadow: 0 0 14px 0 var(--shadow-color);
+            box-shadow: var(--shadow-box);
+
             &_container {
                 padding: 60px 250px;
+
                 h2 {
                     font-family: var(--heading-font);
                     font-size: 3.8rem;
@@ -92,7 +94,7 @@ body {
             }
 
             .line_cross {
-                margin: 60px auto;
+                margin: 60px auto 0px;
                 width: 220px;
                 height: 0.6px;
                 background-color: #b1b1b1;
@@ -101,11 +103,82 @@ body {
             &_footer {
                 display: flex;
                 align-items: center;
-                div {
-                    flex: 1;
+                padding-bottom: 60px;
+
+                &_info {
+                    width: 50%;
+                    padding: 0 76px 0 125px;
+
+                    p {
+                        margin-bottom: 15px;
+                        font-size: 1.4rem;
+
+                        .article_info_key {
+                            font-weight: 700;
+                            margin-right: 8px;
+                            color: var(--text-color);
+                        }
+
+                        .article_info_value {
+                            color: var(--text-color);
+                        }
+                    }
+
+                    .article_info {
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: var(--text-color);
+                    }
+
+                    .print_btn {
+                        margin-top: 40px;
+                        text-align: center;
+                        display: block;
+                        width: 188px;
+                        height: 58px;
+                        padding: 16px 20px;
+                        font-size: 1.8rem;
+                        font-weight: 700;
+                        border-radius: 5px;
+                        border: 0.6px solid #ececec;
+                        box-shadow: var(--shadow-box);
+                    }
+
+                    .print_btn:hover {
+                        cursor: pointer;
+                        background-color: #ececec;
+                    }
+                }
+
+                &_fact {
+                    width: 50%;
+                    padding: 0 148px 0 35px;
+
+                    .line_cross_fact {
+                        width: 100%;
+                        height: 0.6px;
+                        background-color: #b1b1b1;
+                        margin-bottom: 15px;
+                    }
+
+                    .article_info {
+                        font-size: 1.8rem;
+                        font-weight: 700;
+                        color: var(--text-color);
+                    }
+
+                    p {
+                        font-size: 1.4rem;
+                        color: var(--text-color);
+                        margin-bottom: 15px;
+
+                        a {
+                            color: var(--link-color);
+                        }
+                    }
                 }
             }
         }
-
     }
+
 }

@@ -1,16 +1,19 @@
 import { Route, Routes } from "react-router";
-import Header from "../Header/Header";
+import Header from "../HeaderAdmin2/HeaderAdmin2";
 import Footer from "../Footer/Footer";
-import Home from "../Home/Home";
+import Home from "../HomePage/HomePage";
 import HistoryDay from "../HistoryDay/HistoryDay";
 import Figure from "../Figure/Figure";
 import Period from "../Period/Period";
 import Qa from "../Qa/Qa";
 
 const MainPage = () => {
+    const jwt = window.localStorage.getItem('jwtToken');
+    console.log(jwt);
+
     return (
         <div>
-            <Header></Header>
+            <Header userToken={jwt}></Header>
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/home" element={<Home />}></Route>

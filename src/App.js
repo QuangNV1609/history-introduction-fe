@@ -4,6 +4,7 @@ import Login from './features/Login/Login';
 import MainPage from "./features/MainPage/MainPage";
 import CreatePost from "./features/CreatePost/CreatePost";
 import PostDetail from "./features/PostDetail/PostDetail";
+import HomePage from "./features/HomePage/HomePage"
 import React from 'react'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/createPost" element={<CreatePost />}></Route>
         <Route path="/postDetail" element={<PostDetail />}></Route>
+        <Route path="/homePage" element={<HomePage />}></Route>
       </Routes>
     </>
   );
