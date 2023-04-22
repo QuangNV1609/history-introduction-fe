@@ -1,0 +1,111 @@
+body {
+    line-height: 1.5;
+}
+
+.main {
+    margin-top: 75px;
+
+    .heading {
+        width: 100%;
+        background-color: #222;
+        padding: 30px;
+
+        &_link {
+            a {
+                color: #fff;
+                font-size: 1.4rem;
+            }
+
+            span {
+                color: grey;
+                font-size: 1.4rem;
+            }
+
+            .last_link {
+                color: #FFC329;
+            }
+        }
+
+        &_title {
+            margin: 40px 0 62px;
+            padding: 40px;
+            background-color: #fff;
+
+            span {
+                font-family: var(--heading-font);
+                font-size: 4.8rem;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .theme_img {
+        width: 100%;
+        height: 630px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        img {
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+    }
+
+    .gradient_line {
+        height: 8px;
+        background-image: linear-gradient(to right, #FFDE67, #97580B);
+    }
+
+    .content {
+        padding: 42px 30px 50px;
+        background-color: var(--background-color);
+
+        &_body {
+            background-color: #fff;
+            box-shadow: 0 0 14px 0 var(--shadow-color);
+            &_container {
+                padding: 60px 250px;
+                h2 {
+                    font-family: var(--heading-font);
+                    font-size: 3.8rem;
+                    margin-bottom: 20px;
+                }
+
+                p {
+                    font-size: 2rem;
+                    font-family: var(--text-font);
+                    margin-bottom: 20px;
+
+                    b {
+                        font-size: 2rem;
+                    }
+                }
+
+                a {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    color: var(--link-color);
+                    margin-bottom: 20px;
+                }
+            }
+
+            .line_cross {
+                margin: 60px auto;
+                width: 220px;
+                height: 0.6px;
+                background-color: #b1b1b1;
+            }
+
+            &_footer {
+                display: flex;
+                align-items: center;
+                div {
+                    flex: 1;
+                }
+            }
+        }
+
+    }
+}
