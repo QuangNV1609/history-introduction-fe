@@ -10,6 +10,10 @@ const articleApi = {
                 'Content-Type': 'multipart/form-data'
             }
         });
+    },
+    showDetail: () => {
+        const url = baseUrl + '/find-by-id/203'
+        return axiosClient.get(url);
     }
 }
 

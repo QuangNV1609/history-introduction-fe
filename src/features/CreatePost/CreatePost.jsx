@@ -1,6 +1,6 @@
 import styles from './CreatePost.module.scss';
 import React, { useRef } from 'react';
-import { useState } from "react"
+import { useState } from "react";
 import Select from 'react-select';
 import HeaderAdmin2 from '../HeaderAdmin2/HeaderAdmin2';
 import SunEditor from 'suneditor-react';
@@ -56,7 +56,6 @@ const CreatePost = () => {
 
     const handlePublish = (e) => {
         e.preventDefault();
-        console.log(content)
 
         const post = {
             coverImage: theme,
@@ -72,6 +71,8 @@ const CreatePost = () => {
             console.log(key, post[key]);
             fd.append(key, post[key]);
         }
+        
+        console.log(post);
         articleApi.create(fd).then(res => {
             console.log(res.status);
             if (res.status === 200) {
