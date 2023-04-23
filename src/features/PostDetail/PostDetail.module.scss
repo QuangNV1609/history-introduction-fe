@@ -78,7 +78,7 @@ body {
                 p {
                     font-size: 2rem;
                     font-family: var(--text-font);
-                    margin-bottom: 20px;
+                    margin: 18px 0;
 
                     b {
                         font-size: 2rem;
@@ -90,6 +90,12 @@ body {
                     font-weight: 700;
                     color: var(--link-color);
                     margin-bottom: 20px;
+                }
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    margin: 10px 0;
                 }
             }
 
