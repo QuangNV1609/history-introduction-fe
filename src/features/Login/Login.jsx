@@ -31,6 +31,7 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+
     //console.log(location.pathname);
 
     const togglePassword = () => {
@@ -43,14 +44,11 @@ const Login = () => {
             username: loginUsername,
             password: loginPassword
         }
-
-        console.log(loginUsername);
-        console.log(loginPassword);
         userApi.login(user).then(res => {
             console.log(res);
             if (res.status === 200) {
+                alert('dang nhap thanh cong')
                 window.localStorage.setItem("jwtToken", res.data);
-                console.log(res.data);
                 navigate('/home');
                 return res.data.JSON;
             }
@@ -72,7 +70,13 @@ const Login = () => {
             active: active
         }
 
+        const userLogin = {
+            username: registerUsername,
+            password: registerPassword
+        }
+
         console.log(user);
+        console.log(userLogin);
         userApi.signIn(user).then(res => {
             console.log(res.status);
             if (res.status === 201) {
@@ -88,6 +92,14 @@ const Login = () => {
                 setShowRegisterSuccess(true);
                 console.log(error);
             });
+
+        userApi.login(userLogin).then(res => {
+            console.log(res.status);
+            if(res.status === 200) {
+                console.log(res.data);
+                window.localStorage.setItem("jwtToken", res.data);
+            }
+        })
     }
 
     const handleInsertInfo = (e) => {
@@ -100,8 +112,7 @@ const Login = () => {
         userApi.insertInfo(userInfo).then(res => {
             if (res.status === 200) {
                 alert("Dang ky thanh cong");
-                setShowRegisterProfileForm(false);
-                setShowLoginForm(true);
+                navigate('/home');
                 return res.data.JSON;
             }
             throw Error("Them ten loi")
@@ -110,11 +121,11 @@ const Login = () => {
                 console.log(error);
             });
     }
-    
+
     return (
         <div className={styles.container}>
             <div className={styles.auth}>
-                <img src={headerLogo} alt="logo" className={styles.header_logo_img}  onClick={e => navigate('/')}/>
+                <img src={headerLogo} alt="logo" className={styles.header_logo_img} onClick={e => navigate('/')} />
                 <img src={headerClose} alt="close button" className={styles.header_close_img} onClick={e => navigate('/')} />
                 {showLoginForm && (
                     // Login form
@@ -141,13 +152,13 @@ const Login = () => {
                                 onClick={togglePassword}>
                                 {!passwordShown && (
                                     <div>
-                                        <i class="fa-solid fa-eye"></i>
+                                        <i className="fa-solid fa-eye"></i>
                                         Xem
                                     </div>
                                 )}
                                 {passwordShown && (
                                     <div>
-                                        <i class="fa-solid fa-eye-slash"></i>
+                                        <i className="fa-solid fa-eye-slash"></i>
                                         Ẩn
                                     </div>
                                 )}
@@ -160,7 +171,7 @@ const Login = () => {
                             onChange={(e) => (setLoginPassword(e.target.value), setShowLoginSuccess(false), setShowSpace(true))}
                             className={styles.auth_input}
                         />
-                        {showLoginSuccess && (<p className={styles.login_success}><i class="fa-solid fa-triangle-exclamation"></i>Email hoặc mật khẩu không chính xác, vui lòng thử lại.</p>)}
+                        {showLoginSuccess && (<p className={styles.login_success}><i className="fa-solid fa-triangle-exclamation"></i>Email hoặc mật khẩu không chính xác, vui lòng thử lại.</p>)}
 
                         {showSpace && (<div style={{ height: 20 }}></div>)}
 
@@ -197,13 +208,13 @@ const Login = () => {
                                 onClick={togglePassword}>
                                 {!passwordShown && (
                                     <div>
-                                        <i class="fa-solid fa-eye"></i>
+                                        <i className="fa-solid fa-eye"></i>
                                         Xem
                                     </div>
                                 )}
                                 {passwordShown && (
                                     <div>
-                                        <i class="fa-solid fa-eye-slash"></i>
+                                        <i className="fa-solid fa-eye-slash"></i>
                                         Ẩn
                                     </div>
                                 )}
@@ -217,7 +228,7 @@ const Login = () => {
                             className={styles.auth_input}
                         />
 
-                        {showRegisterSuccess && (<p className={styles.login_success}><i class="fa-solid fa-triangle-exclamation"></i>Email đã đăng ký tài khoản trước đó, vui lòng thử lại.</p>)}
+                        {showRegisterSuccess && (<p className={styles.login_success}><i className="fa-solid fa-triangle-exclamation"></i>Email đã đăng ký tài khoản trước đó, vui lòng thử lại.</p>)}
 
                         {showSpace && (<div style={{ height: 20 }}></div>)}
 
@@ -255,7 +266,7 @@ const Login = () => {
                             className={styles.auth_input}
                             onChange={e => setFirstName(e.target.value)}
                         />
-                        {/* {showLoginSuccess && (<p className={styles.login_success}><i class="fa-solid fa-circle-exclamation"></i>Email đăng nhập hoặc Mật khẩu của bạn không chính xác, vui lòng thử lại.</p>)} */}
+                        {/* {showLoginSuccess && (<p className={styles.login_success}><i className="fa-solid fa-circle-exclamation"></i>Email đăng nhập hoặc Mật khẩu của bạn không chính xác, vui lòng thử lại.</p>)} */}
 
                         {showSpace && (<div style={{ height: 20 }}></div>)}
                         <button className={styles.auth_form_btn}
