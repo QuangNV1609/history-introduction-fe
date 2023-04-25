@@ -14,6 +14,10 @@ const articleApi = {
     showDetail: () => {
         const url = baseUrl + '/find-by-id/203'
         return axiosClient.get(url);
+    },
+    getMyPost: () => {
+        const url = baseUrl + '/find-all-by-username'
+        return axiosClient.get(url);
     }
 }
 
