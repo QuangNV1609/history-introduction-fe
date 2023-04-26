@@ -1,0 +1,160 @@
+.body {
+    margin-top: 75px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 35px;
+    background-color: #f1f1f1;
+
+    &_heading {
+        h2 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        h5 {
+            font-size: 1.4rem;
+            color: #606266;
+            font-weight: 400;
+
+            a {
+                text-decoration: none;
+                margin-left: 3px;
+                color: #606266;
+                font-weight: 700;
+            }
+        }
+    }
+
+    &_navbar {
+        display: flex;
+        margin: 30px 0;
+        list-style: none;
+        background-color: #fff;
+
+        &_item {
+            padding: 14px 22px;
+            text-decoration: none;
+            color: #000;
+            position: relative;
+
+            .body_navbar_key {
+                font-size: 1.4rem;
+                font-weight: 600;
+            }
+
+            .body_navbar_value {
+                border: 1px solid #c9c9c9;
+                padding: 0 5px;
+                border-radius: 7px;
+                margin-left: 8px;
+            }
+        }
+
+        &_item:hover {
+            cursor: pointer;
+
+        }
+
+        &_item_active {
+            padding: 14px 22px;
+            text-decoration: none;
+            color: #000;
+            position: relative;
+            border-bottom: 1.5px solid #000;
+
+            .body_navbar_key {
+                font-size: 1.4rem;
+                font-weight: 600;
+            }
+
+            .body_navbar_value {
+                border: 1px solid #c9c9c9;
+                padding: 0 5px;
+                border-radius: 7px;
+                margin-left: 8px;
+            }
+        }
+
+        &_item_active:hover {
+            cursor: pointer;
+        }
+    }
+
+    &_content {
+        padding: 50px 56px;
+        background-color: #fff;
+
+        .approve_tool {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+
+            &_left {
+                display: flex;
+                align-items: center;
+                input[type="checkbox"]{
+                    appearance: none;
+                    -webkit-appearance: none;
+                    height: 20px;
+                    width: 20px;   
+                    margin-right: 12px;
+                    border: 1.5px solid #E9E9E9;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    outline: none;
+                }
+                input[type="checkbox"]:after {
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    content: "\f00c";
+                    font-size: 1.3rem;
+                    color: #fff;
+                    display: none;
+                }
+                input[type="checkbox"]:checked {
+                    background-color: #2196F3;
+                    border: none;
+                }
+                input[type="checkbox"]:checked::after{
+                    display: block;
+                }
+                label {
+                    cursor: pointer;
+                }
+            }
+
+            &_right {
+                span {
+                    padding: 8px 16px;
+                    border: 1px solid #E9E9E9;
+                    margin-left: 10px;
+                    border-radius: 5px;
+                    font-size: 1.4rem;
+                    color: var(--text-color);
+                    i {
+                        margin-right: 8px;
+                    }
+                }
+                span:hover {
+                    cursor: pointer;
+                    background-color: #eee;
+                    
+                }
+            }
+        }
+
+        &_list {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 22px;
+            row-gap: 35px;
+        }
+    }
+}
