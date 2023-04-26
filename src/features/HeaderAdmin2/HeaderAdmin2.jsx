@@ -3,13 +3,14 @@ import avatar from "../../resource/avatar.svg"
 import logo from "../../resource/logo2.png";
 import React from 'react';
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import userApi from '../../api/user';
 
 const HeaderAdmin2 = ({ userToken }) => {
     const navigate = useNavigate();
     console.log(userToken);
-
+    const [userInfo, setUserInfo] = useState('');
     const titleNavbar = [["TRANG CHỦ", "home"], ["NGÀY NÀY TRONG LỊCH SỬ", "historyDay"], ["THỜI KỲ", "period"], ["NHÂN VẬT", "figure"], ["Q&A", "qa"]]
     const link = window.location.href.split("/")
     const currentPage = link[link.length - 1]
@@ -28,6 +29,18 @@ const HeaderAdmin2 = ({ userToken }) => {
         localStorage.clear();
         window.location.href = '/';
     }
+
+    const fetchData = () => {
+        userApi.getInfo()
+            .then(res => {
+                setUserInfo(res.data);
+            })
+    }
+    console.log(userInfo.firstName);
+
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     return (
         <div className={styles.header}>
@@ -62,7 +75,7 @@ const HeaderAdmin2 = ({ userToken }) => {
                     {(userToken !== null) && (
                         <div>
                             <img src={avatar} alt="avatar" className={styles.header_user_img} />
-                            <span className={styles.header_user_name}>TÊN USER</span>
+                            <span className={styles.header_user_name}>{userInfo.firstName + ' ' + userInfo.lastName}</span>
                             <i className="fa-solid fa-chevron-down"></i>
 
                             <ul className={styles.header_user_list}>

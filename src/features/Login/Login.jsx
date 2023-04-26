@@ -63,23 +63,29 @@ const Login = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-
         const user = {
             username: registerUsername,
             password: registerPassword,
             active: active
         }
-
         const userLogin = {
             username: registerUsername,
             password: registerPassword
         }
-
         console.log(user);
         console.log(userLogin);
+        // Dang ky 
         userApi.signIn(user).then(res => {
             console.log(res.status);
             if (res.status === 201) {
+                // dang nhap
+                userApi.login(userLogin).then(res => {
+                    console.log(res.status);
+                    if (res.status === 200) {
+                        console.log(res.data);
+                        window.localStorage.setItem("jwtToken", res.data);
+                    }
+                })
                 setShowRegisterForm(false);
                 setShowLoginForm(false);
                 setShowRegisterProfileForm(true);
@@ -93,13 +99,6 @@ const Login = () => {
                 console.log(error);
             });
 
-        userApi.login(userLogin).then(res => {
-            console.log(res.status);
-            if(res.status === 200) {
-                console.log(res.data);
-                window.localStorage.setItem("jwtToken", res.data);
-            }
-        })
     }
 
     const handleInsertInfo = (e) => {

@@ -16,6 +16,10 @@ const userApi = {
         const url = baseUrl + '-info/save';
         return axiosClient.post(url, userInfo)
     },
+    getInfo: () => {
+        const url = baseUrl + '/info';
+        return axiosClient.get(url);
+    },
     test: () => {
         const url = baseUrl + '/test';
         return axiosClient.get(url);
