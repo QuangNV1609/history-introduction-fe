@@ -9,7 +9,7 @@ import userApi from '../../api/user';
 
 const HeaderAdmin2 = ({ userToken }) => {
     const navigate = useNavigate();
-    console.log(userToken);
+    //console.log(userToken);
     const [userInfo, setUserInfo] = useState('');
     const titleNavbar = [["TRANG CHỦ", "home"], ["NGÀY NÀY TRONG LỊCH SỬ", "historyDay"], ["THỜI KỲ", "period"], ["NHÂN VẬT", "figure"], ["Q&A", "qa"]]
     const link = window.location.href.split("/")
@@ -36,7 +36,7 @@ const HeaderAdmin2 = ({ userToken }) => {
                 setUserInfo(res.data);
             })
     }
-    console.log(userInfo.firstName);
+    //console.log(userInfo.firstName);
 
     useEffect(() => {
         fetchData()

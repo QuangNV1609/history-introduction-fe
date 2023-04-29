@@ -7,12 +7,24 @@ import image from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
 
 const ApprovePost = () => {
     const [toggleState, setToggleState] = useState(1);
-    const [post, setPost] = useState('');
+    const [isChecked, setIsChecked] = useState(false);
+    const [id, setId] = useState('');
 
     const toggleTab = (index) => {
         setToggleState(index);
     }
 
+    const getIsChecked = (value) => {
+        setIsChecked(value)
+    }
+
+    const getId = (value) => {
+        setId(value)
+    } 
+
+    console.log(id);
+    console.log(isChecked);
+    
     const myAllPost = [
         {
             id: 1,
@@ -28,8 +40,30 @@ const ApprovePost = () => {
             id: 3,
             title: 'Tieu de so 3',
             thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 4,
+            title: 'Tieu de so 4',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
         }
     ]
+
+    var list = ["hello"];
+    const handleApprove = (e) => {
+        alert("hello");
+        list.push("hello");
+    }
+
+    console.log(list);
+
+    // myAllPost.forEach(Object => {
+    //     if(isChecked === true) {
+    //         if(Object.id === id) {
+    //             Object.isChecked = true;
+    //         }
+    //     } 
+    // });
+    // console.log(myAllPost);
 
     return (
         <div>
@@ -67,8 +101,8 @@ const ApprovePost = () => {
                             <label htmlFor="sellectAll">Chọn tất cả</label>
                         </div>
                         <div className={styles.approve_tool_right}>
-                            <span className={styles.approve_btn}><i class="fa-solid fa-check"></i>Phê duyệt bài viết</span>
-                            <span className={styles.delete_btn}><i class="fa-solid fa-trash"></i>Xóa bài viết</span>
+                            <span className={styles.approve_btn} onClick={handleApprove}><i className="fa-solid fa-check"></i>Phê duyệt bài viết</span>
+                            <span className={styles.delete_btn}><i className="fa-solid fa-trash"></i>Xóa bài viết</span>
                         </div>
                     </div>
                     {toggleState === 1 && (
@@ -78,6 +112,8 @@ const ApprovePost = () => {
                                 title: myAllPost[item].title,
                                 date: '08 tháng 03 năm 2023',
                                 id: myAllPost[item].id,
+                                isChecked: getIsChecked,
+                                idPost: getId,
                                 key: index
                             }))}
                         </div>
