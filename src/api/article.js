@@ -18,6 +18,14 @@ const articleApi = {
     getMyPost: () => {
         const url = baseUrl + '/find-all-by-username'
         return axiosClient.get(url);
+    },
+    approve: (id) => {
+        const url = baseUrl + '/censorship'
+        return axiosClient.put(url, id);
+    },
+    approveMultiple: (list) => {
+        const url = baseUrl + '/censorship-list'
+        return axiosClient.put(url, list);
     }
 }
 

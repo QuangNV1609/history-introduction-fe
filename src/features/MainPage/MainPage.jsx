@@ -22,7 +22,7 @@ const MainPage = () => {
                 <Route path="/figure" element={<Figure />}></Route>
                 <Route path="/qa" element={<Qa />}></Route>
             </Routes>
-            <Footer></Footer>
+            {/* <Footer></Footer> */}
         </div>
     )
 }

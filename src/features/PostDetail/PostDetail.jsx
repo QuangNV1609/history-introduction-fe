@@ -1,7 +1,7 @@
 import HeaderAdmin2 from "../HeaderAdmin2/HeaderAdmin2";
 import styles from "./PostDetail.module.scss";
 import { useState, useEffect } from "react";
-import "../../assets/scss/base.scss"
+import "../../assets/scss/base.scss";
 import articleApi from '../../api/article';
 import { host } from "../../api/axiosClient";
 

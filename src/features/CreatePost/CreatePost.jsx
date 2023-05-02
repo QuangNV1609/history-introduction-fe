@@ -32,10 +32,27 @@ const CreatePost = () => {
     const [thumbnail, setThumbnail] = useState('');
     const [postType, setPostType] = useState('');
     const [dateEvent, setDateEvent] = useState('');
+    const [eventType, setEventType] = useState('');
 
-    const options = [
+    const postTypeOptions = [
         { value: '0', label: 'Sự kiện lịch sử' },
         { value: '1', label: 'Tiểu sử nhân vật' }
+    ];
+
+    const eventTypeOptions = [
+        { value: '0', label: 'Thời kỳ tiền sử' },
+        { value: '1', label: 'Thời kỳ cổ đại' },
+        { value: '2', label: 'Thời kỳ Bắc Thuộc' },
+        { value: '3', label: 'Thời kỳ Bắc Thuộc lần thứ III' },
+        { value: '4', label: 'Thời kỳ tự chủ' },
+        { value: '5', label: 'Thời kỳ quân chủ' },
+        { value: '6', label: 'Thời kỳ Bắc Thuộc lần thứ IV' },
+        { value: '7', label: 'Thời kỳ Trung Hưng - Nhà Hậu Lê' },
+        { value: '8', label: 'Thời kỳ chia cắt' },
+        { value: '9', label: 'Thời kỳ Bắc Triều - Nam Triều' },
+        { value: '10', label: 'Thời kỳ Trịnh - Nguyễn' },
+        { value: '11', label: 'Thời kỳ thống nhất' },
+        { value: '12', label: 'Thời kỳ hiện đại' }
     ];
 
     const handlePreviewTheme = (e) => {
@@ -63,7 +80,8 @@ const CreatePost = () => {
             title: title,
             content: content,
             historyDay: dateEvent,
-            postType: parseInt(postType.value)
+            postType: parseInt(postType.value),
+            eventType: parseInt(eventType.value)
         };
 
         var fd = new FormData();
@@ -136,7 +154,7 @@ const CreatePost = () => {
                                 <div className={styles.content_post_type}>
                                     <Select
                                         className={styles.content_post_type_select}
-                                        options={options}
+                                        options={postTypeOptions}
                                         defaultValue={postType}
                                         placeholder="Thể loại bài viết"
                                         onChange={setPostType}
@@ -155,6 +173,22 @@ const CreatePost = () => {
                                     value={dateEvent}
                                     onChange={e => setDateEvent(e.target.value)}
                                 />
+                                <div className={styles.content_event_type}>
+                                    <Select
+                                        className={styles.content_post_type_select}
+                                        options={eventTypeOptions}
+                                        defaultValue={eventType}
+                                        placeholder="Thời kỳ lịch sử"
+                                        onChange={setEventType}
+                                        styles={{
+                                            control: (baseStyles) => ({
+                                                ...baseStyles,
+                                                borderColor: "#e9e9e9",
+                                            }),
+                                            menu: base => ({ ...base, zIndex: 999 })
+                                        }}
+                                    />
+                                </div>
                             </div>
                             <div className={styles.content_post_right}>
                                 <button
