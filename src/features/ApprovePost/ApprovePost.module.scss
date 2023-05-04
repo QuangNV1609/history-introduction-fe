@@ -1,9 +1,8 @@
 .body {
     margin-top: 75px;
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    padding: 35px;
+    padding: 35px 35px 50px;
     background-color: #f1f1f1;
 
     &_heading {
@@ -86,6 +85,39 @@
         padding: 50px 56px;
         background-color: #fff;
 
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            margin-right: 12px;
+            border: 1.5px solid #E9E9E9;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+        }
+
+        input[type="checkbox"]:after {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f00c";
+            font-size: 1.3rem;
+            color: #fff;
+            display: none;
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: #2196F3;
+            border: none;
+        }
+
+        input[type="checkbox"]:checked::after {
+            display: block;
+        }
+
         .approve_tool {
             display: flex;
             justify-content: space-between;
@@ -96,39 +128,6 @@
             &_left {
                 display: flex;
                 align-items: center;
-
-                input[type="checkbox"] {
-                    appearance: none;
-                    -webkit-appearance: none;
-                    height: 20px;
-                    width: 20px;
-                    margin-right: 12px;
-                    border: 1.5px solid #E9E9E9;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    outline: none;
-                }
-
-                input[type="checkbox"]:after {
-                    font-family: "Font Awesome 5 Free";
-                    font-weight: 900;
-                    content: "\f00c";
-                    font-size: 1.3rem;
-                    color: #fff;
-                    display: none;
-                }
-
-                input[type="checkbox"]:checked {
-                    background-color: #2196F3;
-                    border: none;
-                }
-
-                input[type="checkbox"]:checked::after {
-                    display: block;
-                }
 
                 label {
                     cursor: pointer;
@@ -162,6 +161,53 @@
             grid-template-columns: 1fr 1fr 1fr;
             column-gap: 22px;
             row-gap: 35px;
+
+            .post_items {
+                .img_container {
+                    position: relative;
+                    max-height: 198px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+
+                    img {
+                        max-width: 100%;
+                        min-height: 198px;
+                    }
+
+                    input {
+                        position: absolute;
+                        width: 25px;
+                        height: 25px;
+                        top: 10px;
+                        right: 0;
+                    }
+
+                    input[type="checkbox"]:after {
+                        font-size: 1.7rem;
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                    font-size: 2rem;
+                    color: var(--text-color);
+                    display: inline-block;
+                    margin: 10px 0;
+                }
+
+                h4 {
+                    padding: 0;
+                    font-size: 1.2rem;
+                    color: #606266;
+                    font-weight: 400;
+
+                    i {
+                        margin-right: 6px;
+                    }
+                }
+            }
         }
     }
 }

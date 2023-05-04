@@ -2,68 +2,84 @@ import Header from '../HeaderAdmin2/HeaderAdmin2';
 import React, { useRef } from 'react';
 import styles from './ApprovePost.module.scss';
 import { useState, useEffect } from "react";
-import ApprovePostItem from './ApprovePostItem/ApprovePostItem';
-import image from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+import "../../assets/scss/base.scss";
+import image from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg';
+import articleApi from '../../api/article';
+import { host } from '../../api/axiosClient';
 
 const ApprovePost = () => {
+
+    const [posts, setPosts] = useState([]);
+    const [selectPost, setSelectPost] = useState('');
+    const [listSelectPost, setListSelectPost] = useState([]);
+
+    const fetchData = () => {
+        articleApi.getMyPost()
+            .then(res => {
+                setPosts(res.data);
+            })
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     const [toggleState, setToggleState] = useState(1);
-    const [isChecked, setIsChecked] = useState(false);
-    const [id, setId] = useState('');
 
     const toggleTab = (index) => {
         setToggleState(index);
     }
 
-    const getIsChecked = (value) => {
-        setIsChecked(value)
-    }
-
-    const getId = (value) => {
-        setId(value)
-    } 
-
-    console.log(id);
-    console.log(isChecked);
-    
-    const myAllPost = [
-        {
-            id: 1,
-            title: 'Tieu de so 1',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 4,
-            title: 'Tieu de so 4',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+    const handleChange = (e) => {
+        const { id, checked } = e.target;
+        if (id === "allSelect") {
+            let tempPost = posts.map(post => {
+                return { ...post, isChecked: checked };
+            });
+            setPosts(tempPost);
+        } else {
+            let tempPost = posts.map((post) =>
+                (post.id === parseInt(id)) ? { ...post, isChecked: checked } : post
+            );
+            setPosts(tempPost);
         }
-    ]
+        console.log(id, checked);
+        if (checked === true) {
+            setSelectPost(id);
+            setListSelectPost(oldArray => [...oldArray, id]);
+        }
+        else {
+            setListSelectPost((current) =>
+                current.filter((element) => {
+                    return element !== id;
+                })
+            );
 
-    var list = ["hello"];
-    const handleApprove = (e) => {
-        alert("hello");
-        list.push("hello");
+        }
     }
+    //console.log(listSelectPost);
 
-    console.log(list);
 
-    // myAllPost.forEach(Object => {
-    //     if(isChecked === true) {
-    //         if(Object.id === id) {
-    //             Object.isChecked = true;
-    //         }
-    //     } 
-    // });
-    // console.log(myAllPost);
+    const handleApprove = (e) => {
+        // articleApi.approve(parseInt(selectPost)).then(res => {
+        //     if (res.status === 200) {
+        //         alert("Da duyet bai viet");
+        //     }
+        //     throw Error("Approve post failed")
+        // })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
+        articleApi.approveMultiple(listSelectPost).then(res => {
+            if (res.status === 200) {
+                alert("Da duyet bai viet");
+            }
+            throw Error("Approve post failed")
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     return (
         <div>
@@ -97,25 +113,47 @@ const ApprovePost = () => {
                 <div className={styles.body_content}>
                     <div className={styles.approve_tool}>
                         <div className={styles.approve_tool_left}>
-                            <input type="checkbox" id='sellectAll' />
-                            <label htmlFor="sellectAll">Chọn tất cả</label>
+                            <input
+                                type="checkbox"
+                                id='allSelect'
+                                checked={posts.filter(post => post?.isChecked !== true).length < 1}
+                                onChange={handleChange}
+
+                            />
+                            <label htmlFor="allSelect" >Chọn tất cả</label>
                         </div>
                         <div className={styles.approve_tool_right}>
-                            <span className={styles.approve_btn} onClick={handleApprove}><i className="fa-solid fa-check"></i>Phê duyệt bài viết</span>
+                            <span
+                                className={styles.approve_btn}
+                                onClick={handleApprove}
+                            >
+                                <i className="fa-solid fa-check"></i>
+                                Phê duyệt bài viết
+                            </span>
                             <span className={styles.delete_btn}><i className="fa-solid fa-trash"></i>Xóa bài viết</span>
                         </div>
                     </div>
                     {toggleState === 1 && (
                         <div className={styles.body_content_list}>
-                            {Object.keys(myAllPost).map((item, index) => React.createElement(ApprovePostItem, {
-                                image: image,
-                                title: myAllPost[item].title,
-                                date: '08 tháng 03 năm 2023',
-                                id: myAllPost[item].id,
-                                isChecked: getIsChecked,
-                                idPost: getId,
-                                key: index
-                            }))}
+                            {posts.map((item, index) => {
+                                return (
+                                    <div className={styles.post_items} key={index}>
+                                        <div className={styles.img_container}>
+                                            <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
+                                            <input
+                                                type="checkbox"
+                                                id={item.id}
+                                                checked={item?.isChecked || false}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div>
+                                            <a href="">{item.title}</a>
+                                            <h4><i className="fa-solid fa-clock"></i>Ngày 30 tháng 4 năm 2023 lúc 22:10</h4>
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     )}
                 </div>
