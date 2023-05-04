@@ -4,18 +4,22 @@ import { useState, useEffect } from "react";
 import "../../assets/scss/base.scss";
 import articleApi from '../../api/article';
 import { host } from "../../api/axiosClient";
+import {useLocation} from 'react-router-dom';
 
 const PostDetail = () => {
     const [post, setPost] = useState('');
+    const location = useLocation();
+
+    console.log(typeof location.state.idPost);
 
     const fetchData = () => {
-        articleApi.showDetail()
+        articleApi.showDetail(location.state.idPost)
             .then(res => {
                 console.log(res.data);
                 setPost(res.data);
             })
     }
-    console.log(post);
+    //console.log(post);
 
     useEffect(() => {
         fetchData()

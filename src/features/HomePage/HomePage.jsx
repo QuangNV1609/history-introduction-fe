@@ -1,10 +1,47 @@
 import React from "react";
 import styles from "./HomePage.module.scss";
 import "../../assets/scss/base.scss";
-import ArticlItem from "./ArticleItem/ArticleItem";
-import sample from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+import sample from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg';
 
 const HomePage = () => {
+    const posts = [
+        {
+            eventType: 0,
+            title: 'Tiêu đề',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        },
+        {
+            eventType: 0,
+            title: 'Tiêu đề 1',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        },
+        {
+            eventType: 0,
+            title: 'Tiêu đề 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        },
+        {
+            eventType: 0,
+            title: 'Tiêu đề 1',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        },
+        {
+            eventType: 0,
+            title: 'Tiêu đề 1',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        },
+        {
+            eventType: 0,
+            title: 'Tiêu đề 1',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        }
+    ]
     return (
         <div className={styles.container}>
             <div className={styles.history_day}>
@@ -22,35 +59,45 @@ const HomePage = () => {
             <div className={`${styles.article_container} ${styles.new_article}`}>
                 <p>Bài Viết Mới Nhất</p>
                 <div className={`${styles.article_grid} `}>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
+                    {posts.map((item, index) => {
+                        return (
+                            <div className={styles.article_items} key={index}>
+                                <img src={sample} alt="post thumbnail" className={styles.article_items_img} />
+                                <div className={styles.article_items_title}>{item.title}</div>
+                                <div className={styles.article_items_bonus}>
+                                    <span className={styles.article_item_view}>
+                                        33.123 lượt xem
+                                    </span>
+                                    <i className="fa-solid fa-circle"></i>
+                                    <span className={styles.article_item_date}>
+                                        2 giờ trước
+                                    </span>
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
             <div className={`${styles.article_container} ${styles.view_article}`}>
                 <p>Xem Nhiều Nhất</p>
                 <div className={`${styles.article_grid} `}>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
-                    <ArticlItem image={sample} title="Tiêu đề bài viết"></ArticlItem>
+                    {posts.map((item, index) => {
+                        return (
+                            <div className={styles.article_items} key={index}>
+                                <img src={sample} alt="post thumbnail" className={styles.article_items_img} />
+                                <div className={styles.article_items_title}>{item.title}</div>
+                                <div className={styles.article_items_bonus}>
+                                    <span className={styles.article_item_view}>
+                                        33.123 lượt xem
+                                    </span>
+                                    <i className="fa-solid fa-circle"></i>
+                                    <span className={styles.article_item_date}>
+                                        2 giờ trước
+                                    </span>
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </div>

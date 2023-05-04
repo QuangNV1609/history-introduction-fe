@@ -3,15 +3,16 @@ import React, { useRef } from 'react';
 import styles from './ApprovePost.module.scss';
 import { useState, useEffect } from "react";
 import "../../assets/scss/base.scss";
-import image from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg';
 import articleApi from '../../api/article';
 import { host } from '../../api/axiosClient';
+import { useNavigate } from 'react-router-dom';
 
 const ApprovePost = () => {
 
     const [posts, setPosts] = useState([]);
     const [selectPost, setSelectPost] = useState('');
     const [listSelectPost, setListSelectPost] = useState([]);
+    const navigate = useNavigate();
 
     const fetchData = () => {
         articleApi.getMyPost()
@@ -81,6 +82,10 @@ const ApprovePost = () => {
             });
     }
 
+    const handlePostDetail = (e, id) => {
+        navigate('/postDetail', { state: { idPost: id } });
+    }
+
     return (
         <div>
             <Header></Header>
@@ -138,8 +143,11 @@ const ApprovePost = () => {
                             {posts.map((item, index) => {
                                 return (
                                     <div className={styles.post_items} key={index}>
-                                        <div className={styles.img_container}>
-                                            <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
+                                        <div className={styles.img_container} onClick={e => handlePostDetail(e, item.id)}>
+                                            <img
+                                                src={host + '/api/file/download/' + item.thumbnailImage}
+                                                alt="thumbnail image"
+                                            />
                                             <input
                                                 type="checkbox"
                                                 id={item.id}
@@ -148,7 +156,12 @@ const ApprovePost = () => {
                                             />
                                         </div>
                                         <div>
-                                            <a href="">{item.title}</a>
+                                            <div 
+                                                className={styles.post_items_title}
+                                                onClick={e => handlePostDetail(e, item.id)}
+                                            >
+                                                {item.title}
+                                            </div>
                                             <h4><i className="fa-solid fa-clock"></i>Ngày 30 tháng 4 năm 2023 lúc 22:10</h4>
                                         </div>
                                     </div>

@@ -117,8 +117,8 @@
         &_list {
             position: absolute;
             top: calc(100% + 10px);
-            left: 0;
-            width: 200px;
+            right: 0;
+            width: 180px;
             padding: 8px 24px;
             border-radius: 8px;
             list-style: none;
@@ -169,20 +169,7 @@
     }
 
     &_search {
-        margin: 0 20px;
-
-        i {
-            font-size: 2rem;
-            color: #fff;
-        }
-
-        i:hover {
-            color: #b1b1b1;
-            cursor: pointer;
-        }
-    }
-
-    &_menu {
+        margin-right: 20px;
         i {
             font-size: 2rem;
             color: #fff;
