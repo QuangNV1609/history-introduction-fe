@@ -20,6 +20,7 @@ function App() {
         <Route path="/postDetail" element={<PostDetail />}></Route>
         <Route path="/homePage" element={<HomePage />}></Route>
       </Routes>
+      
     </>
   );
 }
