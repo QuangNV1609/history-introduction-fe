@@ -9,6 +9,7 @@ import userApi from '../../api/user';
 
 const HeaderAdmin2 = ({ userToken }) => {
     const navigate = useNavigate();
+    const [role, setRole] = useState('');
     //console.log(userToken);
     const [userInfo, setUserInfo] = useState('');
     const titleNavbar = [["TRANG CHỦ", "home"], ["NGÀY NÀY TRONG LỊCH SỬ", "historyDay"], ["THỜI KỲ", "period"], ["NHÂN VẬT", "figure"], ["Q&A", "qa"]]
@@ -34,9 +35,10 @@ const HeaderAdmin2 = ({ userToken }) => {
         userApi.getInfo()
             .then(res => {
                 setUserInfo(res.data);
+                setRole(res.data.roleName[0]);
             })
     }
-    //console.log(userInfo.firstName);
+    console.log(role);
 
     useEffect(() => {
         fetchData()
@@ -62,6 +64,11 @@ const HeaderAdmin2 = ({ userToken }) => {
             </div>
 
             <div className={styles.header_right}>
+                
+
+            <div className={styles.header_search}>
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                </div>
                 <div className={`${styles.header_user_info}`}>
 
                     {(userToken === null) && (
@@ -78,85 +85,87 @@ const HeaderAdmin2 = ({ userToken }) => {
                             <span className={styles.header_user_name}>{userInfo.firstName + ' ' + userInfo.lastName}</span>
                             <i className="fa-solid fa-chevron-down"></i>
 
-                            <ul className={styles.header_user_list}>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Hồ sơ của tôi</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <div className={styles.user_item_line}></div>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Tạo bài viết mới</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Bài viết của tôi</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Tạo Quiz mới</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Quiz của tôi</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <div className={styles.user_item_line}></div>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Trợ giúp</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#" onClick={HandleLogOut}>Đăng xuất</a>
-                                </li>
-                            </ul>
+                            {(role === 'ROLE_ADMIN_2') && (
+                                <ul className={styles.header_user_list}>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Hồ sơ của tôi</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <div className={styles.user_item_line}></div>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Tạo bài viết mới</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Bài viết của tôi</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Tạo Quiz mới</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Quiz của tôi</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <div className={styles.user_item_line}></div>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Trợ giúp</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#" onClick={HandleLogOut}>Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            )}
 
-                            {/* <ul className={styles.header_user_list}>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Hồ sơ của tôi</a>
-                                </li><ul className={styles.header_user_list}>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Hồ sơ của tôi</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <div className={styles.user_item_line}></div>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Quản lý tài khoản</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Quản lý phê duyệt</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <div className={styles.user_item_line}></div>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Trợ giúp</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#" onClick={HandleLogOut}>Đăng xuất</a>
-                                </li>
-                            </ul>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Đã xem gần đây</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <div className={styles.user_item_line}></div>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#">Trợ giúp</a>
-                                </li>
-                                <li className={styles.header_user_item}>
-                                    <a href="#" onClick={HandleLogOut}>Đăng xuất</a>
-                                </li>
-                            </ul> */}
-
-                            {/*  */}
+                            {(role === 'ROLE_ADMIN') && (
+                                <ul className={styles.header_user_list}>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Hồ sơ của tôi</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <div className={styles.user_item_line}></div>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Quản lý tài khoản</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Quản lý bài viết</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Quản lý quizzes</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <div className={styles.user_item_line}></div>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Trợ giúp</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#" onClick={HandleLogOut}>Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            )}
+                            {(role === '') && (
+                                <ul className={styles.header_user_list}>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Hồ sơ của tôi</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Đã xem gần đây</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <div className={styles.user_item_line}></div>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#">Trợ giúp</a>
+                                    </li>
+                                    <li className={styles.header_user_item}>
+                                        <a href="#" onClick={HandleLogOut}>Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            )}
                         </div>
                     )}
-                </div>
-                <div className={styles.header_search}>
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <div className={styles.header_menu}>
-                    <i className="fa-solid fa-bars"></i>
                 </div>
             </div>
         </div>

@@ -11,8 +11,8 @@ const articleApi = {
             }
         });
     },
-    showDetail: () => {
-        const url = baseUrl + '/find-by-id/203'
+    showDetail: (id) => {
+        const url = baseUrl + '/find-by-id/' + id
         return axiosClient.get(url);
     },
     getMyPost: () => {

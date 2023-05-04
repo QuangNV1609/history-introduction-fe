@@ -18,7 +18,6 @@
             font-weight: 400;
 
             a {
-                text-decoration: none;
                 margin-left: 3px;
                 color: #606266;
                 font-weight: 700;
@@ -176,12 +175,18 @@
                         min-height: 198px;
                     }
 
+                    img:hover {
+                        cursor: pointer;
+                    }
+
                     input {
                         position: absolute;
                         width: 25px;
                         height: 25px;
                         top: 10px;
                         right: 0;
+                        z-index: 1;
+                        cursor: default;
                     }
 
                     input[type="checkbox"]:after {
@@ -189,12 +194,13 @@
                     }
                 }
 
-                a {
+                .post_items_title {
                     text-decoration: none;
                     font-size: 2rem;
                     color: var(--text-color);
-                    display: inline-block;
+                    display: block;
                     margin: 10px 0;
+                    cursor: pointer;
                 }
 
                 h4 {
