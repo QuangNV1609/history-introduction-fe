@@ -23,6 +23,7 @@ function App() {
         <Route path="/myCreatePostItem" element={<CreatePostItem />}></Route>
         <Route path="/approvePost" element={<ApprovePost />}></Route>
       </Routes>
+      
     </>
   );
 }
