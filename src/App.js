@@ -19,6 +19,9 @@ function App() {
         <Route path="/createPost" element={<CreatePost />}></Route>
         <Route path="/postDetail" element={<PostDetail />}></Route>
         <Route path="/homePage" element={<HomePage />}></Route>
+        <Route path="/myCreatePost" element={<MyCreatePost />}></Route>
+        <Route path="/myCreatePostItem" element={<CreatePostItem />}></Route>
+        <Route path="/approvePost" element={<ApprovePost />}></Route>
       </Routes>
       
     </>
