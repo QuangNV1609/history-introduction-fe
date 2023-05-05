@@ -32,6 +32,7 @@ const HistoryDay = () => {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         setPosts(postData);
+        window.scrollTo(0, 0)
     }, []);
     const months = [
         { value: 'Thời kỳ tiền sử', label: 'Tháng Một' },

@@ -44,10 +44,14 @@ const HeaderAdmin2 = ({ userToken }) => {
         fetchData()
     }, [])
 
+    const handleBackHome = () => {
+        navigate('/');
+    }
+
     return (
         <div className={styles.header}>
             <div className={styles.header_left}>
-                <div className={styles.header_logo}>
+                <div className={styles.header_logo} onClick={handleBackHome}>
                     <img src={logo} alt="logo" className={styles.header_logo_img} />
                 </div>
 
@@ -94,10 +98,10 @@ const HeaderAdmin2 = ({ userToken }) => {
                                         <div className={styles.user_item_line}></div>
                                     </li>
                                     <li className={styles.header_user_item}>
-                                        <a href="#">Tạo bài viết mới</a>
+                                        <a href="/createPost">Tạo bài viết mới</a>
                                     </li>
                                     <li className={styles.header_user_item}>
-                                        <a href="#">Bài viết của tôi</a>
+                                        <a href="/myCreatePost">Bài viết của tôi</a>
                                     </li>
                                     <li className={styles.header_user_item}>
                                         <a href="#">Tạo Quiz mới</a>
@@ -129,7 +133,7 @@ const HeaderAdmin2 = ({ userToken }) => {
                                         <a href="#">Quản lý tài khoản</a>
                                     </li>
                                     <li className={styles.header_user_item}>
-                                        <a href="#">Quản lý bài viết</a>
+                                        <a href="/approvePost">Quản lý bài viết</a>
                                     </li>
                                     <li className={styles.header_user_item}>
                                         <a href="#">Quản lý quizzes</a>

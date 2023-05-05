@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./HomePage.module.scss";
 import "../../assets/scss/base.scss";
 import sample from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg';
+import articleApi from '../../api/article';
+import { useEffect } from "react";
 
 const HomePage = () => {
     const posts = [
@@ -42,6 +44,22 @@ const HomePage = () => {
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         }
     ]
+    const [post, setPost] = useState([]);
+
+    const fetchData = () => {
+        articleApi.getPostApproved(1)
+            .then(res => {
+                setPost(res.data);
+            })
+    }
+
+    useEffect(() => {
+        fetchData()
+        window.scrollTo(0, 0)
+    }, [])
+
+    console.log(post);
+
     return (
         <div className={styles.container}>
             <div className={styles.history_day}>

@@ -6,7 +6,6 @@ import CreatePost from "./features/CreatePost/CreatePost";
 import PostDetail from "./features/PostDetail/PostDetail";
 import HomePage from "./features/HomePage/HomePage";
 import MyCreatePost from "./features/MyCreatePost/MyCreatePost";
-import CreatePostItem from "./features/MyCreatePost/CreatePostItem/CreatePostItem";
 import ApprovePost from "./features/ApprovePost/ApprovePost";
 import React from 'react'
 
@@ -20,7 +19,6 @@ function App() {
         <Route path="/postDetail" element={<PostDetail />}></Route>
         <Route path="/homePage" element={<HomePage />}></Route>
         <Route path="/myCreatePost" element={<MyCreatePost />}></Route>
-        <Route path="/myCreatePostItem" element={<CreatePostItem />}></Route>
         <Route path="/approvePost" element={<ApprovePost />}></Route>
       </Routes>
       

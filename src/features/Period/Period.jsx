@@ -2,6 +2,7 @@ import styles from './Period.module.scss';
 import image from '../../resource/gettyimages-1382828716.jpg';
 import "../../assets/scss/base.scss";
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Period = () => {
 
@@ -49,6 +50,10 @@ const Period = () => {
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         }
     ]
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
     
     const [numOfElement, setNumOfElement] = useState(3);
     const slice = posts.slice(0, numOfElement);

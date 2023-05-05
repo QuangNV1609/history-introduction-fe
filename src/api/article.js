@@ -26,6 +26,10 @@ const articleApi = {
     approveMultiple: (list) => {
         const url = baseUrl + '/censorship-list'
         return axiosClient.put(url, list);
+    },
+    getPostApproved: (isCensorship) => {
+        const url = baseUrl + '/find-all-by-censorship';
+        return axiosClient.get(url, isCensorship);
     }
 }
 

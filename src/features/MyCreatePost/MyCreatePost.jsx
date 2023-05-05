@@ -3,30 +3,34 @@ import React, { useRef } from 'react';
 import { useState, useEffect } from "react";
 import Header from '../HeaderAdmin2/HeaderAdmin2';
 import image from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg';
-import CreatePostItem from './CreatePostItem/CreatePostItem';
+import { host } from '../../api/axiosClient';
 import articleApi from '../../api/article';
+import { useNavigate } from 'react-router-dom';
+
 
 const MyCreatePost = () => {
     const [toggleState, setToggleState] = useState(1);
-    const [post, setPost] = useState('');
+    const [post, setPost] = useState([]);
     const [allPost, setAllPost] = useState(true);
     const [publishedPost, setPublishedPost] = useState(false);
     const [waitingPost, setWaitingPost] = useState(false);
+    const navigate = useNavigate();
+
 
     const jwt = window.localStorage.getItem('jwtToken');
     console.log(jwt);
 
-    // const fetchData = () => {
-    //     articleApi.getMyPost()
-    //         .then(res => {
-    //             setPost(res.data);
-    //         })
-    // }
-    // console.log(post);
+    const fetchData = () => {
+        articleApi.getMyPost()
+            .then(res => {
+                setPost(res.data);
+            })
+    }
+    console.log(post);
 
-    // useEffect(() => {
-    //     fetchData()
-    // }, [])
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     const toggleTab = (index) => {
         setToggleState(index);
@@ -159,18 +163,14 @@ const MyCreatePost = () => {
             thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
         }
     ]
+    
+    const handlePostDetail = (e, id) => {
+        navigate('/postDetail', { state: { idPost: id } });
+    }
 
-    useEffect(() => {
-        setPost(myAllPost);
-    }, []);
-
-    // var arr = Object.keys(post);
-    // console.log(arr);
-    // var title = arr.map(function (v) {
-    //     return post[v].title;
-    // });
-    // console.log(title);
-
+    // useEffect(() => {
+    //     setPost(myAllPost);
+    // }, []);
 
     return (
         <div className={styles.container}>
@@ -203,13 +203,31 @@ const MyCreatePost = () => {
                 <div className={styles.body_content}>
                     {toggleState === 1 && (
                         <div className={styles.body_content_list}>
-                            {Object.keys(post).map((item, index) => React.createElement(CreatePostItem, {
-                                // image: post[item].thumbnailImage,
-                                image: image,
+                            {/* {Object.keys(post).map((item, index) => React.createElement(CreatePostItem, {
+                                image: post[item].thumbnailImage,
                                 title: post[item].title,
                                 date: '08 tháng 03 năm 2023',
                                 key: index
-                            }))}
+                            }))} */}
+                            {post.map((item, index) => {
+                                return (
+                                    <div className={styles.container} key={index}>
+                                        <div className={styles.img_container}>
+                                            <div className={styles.edit_review}>
+                                                <a href=""><i className="fa-solid fa-pencil"></i></a>
+                                                <a onClick={e => handlePostDetail(e, item.id)}><i className="fa-solid fa-eye"></i></a>
+                                            </div>
+                                            <div className={styles.thumbnail_img}>
+                                                <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a onClick={e => handlePostDetail(e, item.id)}>{item.title}</a>
+                                            <h4><i className="fa-solid fa-clock"></i>08 tháng 03 năm 2023</h4>
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     )}
                 </div>
