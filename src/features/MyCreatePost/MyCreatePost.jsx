@@ -16,17 +16,17 @@ const MyCreatePost = () => {
     const jwt = window.localStorage.getItem('jwtToken');
     console.log(jwt);
 
-    const fetchData = () => {
-        articleApi.getMyPost()
-            .then(res => {
-                setPost(res.data);
-            })
-    }
-    console.log(post);
+    // const fetchData = () => {
+    //     articleApi.getMyPost()
+    //         .then(res => {
+    //             setPost(res.data);
+    //         })
+    // }
+    // console.log(post);
 
-    useEffect(() => {
-        fetchData()
-    }, [])
+    // useEffect(() => {
+    //     fetchData()
+    // }, [])
 
     const toggleTab = (index) => {
         setToggleState(index);
@@ -47,8 +47,123 @@ const MyCreatePost = () => {
             id: 3,
             title: 'Tieu de so 3',
             thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 2,
+            title: 'Tieu de so 2',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
+        },
+        {
+            id: 3,
+            title: 'Tieu de so 3',
+            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
         }
     ]
+
+    useEffect(() => {
+        setPost(myAllPost);
+    }, []);
+
     // var arr = Object.keys(post);
     // console.log(arr);
     // var title = arr.map(function (v) {
@@ -89,7 +204,8 @@ const MyCreatePost = () => {
                     {toggleState === 1 && (
                         <div className={styles.body_content_list}>
                             {Object.keys(post).map((item, index) => React.createElement(CreatePostItem, {
-                                image: post[item].thumbnailImage,
+                                // image: post[item].thumbnailImage,
+                                image: image,
                                 title: post[item].title,
                                 date: '08 tháng 03 năm 2023',
                                 key: index

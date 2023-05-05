@@ -10,7 +10,8 @@ const CreatePostItem = ({ image, title, date }) => {
                     <a href=""><i className="fa-solid fa-eye"></i></a>
                 </div>
                 <div className={styles.thumbnail_img}>
-                    <img src={host + '/api/file/download/' + image} alt="thumbnail image" />
+                    {/* <img src={host + '/api/file/download/' + image} alt="thumbnail image" /> */}
+                    <img src={image} alt="thumbnail image" />
                 </div>
             </div>
             <div>
