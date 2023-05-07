@@ -7,12 +7,13 @@ import PostDetail from "./features/PostDetail/PostDetail";
 import HomePage from "./features/HomePage/HomePage";
 import MyCreatePost from "./features/MyCreatePost/MyCreatePost";
 import ApprovePost from "./features/ApprovePost/ApprovePost";
+import EditPost from "./features/EditPost/EditPost";
 import React from 'react'
 
 function App() {
   return (
     <>
-      <Routes>
+      <Routes onUpdate={() => window.scrollTo(0, 0)} >
         <Route path="/*" element={<MainPage />}></Route>
         <Route path="/login" element={<Login />} />
         <Route path="/createPost" element={<CreatePost />}></Route>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/homePage" element={<HomePage />}></Route>
         <Route path="/myCreatePost" element={<MyCreatePost />}></Route>
         <Route path="/approvePost" element={<ApprovePost />}></Route>
+        <Route path="/editPost" element={<EditPost />}></Route>
       </Routes>
       
     </>

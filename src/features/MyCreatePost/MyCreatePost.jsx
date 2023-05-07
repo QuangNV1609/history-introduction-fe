@@ -6,6 +6,7 @@ import image from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg';
 import { host } from '../../api/axiosClient';
 import articleApi from '../../api/article';
 import { useNavigate } from 'react-router-dom';
+import Pagination from '../Pagination/Pagination';
 
 
 const MyCreatePost = () => {
@@ -16,21 +17,20 @@ const MyCreatePost = () => {
     const [waitingPost, setWaitingPost] = useState(false);
     const navigate = useNavigate();
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(12);
 
-    const jwt = window.localStorage.getItem('jwtToken');
-    console.log(jwt);
+    // const fetchData = () => {
+    //     articleApi.getMyPost()
+    //         .then(res => {
+    //             setPost(res.data);
+    //         })
+    // }
+    // console.log(post);
 
-    const fetchData = () => {
-        articleApi.getMyPost()
-            .then(res => {
-                setPost(res.data);
-            })
-    }
-    console.log(post);
-
-    useEffect(() => {
-        fetchData()
-    }, [])
+    // useEffect(() => {
+    //     fetchData()
+    // }, [])
 
     const toggleTab = (index) => {
         setToggleState(index);
@@ -163,14 +163,24 @@ const MyCreatePost = () => {
             thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
         }
     ]
-    
+
     const handlePostDetail = (e, id) => {
         navigate('/postDetail', { state: { idPost: id } });
     }
 
-    // useEffect(() => {
-    //     setPost(myAllPost);
-    // }, []);
+    const handleEditPost = (e, id) => {
+        navigate('/editPost', { state: { idPost: id } });
+    }
+
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        setPost(myAllPost);
+    }, []);
+
+    const lastPostIndex = currentPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPostData = myAllPost.slice(firstPostIndex, lastPostIndex);
 
     return (
         <div className={styles.container}>
@@ -209,16 +219,17 @@ const MyCreatePost = () => {
                                 date: '08 tháng 03 năm 2023',
                                 key: index
                             }))} */}
-                            {post.map((item, index) => {
+                            {currentPostData.map((item, index) => {
                                 return (
                                     <div className={styles.container} key={index}>
                                         <div className={styles.img_container}>
                                             <div className={styles.edit_review}>
-                                                <a href=""><i className="fa-solid fa-pencil"></i></a>
+                                                <a onClick={e => handleEditPost(e, item.id)}><i className="fa-solid fa-pencil"></i></a>
                                                 <a onClick={e => handlePostDetail(e, item.id)}><i className="fa-solid fa-eye"></i></a>
                                             </div>
                                             <div className={styles.thumbnail_img}>
-                                                <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
+                                                {/* <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" /> */}
+                                                <img src={image} alt="thumbnail image" />
                                             </div>
                                         </div>
                                         <div>
@@ -230,6 +241,15 @@ const MyCreatePost = () => {
                             })}
                         </div>
                     )}
+                    <div className={styles.line}></div>
+
+                    <Pagination
+                        totalPosts={myAllPost.length}
+                        postsPerPage={postsPerPage}
+                        setCurrentPage={setCurrentPage}
+                        currentPage={currentPage}
+                        lastPage={Math.ceil(myAllPost.length / postsPerPage)}
+                    />
                 </div>
             </div>
 

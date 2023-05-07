@@ -1,6 +1,5 @@
 .body {
     margin-top: 75px;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 35px;
@@ -83,7 +82,7 @@
     }
 
     &_content {
-        padding: 50px 56px;
+        padding: 50px 56px 20px;
         background-color: #fff;
 
         &_list {
@@ -169,6 +168,13 @@
                     }
                 }
             }
+        }
+        .line {
+            width: 100%;
+            height: 1px;
+            background-color: #ececec;
+            margin-top: 50px;
+            margin-bottom: 20px;
         }
     }
 }

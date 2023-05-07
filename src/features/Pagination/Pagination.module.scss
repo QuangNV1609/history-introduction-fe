@@ -1,0 +1,45 @@
+.page_btn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .arrow {
+        display: inline-block;
+        flex: 1;
+        padding: 0;
+        margin: 0;
+        i {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ececec;
+            color: var(--text-color);
+            box-shadow: var(--shadow-box);
+        }
+    }
+
+    .arrow_right {
+        text-align: end;
+        flex: 1;
+        padding: 0;
+        margin: 0;
+        i {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ececec;
+            color: var(--text-color);
+            box-shadow: var(--shadow-box);
+        }
+    }
+    span {
+        display: inline-block;
+        margin: 60px auto;
+        font-size: 1.6rem;
+        padding: 6px 10px;
+        border-radius: 5px;
+        margin: 0 5px;
+        color: var(--link-color);
+    }
+    .active {
+        color: var(--text-color);
+    }
+}
