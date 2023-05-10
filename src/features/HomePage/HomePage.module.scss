@@ -64,6 +64,9 @@
             margin-bottom: 40px;
             font-size: 3.2rem;
             font-weight: 700;
+            i {
+                margin-right: 8px;
+            }
         }
         .article_grid {
             max-width: 100%;
@@ -75,8 +78,18 @@
             .article_items {
                 display: flex;
                 flex-direction: column;
+
+                .img_container {
+                    max-height: 198px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                }
+                
                 &_img {
-                    width: 100%;
+                    max-width: 100%;
+                    min-height: 198px;
                 }
 
                 &_title {

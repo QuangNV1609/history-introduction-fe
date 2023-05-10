@@ -27,9 +27,21 @@ const articleApi = {
         const url = baseUrl + '/censorship-list'
         return axiosClient.put(url, list);
     },
-    getPostApproved: (isCensorship) => {
-        const url = baseUrl + '/find-all-by-censorship';
-        return axiosClient.get(url, isCensorship);
+    getPostApproved: (isApproved) => {
+        const url = baseUrl + '/find-all-by-censorship?isCensorship=' + isApproved 
+        return axiosClient.get(url);
+    },
+    deletePost: (list) => {
+        const url = baseUrl + '/delete-list-by-ids'
+        return axiosClient.delete(url, {data: list});
+    },
+    getActivePost: () => {
+        const url = baseUrl + '/search-article'
+        return axiosClient.get(url);
+    },
+    getPeriodPost: (period) => {
+        const url = baseUrl + '/search-article?historicalPeriod=' + period
+        return axiosClient.get(url);
     }
 }
 

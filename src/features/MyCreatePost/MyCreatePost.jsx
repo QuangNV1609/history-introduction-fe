@@ -12,157 +12,29 @@ import Pagination from '../Pagination/Pagination';
 const MyCreatePost = () => {
     const [toggleState, setToggleState] = useState(1);
     const [post, setPost] = useState([]);
-    const [allPost, setAllPost] = useState(true);
-    const [publishedPost, setPublishedPost] = useState(false);
-    const [waitingPost, setWaitingPost] = useState(false);
+    
+    const [postState, setPostState] = useState(0);
     const navigate = useNavigate();
 
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(12);
 
-    // const fetchData = () => {
-    //     articleApi.getMyPost()
-    //         .then(res => {
-    //             setPost(res.data);
-    //         })
-    // }
-    // console.log(post);
+    const fetchData = () => {
+        articleApi.getPostApproved(postState)
+            .then(res => {
+                setPost(res.data);
+            })
+    }
+    console.log(post);
 
-    // useEffect(() => {
-    //     fetchData()
-    // }, [])
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        fetchData()
+    }, [toggleState])
 
     const toggleTab = (index) => {
         setToggleState(index);
     }
-
-    const myAllPost = [
-        {
-            id: 1,
-            title: 'Tieu de so 1',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 2,
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        },
-        {
-            id: 3,
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg'
-        }
-    ]
 
     const handlePostDetail = (e, id) => {
         navigate('/postDetail', { state: { idPost: id } });
@@ -172,15 +44,9 @@ const MyCreatePost = () => {
         navigate('/editPost', { state: { idPost: id } });
     }
 
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        setPost(myAllPost);
-    }, []);
-
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPostData = myAllPost.slice(firstPostIndex, lastPostIndex);
+    const currentPostData = post.slice(firstPostIndex, lastPostIndex);
 
     return (
         <div className={styles.container}>
@@ -193,13 +59,13 @@ const MyCreatePost = () => {
                 <ul className={styles.body_navbar}>
                     <li
                         className={toggleState === 1 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
-                        onClick={() => toggleTab(1)}>
-                        <span className={styles.body_navbar_key}>Tất cả</span>
+                        onClick={() => (toggleTab(1), setPostState(0))}>
+                        <span className={styles.body_navbar_key}>Chờ Phê Duyệt</span>
                         <span className={styles.body_navbar_value}>3</span>
                     </li>
                     <li
                         className={toggleState === 2 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
-                        onClick={() => toggleTab(2)}>
+                        onClick={() => (toggleTab(2), setPostState(1))}>
                         <span className={styles.body_navbar_key}>Đã đăng</span>
                         <span className={styles.body_navbar_value}>1</span>
                     </li>
@@ -212,13 +78,8 @@ const MyCreatePost = () => {
                 </ul>
                 <div className={styles.body_content}>
                     {toggleState === 1 && (
-                        <div className={styles.body_content_list}>
-                            {/* {Object.keys(post).map((item, index) => React.createElement(CreatePostItem, {
-                                image: post[item].thumbnailImage,
-                                title: post[item].title,
-                                date: '08 tháng 03 năm 2023',
-                                key: index
-                            }))} */}
+                        <div>
+                            <div className={styles.body_content_list}>
                             {currentPostData.map((item, index) => {
                                 return (
                                     <div className={styles.container} key={index}>
@@ -228,8 +89,7 @@ const MyCreatePost = () => {
                                                 <a onClick={e => handlePostDetail(e, item.id)}><i className="fa-solid fa-eye"></i></a>
                                             </div>
                                             <div className={styles.thumbnail_img}>
-                                                {/* <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" /> */}
-                                                <img src={image} alt="thumbnail image" />
+                                                <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
                                             </div>
                                         </div>
                                         <div>
@@ -240,16 +100,49 @@ const MyCreatePost = () => {
                                 )
                             })}
                         </div>
+                        <div className={styles.line}></div>
+                        <Pagination
+                            totalPosts={post.length}
+                            postsPerPage={postsPerPage}
+                            setCurrentPage={setCurrentPage}
+                            currentPage={currentPage}
+                            lastPage={Math.ceil(post.length / postsPerPage)}
+                        />
+                        </div>
                     )}
-                    <div className={styles.line}></div>
-
-                    <Pagination
-                        totalPosts={myAllPost.length}
-                        postsPerPage={postsPerPage}
-                        setCurrentPage={setCurrentPage}
-                        currentPage={currentPage}
-                        lastPage={Math.ceil(myAllPost.length / postsPerPage)}
-                    />
+                    {toggleState === 2 && (
+                        <div>
+                            <div className={styles.body_content_list}>
+                            {currentPostData.map((item, index) => {
+                                return (
+                                    <div className={styles.container} key={index}>
+                                        <div className={styles.img_container}>
+                                            <div className={styles.edit_review}>
+                                                <a onClick={e => handleEditPost(e, item.id)}><i className="fa-solid fa-pencil"></i></a>
+                                                <a onClick={e => handlePostDetail(e, item.id)}><i className="fa-solid fa-eye"></i></a>
+                                            </div>
+                                            <div className={styles.thumbnail_img}>
+                                                <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a onClick={e => handlePostDetail(e, item.id)}>{item.title}</a>
+                                            <h4><i className="fa-solid fa-clock"></i>08 tháng 03 năm 2023</h4>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <div className={styles.line}></div>
+                        <Pagination
+                            totalPosts={post.length}
+                            postsPerPage={postsPerPage}
+                            setCurrentPage={setCurrentPage}
+                            currentPage={currentPage}
+                            lastPage={Math.ceil(post.length / postsPerPage)}
+                        />
+                        </div>
+                    )}
                 </div>
             </div>
 

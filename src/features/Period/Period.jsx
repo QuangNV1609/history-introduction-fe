@@ -3,10 +3,14 @@ import image from '../../resource/gettyimages-1382828716.jpg';
 import "../../assets/scss/base.scss";
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import articleApi from '../../api/article';
+// import { Markup } from 'interweave';
 
 const Period = () => {
+    const [posts, setPosts] = useState([]);
 
-    const posts = [
+    const postss = [
         {
             eventType: 0,
             title: 'Tieu de so 1',
@@ -51,23 +55,34 @@ const Period = () => {
         }
     ]
 
+    const fetchData = () => {
+        articleApi.getPeriodPost(0)
+            .then(res => {
+                setPosts(res.data);
+            })
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0)
-      }, [])
-    
+        fetchData()
+    }, [])
+
     const [numOfElement, setNumOfElement] = useState(3);
     const slice = posts.slice(0, numOfElement);
+    const navigate = useNavigate();
 
     const loadMore = () => {
-        setNumOfElement(numOfElement + numOfElement);
+        // setNumOfElement(numOfElement + numOfElement);
+        navigate('/seeMore');
     }
+    console.log(posts);
 
     return (
         <div className={styles.main}>
             <div className={styles.heading}>
                 <div className={styles.heading_link}>
-                    <a href="">Trang chủ</a><span> / </span>
-                    <a href="" className={styles.last_link}>Thời kỳ</a>
+                    <a href="/home">Trang chủ</a><span> / </span>
+                    <a href="/period" className={styles.last_link}>Thời kỳ</a>
                 </div>
                 <div className={styles.heading_title}>
                     <span>Các Thời Kỳ Lịch Sử</span>
@@ -81,14 +96,21 @@ const Period = () => {
                         {slice.map((item, index) => {
                             return (
                                 <div className={styles.post_items} key={index}>
-                                    <img src={image} alt="post thumbnail" className={styles.post_items_img}/>
+                                    <img src={image} alt="post thumbnail" className={styles.post_items_img} />
                                     <div className={styles.post_items_content}>
+                                        <div>
                                         <div className={styles.post_items_title}>{item.title}</div>
-                                        <p className={styles.post_items_desc}>{item.describe.substring(0, 165)}...</p>
-                                        <a href='' className={styles.post_items_readmore}>
-                                            Read more
-                                            <i className="fa-solid fa-arrow-right"></i>
-                                        </a>
+                                        <div className={styles.post_items_desc}>
+                                            {/* <div dangerouslySetInnerHTML={{ __html: item.content }}></div> */}
+                                            {/* <Markup content={item.content} /> */}
+                                        </div>
+                                        </div>
+                                        <div>
+                                            <a href='' className={styles.post_items_readmore}>
+                                                Đọc thêm
+                                                <i className="fa-solid fa-arrow-right"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             )

@@ -1,0 +1,42 @@
+.main {
+    margin-top: 75px;
+    padding: 40px 82px 60px;
+    background-color: #222;
+    font-family: var(--text-font);
+    .input_wrapper {
+        background-color: #555;
+        padding: 0 15px;
+        height: 50px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        input {
+            background-color: transparent;
+            border: none;
+            height: 100%;
+            width: 100%;
+            font-size: 1.6rem;
+            color: #fff;
+        }
+        input:focus {
+            outline: none;
+        }
+        input::placeholder {
+            color: #ccc;
+        }
+        i{
+            font-size: 2rem;
+            color: #fff;
+        }
+    }
+
+    .search_result_tag {
+        font-size: 3.2rem;
+        font-weight: 700;
+        margin-top: 40px;
+        color: #fff;
+        i {
+            margin-right: 8px;
+        }
+    }
+}

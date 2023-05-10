@@ -13,9 +13,14 @@ const ApprovePost = () => {
     const [selectPost, setSelectPost] = useState('');
     const [listSelectPost, setListSelectPost] = useState([]);
     const navigate = useNavigate();
+    const [toggleState, setToggleState] = useState(1);
+    const [postState, setPostState] = useState(0);
 
+    // for (var value of listSelectPost)
+    console.log(listSelectPost);
     const fetchData = () => {
-        articleApi.getMyPost()
+        //console.log(postState);
+        articleApi.getPostApproved(postState)
             .then(res => {
                 setPosts(res.data);
             })
@@ -23,9 +28,7 @@ const ApprovePost = () => {
 
     useEffect(() => {
         fetchData()
-    }, [])
-
-    const [toggleState, setToggleState] = useState(1);
+    }, [toggleState])
 
     const toggleTab = (index) => {
         setToggleState(index);
@@ -33,8 +36,9 @@ const ApprovePost = () => {
 
     const handleChange = (e) => {
         const { id, checked } = e.target;
+        console.log(id, checked);
         if (id === "allSelect") {
-            let tempPost = posts.map(post => {
+            let tempPost = posts.map((post) => {
                 return { ...post, isChecked: checked };
             });
             setPosts(tempPost);
@@ -44,38 +48,52 @@ const ApprovePost = () => {
             );
             setPosts(tempPost);
         }
-        console.log(id, checked);
         if (checked === true) {
-            setSelectPost(id);
-            setListSelectPost(oldArray => [...oldArray, id]);
-        }
-        else {
-            setListSelectPost((current) =>
-                current.filter((element) => {
-                    return element !== id;
+            if (id !== "allSelect") {
+                setSelectPost(id);
+                setListSelectPost(oldArray => [...oldArray, id]);
+            }
+            else {
+                posts.map(post => {
+                    setSelectPost(post.id.toString());
+                    setListSelectPost(oldArray => [...oldArray, post.id.toString()]);
                 })
-            );
-
+                console.log(listSelectPost);
+            }
+        } else {
+            if (id !== "allSelect") {
+                setListSelectPost((current) =>
+                    current.filter((element) => {
+                        return element !== id;
+                    })
+                );
+            } else {
+                setListSelectPost([]);
+            }
         }
     }
-    //console.log(listSelectPost);
-
 
     const handleApprove = (e) => {
-        // articleApi.approve(parseInt(selectPost)).then(res => {
-        //     if (res.status === 200) {
-        //         alert("Da duyet bai viet");
-        //     }
-        //     throw Error("Approve post failed")
-        // })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
         articleApi.approveMultiple(listSelectPost).then(res => {
             if (res.status === 200) {
                 alert("Da duyet bai viet");
+                window.location.reload();
             }
             throw Error("Approve post failed")
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    const handleDelete = (e) => {
+        console.log(listSelectPost);
+        articleApi.deletePost(listSelectPost).then(res => {
+            if (res.status === 200) {
+                alert("Da xoa bai viet");
+                window.location.reload();
+            }
+            throw Error("Delete post failed")
         })
             .catch(function (error) {
                 console.log(error);
@@ -97,14 +115,14 @@ const ApprovePost = () => {
                 <ul className={styles.body_navbar}>
                     <li
                         className={toggleState === 1 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
-                        onClick={() => toggleTab(1)}>
-                        <span className={styles.body_navbar_key}>Tất cả</span>
+                        onClick={() => (toggleTab(1), setPostState(0))}>
+                        <span className={styles.body_navbar_key}>Phê duyệt bài viết</span>
                         <span className={styles.body_navbar_value}>3</span>
                     </li>
                     <li
                         className={toggleState === 2 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
-                        onClick={() => toggleTab(2)}>
-                        <span className={styles.body_navbar_key}>Bài viết mới</span>
+                        onClick={() => (toggleTab(2), setPostState(1))}>
+                        <span className={styles.body_navbar_key}>Bài viết đã đăng</span>
                         <span className={styles.body_navbar_value}>1</span>
                     </li>
                     <li
@@ -132,10 +150,14 @@ const ApprovePost = () => {
                                 className={styles.approve_btn}
                                 onClick={handleApprove}
                             >
-                                <i className="fa-solid fa-check"></i>
-                                Phê duyệt bài viết
+                                <i className="fa-solid fa-check"></i>Phê duyệt bài viết
                             </span>
-                            <span className={styles.delete_btn}><i className="fa-solid fa-trash"></i>Xóa bài viết</span>
+                            <span
+                                className={styles.delete_btn}
+                                onClick={handleDelete}
+                            >
+                                <i className="fa-solid fa-trash"></i>Xóa bài viết
+                            </span>
                         </div>
                     </div>
                     {toggleState === 1 && (
@@ -143,10 +165,11 @@ const ApprovePost = () => {
                             {posts.map((item, index) => {
                                 return (
                                     <div className={styles.post_items} key={index}>
-                                        <div className={styles.img_container} onClick={e => handlePostDetail(e, item.id)}>
+                                        <div className={styles.img_container}>
                                             <img
                                                 src={host + '/api/file/download/' + item.thumbnailImage}
                                                 alt="thumbnail image"
+                                                onClick={e => handlePostDetail(e, item.id)}
                                             />
                                             <input
                                                 type="checkbox"
@@ -156,7 +179,40 @@ const ApprovePost = () => {
                                             />
                                         </div>
                                         <div>
-                                            <div 
+                                            <div
+                                                className={styles.post_items_title}
+                                                onClick={e => handlePostDetail(e, item.id)}
+                                            >
+                                                {item.title}
+                                            </div>
+                                            <h4><i className="fa-solid fa-clock"></i>Ngày 30 tháng 4 năm 2023 lúc 22:10</h4>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    )}
+
+                    {toggleState === 2 && (
+                        <div className={styles.body_content_list}>
+                            {posts.map((item, index) => {
+                                return (
+                                    <div className={styles.post_items} key={index}>
+                                        <div className={styles.img_container} >
+                                            <img
+                                                src={host + '/api/file/download/' + item.thumbnailImage}
+                                                alt="thumbnail image"
+                                                onClick={e => handlePostDetail(e, item.id)}
+                                            />
+                                            <input
+                                                type="checkbox"
+                                                id={item.id}
+                                                checked={item?.isChecked || false}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div>
+                                            <div
                                                 className={styles.post_items_title}
                                                 onClick={e => handlePostDetail(e, item.id)}
                                             >

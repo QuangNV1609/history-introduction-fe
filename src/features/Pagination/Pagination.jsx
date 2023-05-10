@@ -39,7 +39,7 @@ const Pagination = ({ totalPosts, postsPerPage, setCurrentPage, currentPage, las
                         onClick={handlePrevious}></i>)
                 }
             </span>
-            <div>
+            <div className={styles.number_page}>
                 {pages.map((page, index) => {
                     return (
                         <span
