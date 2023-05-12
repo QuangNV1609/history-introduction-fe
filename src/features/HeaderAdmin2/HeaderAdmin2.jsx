@@ -7,15 +7,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import userApi from '../../api/user';
 
-const HeaderAdmin2 = ({userToken, dataSearch}) => {
+const HeaderAdmin2 = ({ setResults, getInputValue}) => {
     const navigate = useNavigate();
     const [role, setRole] = useState('');
     const [searchState, setSearchState] = useState(false);
     const [inputSearch, setInputSearch] = useState('');
-
-    useEffect(() => {
-        //dataSearch(inputSearch);
-    },[inputSearch])
+    const userToken = window.localStorage.getItem('jwtToken');
 
     const [userInfo, setUserInfo] = useState('');
     const titleNavbar = [["TRANG CHỦ", "home"], ["NGÀY NÀY TRONG LỊCH SỬ", "historyDay"], ["THỜI KỲ", "period"], ["NHÂN VẬT", "figure"], ["Q&A", "qa"]]
@@ -38,24 +35,41 @@ const HeaderAdmin2 = ({userToken, dataSearch}) => {
     }
 
     const fetchData = () => {
-        userApi.getInfo()
+        if(userToken !== null){
+            userApi.getInfo()
             .then(res => {
                 setUserInfo(res.data);
                 setRole(res.data.roleName[0]);
             })
+        }
     }
 
     useEffect(() => {
         fetchData()
     }, [])
 
+
     const handleBackHome = () => {
         window.location.href = '/';
         navigate('/');
     }
 
-    //Kiểm tra xem input search có giá trị hay không, nếu có thì trả về list post, không thì trả về homepage
-    //console.log(enterSearch);
+    const fetchSearchData = (value) => {
+        fetch("https://jsonplaceholder.typicode.com/users")
+        .then((response) => response.json()) 
+        .then((json) => {
+            const results = json.filter((post) => {
+                return value && post && post.name && post.name.toLowerCase().includes(value);
+            });
+            setResults(results);
+        });
+    }
+
+    const handleSearchChange = (value) => {
+        setInputSearch(value);
+        fetchSearchData(value);
+        getInputValue(value);
+    }
 
     return (
         <div className={styles.header}>
@@ -84,9 +98,9 @@ const HeaderAdmin2 = ({userToken, dataSearch}) => {
                             type="text"
                             placeholder='Tìm kiếm bài viết'
                             value={inputSearch}
-                            onChange={(e) => setInputSearch(e.target.value)}
+                            onChange={(e) => handleSearchChange(e.target.value)}
                         />
-                        <i className="fa-solid fa-xmark" onClick={() => (setSearchState(!searchState), setInputSearch(''))}></i>
+                        <i className="fa-solid fa-xmark" onClick={() => (setSearchState(!searchState), setInputSearch(''), getInputValue(''))}></i>
                     </div>
                 )}
                 {!searchState && (

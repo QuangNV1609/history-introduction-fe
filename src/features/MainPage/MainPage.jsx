@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router";
 import Header from "../HeaderAdmin2/HeaderAdmin2";
-import Footer from "../Footer/Footer";
 import Home from "../HomePage/HomePage";
 import HistoryDay from "../HistoryDay/HistoryDay";
 import Figure from "../Figure/Figure";
@@ -10,23 +9,23 @@ import SeeMore from "../SeeMore/SeeMore";
 import SearchPage from "../SearchPage/SearchPage";
 import ApprovePost from "../ApprovePost/ApprovePost";
 import MyCreatePost from "../MyCreatePost/MyCreatePost";
+import CreatePost from "../CreatePost/CreatePost";
 import { useState } from "react";
 
 const MainPage = () => {
-    const jwt = window.localStorage.getItem('jwtToken');
-    console.log(jwt);
-    const [inputSearch, setInputSearch] = useState('');
+    const [results, setResults] = useState([]);
+    const [input, setInput] = useState();
 
-    const getDataSearch = (value) => {
-        setInputSearch(value);
+    const getInputValue = (value) => {
+        setInput(value);
     }
 
     return (
         <div>
-            <Header userToken={jwt} dataSearch={getDataSearch}></Header>
+            <Header setResults={setResults} getInputValue={getInputValue}></Header>
             <Routes>
-                <Route path="/" element={<Home inputSearch={inputSearch} />}></Route>
-                <Route path="/home" element={<Home inputSearch={inputSearch} />}></Route>
+                <Route path="/" element={<Home results={results} input={input} />}></Route>
+                <Route path="/home" element={<Home results={results} input={input} />}></Route>
                 <Route path="/historyDay" element={<HistoryDay />}></Route>
                 <Route path="/period" element={<Period />}></Route>
                 <Route path="/figure" element={<Figure />}></Route>
@@ -35,6 +34,7 @@ const MainPage = () => {
                 <Route path="/searchPage" element={<SearchPage />}></Route>
                 <Route path="/approvePost" element={<ApprovePost />}></Route>
                 <Route path="/myCreatePost" element={<MyCreatePost />}></Route>
+                <Route path="/createPost" element={<CreatePost />}></Route>
             </Routes>
             {/* <Footer></Footer> */}
         </div>

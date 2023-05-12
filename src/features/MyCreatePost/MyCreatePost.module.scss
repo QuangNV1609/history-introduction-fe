@@ -100,6 +100,7 @@
 
                     a {
                         margin: 0 24px;
+                        display: block;
                     }
 
                     a:hover i{
@@ -145,25 +146,26 @@
                     min-height: 198px;
                 }
 
-                a {
+                .post_title{
+                    flex: 1;
                     text-decoration: none;
-                    display: block;
-                    font-size: 2rem;
+                    font-size: 1.8rem;
                     color: #000;
-                    margin: 10px 0;
-                }
-                a:hover {
+                    margin-bottom: 10px;
+                    line-height: 1.2;
                     cursor: pointer;
                 }
 
                 h4 {
                     padding: 0;
-                    margin-top: 8px;
                     font-size: 1.2rem;
                     color: #606266;
                     font-weight: 400;
+                    display: flex;
+                    align-items: center;
 
                     i {
+                        font-size: 1rem;
                         margin-right: 6px;
                     }
                 }

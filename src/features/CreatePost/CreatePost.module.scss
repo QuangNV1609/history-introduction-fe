@@ -58,40 +58,6 @@ body {
     padding: 40px 20px 0;
     justify-content: center;
 
-    .thumbnail {
-        display: flex;
-        position: relative;
-        width: 353px;
-        height: 198px;
-        overflow: hidden;
-        align-items: center;
-        justify-content: center;
-        background-image: linear-gradient(#ccc, #6a6a6a);
-
-        input[type="file"] {
-            display: none;
-        }
-
-        img {
-            width: 353px;
-        }
-
-        .thumbnail_upload_label {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background-color: #e4e6eb;
-            padding: 2px 7px;
-            border-radius: 20px;
-            font-size: 1.8rem;
-        }
-
-        .thumbnail_upload_label:hover {
-            background-color: #dadbe1;
-            cursor: pointer;
-        }
-    }
-
     .content {
         margin-left: 20px;
         width: 70%;

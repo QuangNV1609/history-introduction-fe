@@ -21,6 +21,7 @@ const PostDetail = () => {
                 setPost(res.data);
             })
     }
+    console.log(post);
 
     useEffect(() => {
         fetchData()

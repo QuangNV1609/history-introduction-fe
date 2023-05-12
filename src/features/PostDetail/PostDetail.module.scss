@@ -72,17 +72,35 @@ body {
 
                 h2 {
                     font-family: var(--heading-font);
-                    font-size: 3.8rem;
-                    margin-bottom: 20px;
+                    font-size: 3.2rem;
+                    margin-top: 20px;
+                    margin-bottom: 10px;
                 }
 
-                p {
+                p, ul, li {
                     font-size: 2rem;
                     font-family: var(--text-font);
                     margin: 18px 0;
+                    list-style: none;
 
                     b {
                         font-size: 2rem;
+                    }
+                }
+
+                li {
+                    padding-left: 30px;
+                    margin-top: 0;
+                }
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    figcaption {
+                        
+                    text-align: center;
+                        font-family: var(--text-font);
+                        font-size: 1.4rem;
                     }
                 }
 

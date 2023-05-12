@@ -90,7 +90,7 @@ const CreatePost = () => {
             //console.log(key, post[key]);
             fd.append(key, post[key]);
         }
-        
+
         console.log(post);
         articleApi.create(fd).then(res => {
             if (res.status === 200) {
@@ -107,7 +107,6 @@ const CreatePost = () => {
     return (
         <div className={styles.container}>
 
-            <HeaderAdmin2></HeaderAdmin2>
             <div className={styles.body}>
                 <div className={styles.theme_container}>
                     {theme && (
@@ -193,8 +192,10 @@ const CreatePost = () => {
                                 onChange={e => setContent(e)}
                                 setOptions={{
                                     showPathLabel: false,
-                                    minHeight: "100vh",
-                                    maxHeight: "100vh",
+                                    width: 'auto',
+                                    height: 'auto',
+                                    minHeight: '300px',
+                                    maxHeight: '400px',
                                     placeholder: "Bắt đầu viết...",
                                     plugins: [
                                         align,

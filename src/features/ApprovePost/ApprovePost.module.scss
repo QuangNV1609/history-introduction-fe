@@ -163,6 +163,9 @@
             row-gap: 35px;
 
             .post_items {
+                display: flex;
+                flex-direction: column;
+
                 .img_container {
                     position: relative;
                     max-height: 198px;
@@ -196,11 +199,12 @@
                 }
 
                 .post_items_title {
+                    flex: 1;
                     text-decoration: none;
-                    font-size: 2rem;
-                    color: var(--text-color);
-                    display: block;
+                    font-size: 1.8rem;
+                    color: #000;
                     margin: 10px 0;
+                    line-height: 1.2;
                     cursor: pointer;
                 }
 
@@ -209,8 +213,11 @@
                     font-size: 1.2rem;
                     color: #606266;
                     font-weight: 400;
+                    display: flex;
+                    align-items: center;
 
                     i {
+                        font-size: 1rem;
                         margin-right: 6px;
                     }
                 }

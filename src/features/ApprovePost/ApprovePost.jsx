@@ -178,13 +178,13 @@ const ApprovePost = () => {
                                                 onChange={handleChange}
                                             />
                                         </div>
+                                        <div
+                                            className={styles.post_items_title}
+                                            onClick={e => handlePostDetail(e, item.id)}
+                                        >
+                                            {item.title}
+                                        </div>
                                         <div>
-                                            <div
-                                                className={styles.post_items_title}
-                                                onClick={e => handlePostDetail(e, item.id)}
-                                            >
-                                                {item.title}
-                                            </div>
                                             <h4><i className="fa-solid fa-clock"></i>Ngày 30 tháng 4 năm 2023 lúc 22:10</h4>
                                         </div>
                                     </div>
@@ -211,13 +211,13 @@ const ApprovePost = () => {
                                                 onChange={handleChange}
                                             />
                                         </div>
+                                        <div
+                                            className={styles.post_items_title}
+                                            onClick={e => handlePostDetail(e, item.id)}
+                                        >
+                                            {item.title}
+                                        </div>
                                         <div>
-                                            <div
-                                                className={styles.post_items_title}
-                                                onClick={e => handlePostDetail(e, item.id)}
-                                            >
-                                                {item.title}
-                                            </div>
                                             <h4><i className="fa-solid fa-clock"></i>Ngày 30 tháng 4 năm 2023 lúc 22:10</h4>
                                         </div>
                                     </div>

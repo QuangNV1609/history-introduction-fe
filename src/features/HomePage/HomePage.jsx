@@ -5,8 +5,11 @@ import sample from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg';
 import articleApi from '../../api/article';
 import { host } from "../../api/axiosClient";
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
-const HomePage = ({ inputSearch}) => {
+const HomePage = ({results, input}) => {
+    console.log(input);
+    const navigate = useNavigate();
     const posts = [
         {
             eventType: 0,
@@ -63,9 +66,13 @@ const HomePage = ({ inputSearch}) => {
     const [numOfElement, setNumOfElement] = useState(12);
     const slice = post.slice(0, numOfElement);
 
+    const handlePostDetail = (e, id) => {
+        navigate('/postDetail', { state: { idPost: id } });
+    }
+
     return (
         <div>
-            {(inputSearch === '') && (
+            {(input === undefined || input === '') && (
                 <div className={styles.container}>
                     <div className={styles.history_day}>
                         <div className={styles.history_day_info}>
@@ -87,10 +94,15 @@ const HomePage = ({ inputSearch}) => {
                             {slice.map((item, index) => {
                                 return (
                                     <div className={styles.article_items} key={index}>
-                                        <div className={styles.img_container}>
-                                            <img src={host + '/api/file/download/' + item.thumbnailImage} alt="post thumbnail" className={styles.article_items_img} />
+                                        <div className={styles.img_container} >
+                                            <img 
+                                                src={host + '/api/file/download/' + item.thumbnailImage} 
+                                                alt="post thumbnail" 
+                                                className={styles.article_items_img} 
+                                                onClick={e => handlePostDetail(e, item.id)}
+                                            />
                                         </div>
-                                        <div className={styles.article_items_title}>{item.title}</div>
+                                        <div className={styles.article_items_title} onClick={e => handlePostDetail(e, item.id)}>{item.title}</div>
                                         <div className={styles.article_items_bonus}>
                                             <span className={styles.article_item_view}>
                                                 33.123 lượt xem

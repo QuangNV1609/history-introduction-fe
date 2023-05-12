@@ -2,7 +2,6 @@ import styles from './MyCreatePost.module.scss';
 import React, { useRef } from 'react';
 import { useState, useEffect } from "react";
 import Header from '../HeaderAdmin2/HeaderAdmin2';
-import image from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg';
 import { host } from '../../api/axiosClient';
 import articleApi from '../../api/article';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +11,7 @@ import Pagination from '../Pagination/Pagination';
 const MyCreatePost = () => {
     const [toggleState, setToggleState] = useState(1);
     const [post, setPost] = useState([]);
-    
+
     const [postState, setPostState] = useState(0);
     const navigate = useNavigate();
 
@@ -80,67 +79,67 @@ const MyCreatePost = () => {
                     {toggleState === 1 && (
                         <div>
                             <div className={styles.body_content_list}>
-                            {currentPostData.map((item, index) => {
-                                return (
-                                    <div className={styles.container} key={index}>
-                                        <div className={styles.img_container}>
-                                            <div className={styles.edit_review}>
-                                                <a onClick={e => handleEditPost(e, item.id)}><i className="fa-solid fa-pencil"></i></a>
-                                                <a onClick={e => handlePostDetail(e, item.id)}><i className="fa-solid fa-eye"></i></a>
+                                {currentPostData.map((item, index) => {
+                                    return (
+                                        <div className={styles.container} key={index}>
+                                            <div className={styles.img_container}>
+                                                <div className={styles.edit_review}>
+                                                    <a onClick={e => handleEditPost(e, item.id)}><i className="fa-solid fa-pencil"></i></a>
+                                                    <a onClick={e => handlePostDetail(e, item.id)}><i className="fa-solid fa-eye"></i></a>
+                                                </div>
+                                                <div className={styles.thumbnail_img}>
+                                                    <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
+                                                </div>
                                             </div>
-                                            <div className={styles.thumbnail_img}>
-                                                <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
+                                            <div className={styles.post_title} onClick={e => handlePostDetail(e, item.id)}>{item.title}</div>
+                                            <div>
+                                                <h4><i className="fa-solid fa-clock"></i>08 tháng 03 năm 2023</h4>
                                             </div>
                                         </div>
-                                        <div>
-                                            <a onClick={e => handlePostDetail(e, item.id)}>{item.title}</a>
-                                            <h4><i className="fa-solid fa-clock"></i>08 tháng 03 năm 2023</h4>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                        <div className={styles.line}></div>
-                        <Pagination
-                            totalPosts={post.length}
-                            postsPerPage={postsPerPage}
-                            setCurrentPage={setCurrentPage}
-                            currentPage={currentPage}
-                            lastPage={Math.ceil(post.length / postsPerPage)}
-                        />
+                                    )
+                                })}
+                            </div>
+                            <div className={styles.line}></div>
+                            <Pagination
+                                totalPosts={post.length}
+                                postsPerPage={postsPerPage}
+                                setCurrentPage={setCurrentPage}
+                                currentPage={currentPage}
+                                lastPage={Math.ceil(post.length / postsPerPage)}
+                            />
                         </div>
                     )}
                     {toggleState === 2 && (
                         <div>
                             <div className={styles.body_content_list}>
-                            {currentPostData.map((item, index) => {
-                                return (
-                                    <div className={styles.container} key={index}>
-                                        <div className={styles.img_container}>
-                                            <div className={styles.edit_review}>
-                                                <a onClick={e => handleEditPost(e, item.id)}><i className="fa-solid fa-pencil"></i></a>
-                                                <a onClick={e => handlePostDetail(e, item.id)}><i className="fa-solid fa-eye"></i></a>
+                                {currentPostData.map((item, index) => {
+                                    return (
+                                        <div className={styles.container} key={index}>
+                                            <div className={styles.img_container}>
+                                                <div className={styles.edit_review}>
+                                                    <a onClick={e => handleEditPost(e, item.id)}><i className="fa-solid fa-pencil"></i></a>
+                                                    <a onClick={e => handlePostDetail(e, item.id)}><i className="fa-solid fa-eye"></i></a>
+                                                </div>
+                                                <div className={styles.thumbnail_img}>
+                                                    <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
+                                                </div>
                                             </div>
-                                            <div className={styles.thumbnail_img}>
-                                                <img src={host + '/api/file/download/' + item.thumbnailImage} alt="thumbnail image" />
+                                            <div className={styles.post_title} onClick={e => handlePostDetail(e, item.id)}>{item.title}</div>
+                                            <div>
+                                                <h4><i className="fa-solid fa-clock"></i>08 tháng 03 năm 2023</h4>
                                             </div>
                                         </div>
-                                        <div>
-                                            <a onClick={e => handlePostDetail(e, item.id)}>{item.title}</a>
-                                            <h4><i className="fa-solid fa-clock"></i>08 tháng 03 năm 2023</h4>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                        <div className={styles.line}></div>
-                        <Pagination
-                            totalPosts={post.length}
-                            postsPerPage={postsPerPage}
-                            setCurrentPage={setCurrentPage}
-                            currentPage={currentPage}
-                            lastPage={Math.ceil(post.length / postsPerPage)}
-                        />
+                                    )
+                                })}
+                            </div>
+                            <div className={styles.line}></div>
+                            <Pagination
+                                totalPosts={post.length}
+                                postsPerPage={postsPerPage}
+                                setCurrentPage={setCurrentPage}
+                                currentPage={currentPage}
+                                lastPage={Math.ceil(post.length / postsPerPage)}
+                            />
                         </div>
                     )}
                 </div>
