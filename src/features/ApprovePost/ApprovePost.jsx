@@ -6,6 +6,7 @@ import "../../assets/scss/base.scss";
 import articleApi from '../../api/article';
 import { host } from '../../api/axiosClient';
 import { useNavigate } from 'react-router-dom';
+import Pagination from '../Pagination/Pagination';
 
 const ApprovePost = () => {
 
@@ -15,11 +16,12 @@ const ApprovePost = () => {
     const navigate = useNavigate();
     const [toggleState, setToggleState] = useState(1);
     const [postState, setPostState] = useState(0);
+    
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(12);
 
-    // for (var value of listSelectPost)
     console.log(listSelectPost);
     const fetchData = () => {
-        //console.log(postState);
         articleApi.getPostApproved(postState)
             .then(res => {
                 setPosts(res.data);
@@ -103,6 +105,10 @@ const ApprovePost = () => {
     const handlePostDetail = (e, id) => {
         navigate('/postDetail', { state: { idPost: id } });
     }
+
+    const lastPostIndex = currentPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPostData = posts.slice(firstPostIndex, lastPostIndex);
 
     return (
         <div>
@@ -194,35 +200,45 @@ const ApprovePost = () => {
                     )}
 
                     {toggleState === 2 && (
-                        <div className={styles.body_content_list}>
-                            {posts.map((item, index) => {
-                                return (
-                                    <div className={styles.post_items} key={index}>
-                                        <div className={styles.img_container} >
-                                            <img
-                                                src={host + '/api/file/download/' + item.thumbnailImage}
-                                                alt="thumbnail image"
+                        <div>
+                            <div className={styles.body_content_list}>
+                                {currentPostData.map((item, index) => {
+                                    return (
+                                        <div className={styles.post_items} key={index}>
+                                            <div className={styles.img_container} >
+                                                <img
+                                                    src={host + '/api/file/download/' + item.thumbnailImage}
+                                                    alt="thumbnail image"
+                                                    onClick={e => handlePostDetail(e, item.id)}
+                                                />
+                                                <input
+                                                    type="checkbox"
+                                                    id={item.id}
+                                                    checked={item?.isChecked || false}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+                                            <div
+                                                className={styles.post_items_title}
                                                 onClick={e => handlePostDetail(e, item.id)}
-                                            />
-                                            <input
-                                                type="checkbox"
-                                                id={item.id}
-                                                checked={item?.isChecked || false}
-                                                onChange={handleChange}
-                                            />
+                                            >
+                                                {item.title}
+                                            </div>
+                                            <div>
+                                                <h4><i className="fa-solid fa-clock"></i>Ngày 30 tháng 4 năm 2023 lúc 22:10</h4>
+                                            </div>
                                         </div>
-                                        <div
-                                            className={styles.post_items_title}
-                                            onClick={e => handlePostDetail(e, item.id)}
-                                        >
-                                            {item.title}
-                                        </div>
-                                        <div>
-                                            <h4><i className="fa-solid fa-clock"></i>Ngày 30 tháng 4 năm 2023 lúc 22:10</h4>
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                                    )
+                                })}
+                            </div>
+                            <div className={styles.line}></div>
+                            <Pagination
+                                totalPosts={posts.length}
+                                postsPerPage={postsPerPage}
+                                setCurrentPage={setCurrentPage}
+                                currentPage={currentPage}
+                                lastPage={Math.ceil(posts.length / postsPerPage)}
+                            />
                         </div>
                     )}
                 </div>

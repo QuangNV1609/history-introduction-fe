@@ -1,0 +1,110 @@
+.container {
+    display: flex;
+    padding: 120px 150px 45px;
+    justify-content: space-between;
+    font-family: var(--text-font);
+
+    .avatar_wrapper {
+        text-align: center;
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 600;
+        }
+
+        img {
+            margin-top: 40px;
+            margin-bottom: 18px;
+            width: 184px;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgb(76, 74, 69);
+        }
+
+        h3 {
+            font-weight: 600;
+            font-size: 2rem;
+        }
+    }
+
+    .user_info_wrapper {
+        width: 690px;
+        padding: 40px;
+        border: 1px solid #e3e3e3;
+        border-radius: 16px;
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 6px;
+        }
+
+        .desc {
+            font-size: 1.4rem;
+            color: #798488;
+            margin-bottom: 6px;
+        }
+
+        .label_container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .show_password {
+                font-size: 1.3rem;
+                font-weight: 700;
+                cursor: pointer;
+
+                i {
+                    margin-right: 4px;
+                    font-size: 1rem;
+                    transform: translateY(calc(50% - 6.5px));
+                }
+            }
+        }
+
+        .form_label {
+            font-size: 1.6rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .form_input {
+            margin-top: 6px;
+            width: 100%;
+            padding: 14px;
+            font-size: 1.3rem;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .form_label_login {
+            margin-top: 18px;
+        }
+
+
+        .form_btn_wrapper {
+            display: flex;
+            margin-top: 32px;
+
+            .form_btn {
+                margin: auto;
+                padding: 0 60px;
+                background: #000;
+                font-family: var(--text-font);
+                color: #fff;
+                font-size: 16px;
+                border-radius: 25px;
+                border: none;
+                height: 50px;
+                font-weight: 700;
+            }
+
+            .form_btn:hover {
+                opacity: 0.8;
+                cursor: pointer;
+            }
+        }
+    }
+}

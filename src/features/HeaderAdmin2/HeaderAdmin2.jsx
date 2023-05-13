@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import userApi from '../../api/user';
+import { host } from '../../api/axiosClient';
 
-const HeaderAdmin2 = ({ setResults, getInputValue}) => {
+const HeaderAdmin2 = ({ getInputValue }) => {
     const navigate = useNavigate();
     const [role, setRole] = useState('');
     const [searchState, setSearchState] = useState(false);
@@ -35,12 +36,12 @@ const HeaderAdmin2 = ({ setResults, getInputValue}) => {
     }
 
     const fetchData = () => {
-        if(userToken !== null){
+        if (userToken !== null) {
             userApi.getInfo()
-            .then(res => {
-                setUserInfo(res.data);
-                setRole(res.data.roleName[0]);
-            })
+                .then(res => {
+                    setUserInfo(res.data);
+                    setRole(res.data.roleName[0]);
+                })
         }
     }
 
@@ -54,20 +55,11 @@ const HeaderAdmin2 = ({ setResults, getInputValue}) => {
         navigate('/');
     }
 
-    const fetchSearchData = (value) => {
-        fetch("https://jsonplaceholder.typicode.com/users")
-        .then((response) => response.json()) 
-        .then((json) => {
-            const results = json.filter((post) => {
-                return value && post && post.name && post.name.toLowerCase().includes(value);
-            });
-            setResults(results);
-        });
-    }
+    
 
     const handleSearchChange = (value) => {
         setInputSearch(value);
-        fetchSearchData(value);
+        // fetchSearchData(value);
         getInputValue(value);
     }
 

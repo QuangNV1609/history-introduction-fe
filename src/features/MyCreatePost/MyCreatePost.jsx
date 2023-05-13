@@ -53,7 +53,7 @@ const MyCreatePost = () => {
             <div className={styles.body}>
                 <div className={styles.body_heading}>
                     <h2>Bài viết của tôi</h2>
-                    <h5>Tạo và chỉnh sửa bài viết trên trang web.<a href=''>Tìm hiểu thêm</a></h5>
+                    <h5>Tạo và chỉnh sửa bài viết trên trang web.<a href='/createPost'>Tạo Bài Viết Ngay</a></h5>
                 </div>
                 <ul className={styles.body_navbar}>
                     <li

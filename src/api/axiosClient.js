@@ -1,7 +1,7 @@
 import axios from "axios";
 import { parse, stringify } from 'qs'
 
-export const host = 'https://b571-2001-ee0-41a1-381-64d4-f75b-b02b-7a91.ngrok-free.app'
+export const host = 'https://e9d4-2001-ee0-41a1-381-1891-3797-f978-a23a.ngrok-free.app'
 
 const axiosClient = axios.create({
     baseURL: host + '/api',

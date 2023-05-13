@@ -11,6 +11,7 @@ import { host } from '../../api/axiosClient';
 const Period = () => {
     const [posts0, setPosts0] = useState([]);
     const [posts1, setPosts1] = useState([]);
+    const [posts2, setPosts2] = useState([]);
     const post2 = [
         {
             eventType: 0,
@@ -138,6 +139,11 @@ const Period = () => {
             .then(res => {
                 setPosts1(res.data);
             })
+
+        articleApi.getPeriodPost(2)
+            .then(res => {
+                setPosts2(res.data);
+            })
     }
 
     useEffect(() => {
@@ -147,6 +153,7 @@ const Period = () => {
 
     const slice0 = posts0.slice(0, 3);
     const slice1 = posts1.slice(0, 3);
+    const slice2 = posts2.slice(0, 3);
 
     const navigate = useNavigate();
 
@@ -197,6 +204,32 @@ const Period = () => {
                     <div className={styles.event_title}>Thời kỳ cổ đại</div>
                     <div className={styles.content_list}>
                         {slice1.map((item, index) => {
+                            return (
+                                <div className={styles.post_items} key={index}>
+                                    <div className={styles.img_container}>
+                                        <img src={host + '/api/file/download/' + item.thumbnailImage} alt="post thumbnail" className={styles.post_items_img} />
+                                    </div>
+                                    <div className={styles.post_items_content}>
+                                        <div className={styles.post_items_title}>{item.title}</div>
+                                        <div className={styles.post_items_desc}>
+                                            {Parser(item.content.substring(0, 230) + '...')}
+                                        </div>
+                                        <div>
+                                            <a href='' className={styles.post_items_readmore}>
+                                                Đọc thêm
+                                                <i className="fa-solid fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <span className={styles.see_more_btn} onClick={loadMore}>XEM THÊM</span>
+
+                    <div className={styles.event_title}>Thời kỳ Bắc Thuộc</div>
+                    <div className={styles.content_list}>
+                        {slice2.map((item, index) => {
                             return (
                                 <div className={styles.post_items} key={index}>
                                     <div className={styles.img_container}>
