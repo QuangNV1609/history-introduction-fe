@@ -131,11 +131,11 @@
 
                     p {
                         font-size: 4rem;
+                        display: inline-block;
                         font-family: var(--heading-font);
                         color: #fff;
                         font-weight: 700;
                         display: block;
-                        margin-bottom: 10px;
                     }
 
                     p:hover {
@@ -143,16 +143,17 @@
                     }
 
                     .line {
-                        height: 1.5px;
+                        height: 8px;
+                        display: inline-block;
+                        margin: 8px 0px 20px;
                         width: 60px;
-                        background-color: #4f4e5b;
+                        border-bottom: 1px solid #4f4e5b;
                     }
 
                     .read_more {
                         color: #fff;
                         text-decoration: none;
                         font-size: 1.6rem;
-                        margin-top: 20px;
                         display: inline-block;
                         padding-bottom: 3px;
                         width: fit-content;

@@ -1,0 +1,43 @@
+.page_btn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+        flex: 1;
+        padding: 0;
+        margin: 0;
+        i {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ececec;
+            box-shadow: var(--shadow-box);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        i:hover {
+            background-color: #ececec;
+        }
+    }
+
+    .arrow_right {
+        text-align: end;
+        
+    }
+    .number_page {
+        span {
+            display: inline-block;
+            cursor: pointer;
+            margin: 60px auto;
+            font-size: 1.6rem;
+            padding: 6px 10px;
+            border-radius: 5px;
+            margin: 0 5px;
+            color: var(--link-color);
+        }
+        .active {
+            color: var(--text-color);
+        }
+    }
+}

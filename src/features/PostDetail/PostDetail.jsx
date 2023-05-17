@@ -4,26 +4,30 @@ import { useState, useEffect } from "react";
 import "../../assets/scss/base.scss";
 import articleApi from '../../api/article';
 import { host } from "../../api/axiosClient";
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const PostDetail = () => {
+
     const [post, setPost] = useState('');
     const location = useLocation();
-
-    console.log(typeof location.state.idPost);
+    
+    const eventTypeOptions = ['Thời kỳ tiền sử', 'Thời kỳ cổ đại', 'Thời kỳ Bắc Thuộc', 'Thời kỳ Bắc Thuộc lần thứ III',
+    'Thời kỳ tự chủ', 'Thời kỳ quân chủ', 'Thời kỳ Bắc Thuộc lần thứ IV', 'Thời kỳ Trung Hưng - Nhà Hậu Lê',
+    'Thời kỳ chia cắt', 'Thời kỳ Bắc Triều - Nam Triều', 'Thời kỳ Trịnh - Nguyễn', 'Thời kỳ thống nhất', 'Thời kỳ hiện đại'];
 
     const fetchData = () => {
         articleApi.showDetail(location.state.idPost)
             .then(res => {
-                console.log(res.data);
                 setPost(res.data);
             })
     }
-    //console.log(post);
+    console.log(post);
 
     useEffect(() => {
         fetchData()
+        window.scrollTo(0, 0)
     }, [])
+    
 
     return (
         <div className={styles.container}>
@@ -33,7 +37,7 @@ const PostDetail = () => {
                     <div className={styles.heading_link}>
                         <a href="">Trang chủ</a><span> / </span>
                         <a href="">Thời kỳ</a><span> / </span>
-                        <a href="">Tên Thời Kỳ</a><span> / </span>
+                        <a href="">{eventTypeOptions[post.historicalPeriod]}</a><span> / </span>
                         <a href="" className={styles.last_link}>{post.title}</a>
                     </div>
                     <div className={styles.heading_title}>
@@ -47,14 +51,14 @@ const PostDetail = () => {
                 <div className={styles.content}>
                     <div className={styles.content_body}>
                         <div className={styles.content_body_container}>
-                            <div dangerouslySetInnerHTML={{__html: post.content}}></div>
+                            <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
                         </div>
                         <div className={styles.content_body_footer}>
                             <div className={styles.content_body_footer_info}>
                                 <p className={styles.article_info}>Thông tin trích dẫn</p>
                                 <p>
                                     <span className={styles.article_info_key}>Tiêu đề bài viết</span>
-                                    <span className={styles.article_info_value}>Tên tiêu đề</span>
+                                    <span className={styles.article_info_value}>{post.title}</span>
                                 </p>
                                 <p>
                                     <span className={styles.article_info_key}>Tác giả</span>

@@ -1,12 +1,12 @@
-import styles from './CreatePost.module.scss';
+import styles from "./EditPost.module.scss";
 import React, { useRef } from 'react';
 import { useState } from "react";
 import Select from 'react-select';
 import HeaderAdmin2 from '../HeaderAdmin2/HeaderAdmin2';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
+import { useLocation } from 'react-router-dom';
 import articleApi from '../../api/article';
-import { useNavigate } from 'react-router-dom';
 import {
     align,
     font,
@@ -24,9 +24,10 @@ import {
     video,
     link
 } from "suneditor/src/plugins";
+import { useEffect } from "react";
 
 
-const CreatePost = () => {
+const EditPost = () => {
     const [content, setContent] = useState('')
     const [title, setTitle] = useState('');
     const [theme, setTheme] = useState('');
@@ -34,7 +35,22 @@ const CreatePost = () => {
     const [postType, setPostType] = useState('');
     const [dateEvent, setDateEvent] = useState('');
     const [eventType, setEventType] = useState('');
-    const navigate = useNavigate();
+    const [post, setPost] = useState([]);
+    const location = useLocation();
+
+    const fetchData = () => {
+        articleApi.showDetail(location.state.idPost)
+            .then(res => {
+                console.log(res.data);
+                setPost(res.data);
+            })
+    }
+    console.log(post);
+
+    useEffect(() => {
+        fetchData()
+        window.scrollTo(0, 0)
+    }, [])
 
     const postTypeOptions = [
         { value: '0', label: 'Sự kiện lịch sử' },
@@ -62,7 +78,8 @@ const CreatePost = () => {
 
         file.preview = URL.createObjectURL(file)
 
-        setTheme(file);
+        setTheme(file)
+        // console.log(file.preview);
     }
 
     const handlePreviewThumbnail = (e) => {
@@ -77,25 +94,25 @@ const CreatePost = () => {
 
         const post = {
             coverImage: theme,
-            thumbnailImage: theme,
+            thumbnailImage: thumbnail,
             title: title,
             content: content,
             historyDay: dateEvent,
             postType: parseInt(postType.value),
-            historicalPeriod: parseInt(eventType.value)
+            eventType: parseInt(eventType.value)
         };
 
         var fd = new FormData();
         for (var key in post) {
-            //console.log(key, post[key]);
+            console.log(key, post[key]);
             fd.append(key, post[key]);
         }
 
         console.log(post);
         articleApi.create(fd).then(res => {
+            console.log(res.status);
             if (res.status === 200) {
                 alert("Da xuat ban bai viet");
-                navigate('/myCreatePost');
             }
             throw Error("Create post failed")
         })
@@ -107,6 +124,7 @@ const CreatePost = () => {
     return (
         <div className={styles.container}>
 
+            <HeaderAdmin2></HeaderAdmin2>
             <div className={styles.body}>
                 <div className={styles.theme_container}>
                     {theme && (
@@ -125,6 +143,20 @@ const CreatePost = () => {
                 </div>
 
                 <div className={styles.content_container}>
+                    <div className={styles.thumbnail}>
+                        <input
+                            type="file"
+                            id='thumbnail_upload'
+                            onChange={handlePreviewThumbnail}
+                        />
+                        <label htmlFor="thumbnail_upload" className={styles.thumbnail_upload_label}>
+                            <i className="fa-solid fa-camera"></i>
+                        </label>
+                        {thumbnail && (
+                            <img src={thumbnail.preview} alt="thumbnail" />
+                        )}
+                    </div>
+
                     <div className={styles.content}>
                         <input
                             type="text"
@@ -192,10 +224,8 @@ const CreatePost = () => {
                                 onChange={e => setContent(e)}
                                 setOptions={{
                                     showPathLabel: false,
-                                    width: 'auto',
-                                    height: 'auto',
-                                    minHeight: '300px',
-                                    maxHeight: '400px',
+                                    minHeight: "100vh",
+                                    maxHeight: "100vh",
                                     placeholder: "Bắt đầu viết...",
                                     plugins: [
                                         align,
@@ -258,4 +288,4 @@ const CreatePost = () => {
     )
 }
 
-export default CreatePost;
+export default EditPost;

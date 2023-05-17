@@ -32,6 +32,7 @@ const HistoryDay = () => {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         setPosts(postData);
+        window.scrollTo(0, 0)
     }, []);
     const months = [
         { value: 'Thời kỳ tiền sử', label: 'Tháng Một' },
@@ -144,7 +145,7 @@ const HistoryDay = () => {
                                     <span className={styles.post_items_years}>{item.year}</span>
                                     <p className={styles.post_items_title}>{item.title}</p>
                                     <a href='' className={styles.post_items_period}>
-                                        <i class="fa-solid fa-bolt-lightning"></i>
+                                        <i className="fa-solid fa-bolt-lightning"></i>
                                         {item.eventType}
                                     </a>
                                 </div>

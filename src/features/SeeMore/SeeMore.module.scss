@@ -47,7 +47,7 @@
         &_container {
             background-color: #fff;
             box-shadow: var(--shadow-box);
-            padding: 60px 125px 0;
+            padding: 60px 125px 60px;
             display: flex;
             flex-direction: column;
 
@@ -68,41 +68,25 @@
 
                 .post_items {
                     box-shadow: var(--shadow-box);
-
-                    .img_container {
-                        max-height: 200px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        overflow: hidden;
-                    }
                 }
 
                 .post_items_img {
-                    max-width: 100%;
-                    min-height: 200px;
+                    width: 100%;
                 }
 
                 .post_items_content {
                     margin: 20px 20px 23px;
                     color: var(--text-color);
-                    display: flex;
-                    flex-direction: column;
 
                     .post_items_title {
                         font-size: 1.8rem;
                         font-weight: 700;
-                        line-height: 1.25;
-                        max-height: 45px;
-                        overflow: hidden;
                     }
 
                     .post_items_desc {
                         font-size: 1.6rem;
                         margin: 15px 0 20px;
                         line-height: 1.4;
-                        max-height: 115px;
-                        overflow: hidden;
                     }
 
                     .post_items_readmore {
@@ -133,18 +117,10 @@
                 }
             }
 
-            .see_more_btn {
-                margin: 60px auto 80px;
-                font-size: 1.8rem;
-                font-weight: 700;
-                padding: 14px 20px;
-                border: 0.5px solid #ececec;
-                border-radius: 5px;
-            }
-
-            .see_more_btn:hover {
-                background-color: #ececec;
-                cursor: pointer;
+            .line {
+                width: 100%;
+                height: 1px;
+                margin-top: 40px;
             }
         }
     }
