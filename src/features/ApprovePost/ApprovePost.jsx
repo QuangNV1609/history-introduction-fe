@@ -16,17 +16,36 @@ const ApprovePost = () => {
     const navigate = useNavigate();
     const [toggleState, setToggleState] = useState(1);
     const [postState, setPostState] = useState(0);
-    
+
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(12);
 
-    console.log(listSelectPost);
+    const [aprrovePosts, setApprovePosts] = useState([]);
+    const [publishPosts, setPublishPosts] = useState([]);
+
+    console.log(publishPosts);
+
     const fetchData = () => {
         articleApi.getPostApproved(postState)
             .then(res => {
                 setPosts(res.data);
             })
     }
+
+    const fetchNumPost = () => {
+        articleApi.getPostApproved(0)
+            .then(res => {
+                setApprovePosts(res.data);
+            })
+        articleApi.getPostApproved(1)
+            .then(res => {
+                setPublishPosts(res.data);
+            })
+    }
+
+    useEffect(() => {
+        fetchNumPost()
+    }, [])
 
     useEffect(() => {
         fetchData()
@@ -123,13 +142,13 @@ const ApprovePost = () => {
                         className={toggleState === 1 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
                         onClick={() => (toggleTab(1), setPostState(0))}>
                         <span className={styles.body_navbar_key}>Phê duyệt bài viết</span>
-                        <span className={styles.body_navbar_value}>3</span>
+                        <span className={styles.body_navbar_value}>{Object.keys(aprrovePosts).length}</span>
                     </li>
                     <li
                         className={toggleState === 2 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
                         onClick={() => (toggleTab(2), setPostState(1))}>
                         <span className={styles.body_navbar_key}>Bài viết đã đăng</span>
-                        <span className={styles.body_navbar_value}>1</span>
+                        <span className={styles.body_navbar_value}>{Object.keys(publishPosts).length}</span>
                     </li>
                     <li
                         className={toggleState === 3 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}

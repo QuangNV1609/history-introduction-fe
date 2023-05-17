@@ -11,6 +11,9 @@ import ApprovePost from "../ApprovePost/ApprovePost";
 import MyCreatePost from "../MyCreatePost/MyCreatePost";
 import CreatePost from "../CreatePost/CreatePost";
 import MyProfile from "../MyProfile/MyProfile";
+import ApproveDetail from "../ApproveDetail/ApproveDetail";
+import PostDetail from "../PostDetail/PostDetail";
+import EditPost from "../EditPost/EditPost";
 import { useState } from "react";
 
 const MainPage = () => {
@@ -34,8 +37,11 @@ const MainPage = () => {
                 <Route path="/searchPage" element={<SearchPage />}></Route>
                 <Route path="/approvePost" element={<ApprovePost />}></Route>
                 <Route path="/myCreatePost" element={<MyCreatePost />}></Route>
+                <Route path="/postDetail" element={<PostDetail />}></Route>
                 <Route path="/createPost" element={<CreatePost />}></Route>
                 <Route path="/myProfile" element={<MyProfile />}></Route>
+                <Route path="/editPost" element={<EditPost />}></Route>
+                <Route path="/approveDetail" element={<ApproveDetail />}></Route>
             </Routes>
             {/* <Footer></Footer> */}
         </div>

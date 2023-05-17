@@ -36,6 +36,7 @@ const CreatePost = () => {
     const [eventType, setEventType] = useState('');
     const navigate = useNavigate();
 
+    console.log(theme);
     const postTypeOptions = [
         { value: '0', label: 'Sự kiện lịch sử' },
         { value: '1', label: 'Tiểu sử nhân vật' }
@@ -65,13 +66,6 @@ const CreatePost = () => {
         setTheme(file);
     }
 
-    const handlePreviewThumbnail = (e) => {
-        const file = e.target.files[0]
-
-        file.preview = URL.createObjectURL(file)
-        setThumbnail(file)
-    }
-
     const handlePublish = (e) => {
         e.preventDefault();
 
@@ -87,11 +81,9 @@ const CreatePost = () => {
 
         var fd = new FormData();
         for (var key in post) {
-            //console.log(key, post[key]);
             fd.append(key, post[key]);
         }
 
-        console.log(post);
         articleApi.create(fd).then(res => {
             if (res.status === 200) {
                 alert("Da xuat ban bai viet");

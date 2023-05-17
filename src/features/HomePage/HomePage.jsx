@@ -6,9 +6,26 @@ import articleApi from '../../api/article';
 import { host } from "../../api/axiosClient";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import Carousel from "../Carousel/Carousel";
 
 const HomePage = ({ input }) => {
+    console.log(input)
     const [results, setResults] = useState([]);
+
+    const fetchSearchData = (value) => {
+        fetch(`${host}` + `/api/article/search-article`)
+            .then((response) => response.json())
+            .then((json) => {
+                const results = json.filter((post) => {
+                    return value && post && post.title && post.title.toLowerCase().includes(value);
+                });
+                setResults(results);
+            });
+    }
+
+    useEffect(() => {
+        fetchSearchData(input);
+    }, [input])
 
     const navigate = useNavigate();
     const posts = [
@@ -53,26 +70,13 @@ const HomePage = ({ input }) => {
     const [post, setPost] = useState([]);
 
     const fetchData = () => {
-        articleApi.getActivePost()
+        console.log("hi");
+        articleApi.getPostHome()
             .then(res => {
                 setPost(res.data);
             })
     }
 
-    const fetchSearchData = (value) => {
-        fetch(`${host}` + `/api/article/search-article`)
-            .then((response) => response.json())
-            .then((json) => {
-                const results = json.filter((post) => {
-                    return value && post && post.title && post.title.toLowerCase().includes(value);
-                });
-                setResults(results);
-            });
-    }
-
-    useEffect(() => {
-        fetchSearchData(input);
-    }, [input])
 
     useEffect(() => {
         fetchData()
@@ -90,6 +94,7 @@ const HomePage = ({ input }) => {
         <div>
             {(input === undefined || input === '') && (
                 <div className={styles.container}>
+                    {/* <Carousel /> */}
                     <div className={styles.history_day}>
                         <div className={styles.history_day_info}>
                             <div>
@@ -125,7 +130,7 @@ const HomePage = ({ input }) => {
                                             </span>
                                             <i className="fa-solid fa-circle"></i>
                                             <span className={styles.article_item_date}>
-                                                2 giờ trước
+                                                {`${item.lastModifiedDate.substring(8,10)}` + ` thg ` + `${item.lastModifiedDate.substring(6,7)}` + `, ` + `${item.lastModifiedDate.substring(0,4)}`}
                                             </span>
                                         </div>
                                     </div>

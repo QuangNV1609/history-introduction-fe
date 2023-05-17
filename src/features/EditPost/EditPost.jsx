@@ -2,11 +2,11 @@ import styles from "./EditPost.module.scss";
 import React, { useRef } from 'react';
 import { useState } from "react";
 import Select from 'react-select';
-import HeaderAdmin2 from '../HeaderAdmin2/HeaderAdmin2';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 import { useLocation } from 'react-router-dom';
 import articleApi from '../../api/article';
+import { host } from "../../api/axiosClient";
 import {
     align,
     font,
@@ -32,25 +32,11 @@ const EditPost = () => {
     const [title, setTitle] = useState('');
     const [theme, setTheme] = useState('');
     const [thumbnail, setThumbnail] = useState('');
-    const [postType, setPostType] = useState('');
+    const [postType, setPostType] = useState();
     const [dateEvent, setDateEvent] = useState('');
-    const [eventType, setEventType] = useState('');
+    const [eventType, setEventType] = useState();
     const [post, setPost] = useState([]);
     const location = useLocation();
-
-    const fetchData = () => {
-        articleApi.showDetail(location.state.idPost)
-            .then(res => {
-                console.log(res.data);
-                setPost(res.data);
-            })
-    }
-    console.log(post);
-
-    useEffect(() => {
-        fetchData()
-        window.scrollTo(0, 0)
-    }, [])
 
     const postTypeOptions = [
         { value: '0', label: 'Sự kiện lịch sử' },
@@ -73,20 +59,29 @@ const EditPost = () => {
         { value: '12', label: 'Thời kỳ hiện đại' }
     ];
 
+    const fetchData = () => {
+        articleApi.showDetail(location.state.idPost)
+            .then(res => {
+                setPost(res.data);
+                setTitle(res.data.title);
+                setPostType(postTypeOptions[res.data.postType]);
+                setDateEvent(String(res.data.historyDay).substring(0, 10));
+                setEventType(eventTypeOptions[res.data.historicalPeriod]);
+                setContent(res.data.content);
+            })
+    }
+
+    useEffect(() => {
+        fetchData()
+        window.scrollTo(0, 0)
+    }, [])
+
     const handlePreviewTheme = (e) => {
         const file = e.target.files[0]
 
         file.preview = URL.createObjectURL(file)
 
         setTheme(file)
-        // console.log(file.preview);
-    }
-
-    const handlePreviewThumbnail = (e) => {
-        const file = e.target.files[0]
-
-        file.preview = URL.createObjectURL(file)
-        setThumbnail(file)
     }
 
     const handlePublish = (e) => {
@@ -94,12 +89,13 @@ const EditPost = () => {
 
         const post = {
             coverImage: theme,
-            thumbnailImage: thumbnail,
+            thumbnailImage: theme,
             title: title,
             content: content,
             historyDay: dateEvent,
             postType: parseInt(postType.value),
-            eventType: parseInt(eventType.value)
+            historicalPeriod: parseInt(eventType.value),
+            parentID: location.state.idPost
         };
 
         var fd = new FormData();
@@ -123,12 +119,13 @@ const EditPost = () => {
 
     return (
         <div className={styles.container}>
-
-            <HeaderAdmin2></HeaderAdmin2>
             <div className={styles.body}>
                 <div className={styles.theme_container}>
                     {theme && (
                         <img src={theme.preview} alt="theme" />
+                    )}
+                    {!theme && (
+                        <img src={host + '/api/file/download/' + post.thumbnailImage} alt="theme" />
                     )}
 
                     <input
@@ -143,24 +140,9 @@ const EditPost = () => {
                 </div>
 
                 <div className={styles.content_container}>
-                    <div className={styles.thumbnail}>
-                        <input
-                            type="file"
-                            id='thumbnail_upload'
-                            onChange={handlePreviewThumbnail}
-                        />
-                        <label htmlFor="thumbnail_upload" className={styles.thumbnail_upload_label}>
-                            <i className="fa-solid fa-camera"></i>
-                        </label>
-                        {thumbnail && (
-                            <img src={thumbnail.preview} alt="thumbnail" />
-                        )}
-                    </div>
-
                     <div className={styles.content}>
                         <input
                             type="text"
-                            placeholder='Nhập tiêu đề'
                             value={title}
                             className={styles.title_input}
                             onChange={(e) => setTitle(e.target.value)}
@@ -173,7 +155,7 @@ const EditPost = () => {
                                     <Select
                                         className={styles.content_post_type_select}
                                         options={postTypeOptions}
-                                        defaultValue={postType}
+                                        value={postType}
                                         placeholder="Thể loại bài viết"
                                         onChange={setPostType}
                                         styles={{
@@ -195,7 +177,7 @@ const EditPost = () => {
                                     <Select
                                         className={styles.content_post_type_select}
                                         options={eventTypeOptions}
-                                        defaultValue={eventType}
+                                        value={eventType}
                                         placeholder="Thời kỳ lịch sử"
                                         onChange={setEventType}
                                         styles={{
@@ -221,11 +203,14 @@ const EditPost = () => {
                         <div className={styles.post_editor}>
                             <SunEditor
                                 lang="en"
+                                setContents={content}
                                 onChange={e => setContent(e)}
                                 setOptions={{
                                     showPathLabel: false,
-                                    minHeight: "100vh",
-                                    maxHeight: "100vh",
+                                    width: 'auto',
+                                    height: 'auto',
+                                    minHeight: '300px',
+                                    maxHeight: '400px',
                                     placeholder: "Bắt đầu viết...",
                                     plugins: [
                                         align,

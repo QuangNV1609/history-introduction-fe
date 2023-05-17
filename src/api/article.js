@@ -42,6 +42,14 @@ const articleApi = {
     getPeriodPost: (period) => {
         const url = baseUrl + '/search-article?historicalPeriod=' + period
         return axiosClient.get(url);
+    },
+    getHistoryDay: (date) => {
+        const url = baseUrl + '/search-article?historyDay=' + date
+        return axiosClient.get(url);
+    },
+    getPostHome: () => {
+        const url = baseUrl + '/search-article?status=1'
+        return axiosClient.get(url);
     }
 }
 
