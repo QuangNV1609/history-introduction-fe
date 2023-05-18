@@ -6,7 +6,10 @@ import articleApi from '../../api/article';
 import { host } from "../../api/axiosClient";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import Carousel from "../Carousel/Carousel";
+import Slider from "../Slider/Slider";
+import photo1 from "../../resource/ho-chi-minh-gettyimages-89865152.jpg";
+import photo2 from "../../resource/the-secret-of-skinwalker-ranch-s4-2048x1152-priority-feature-16x9-1.jpg";
+import photo3 from "../../resource/gettyimages-1382828716.jpg";
 
 const HomePage = ({ input }) => {
     console.log(input)
@@ -32,37 +35,37 @@ const HomePage = ({ input }) => {
         {
             eventType: 0,
             title: 'Tiêu đề',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            thumbnail: photo1,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         },
         {
             eventType: 0,
             title: 'Tiêu đề 1',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            thumbnail: photo2,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         },
         {
             eventType: 0,
             title: 'Tiêu đề 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            thumbnail: photo3,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         },
         {
             eventType: 0,
-            title: 'Tiêu đề 1',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            title: 'Tiêu đề 3',
+            thumbnail: photo1,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         },
         {
             eventType: 0,
-            title: 'Tiêu đề 1',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            title: 'Tiêu đề 4',
+            thumbnail: photo2,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         },
         {
             eventType: 0,
-            title: 'Tiêu đề 1',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
+            title: 'Tiêu đề 5',
+            thumbnail: photo3,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         }
     ]
@@ -76,7 +79,6 @@ const HomePage = ({ input }) => {
                 setPost(res.data);
             })
     }
-
 
     useEffect(() => {
         fetchData()
@@ -94,19 +96,8 @@ const HomePage = ({ input }) => {
         <div>
             {(input === undefined || input === '') && (
                 <div className={styles.container}>
-                    {/* <Carousel /> */}
-                    <div className={styles.history_day}>
-                        <div className={styles.history_day_info}>
-                            <div>
-                                <span className={styles.tag}>Nổi bật</span>
-                                <p className={styles.history_day_title}>Tiêu đề bài viết Ngày này trong Lịch sử</p>
-                                <p className={styles.history_day_update}>Mới cập nhật: <span>25 tháng Tư, 2023</span></p>
-                            </div>
-                        </div>
-                        <div className={styles.history_day_img}>
-                            <img src="https://cropper.watch.aetnd.com/cdn.watch.aetnd.com/sites/2/2023/03/the-secret-of-skinwalker-ranch-s4-2048x1152-priority-feature-16x9-1.jpg?w=1280" alt="History Day Image" />
-                        </div>
-                    </div>
+                    <Slider posts={posts}/>
+
                     <div className={`${styles.article_container} ${styles.new_article}`}>
                         <p>
                             <i className="fa-solid fa-newspaper"></i>
@@ -130,7 +121,7 @@ const HomePage = ({ input }) => {
                                             </span>
                                             <i className="fa-solid fa-circle"></i>
                                             <span className={styles.article_item_date}>
-                                                {`${item.lastModifiedDate.substring(8,10)}` + ` thg ` + `${item.lastModifiedDate.substring(6,7)}` + `, ` + `${item.lastModifiedDate.substring(0,4)}`}
+                                                {`${item.lastModifiedDate.substring(8, 10)}` + ` thg ` + `${item.lastModifiedDate.substring(6, 7)}` + `, ` + `${item.lastModifiedDate.substring(0, 4)}`}
                                             </span>
                                         </div>
                                     </div>

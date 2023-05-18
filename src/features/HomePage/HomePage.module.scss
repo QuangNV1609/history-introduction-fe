@@ -1,17 +1,18 @@
 .container {
     margin-top: 75px;
+
     .history_day {
-        width: 100%;
+        display: flex;
         height: 480px;
         background-color: #000;
         padding: 0 24px;
-        display: flex;
+        position: relative;
 
         &_info {
             width: 30.3%;
             background-color: #19171d;
             color: #fff;
-            padding: 0 24px;
+            padding: 0 45px;
             display: flex;
             align-items: center;
 
@@ -47,14 +48,11 @@
             justify-content: center;
             overflow: hidden;
             width: 69.7%;
+            cursor: pointer;
 
             img {
                 height: 480px;
             }
-        }
-
-        &_img {
-            cursor: pointer;
         }
     }
 
