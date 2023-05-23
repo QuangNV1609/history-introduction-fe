@@ -68,26 +68,41 @@
 
                 .post_items {
                     box-shadow: var(--shadow-box);
+
+                    .img_container {
+                        width: 300px;
+                        height: 200px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        overflow: hidden;
+                    }
                 }
 
                 .post_items_img {
-                    width: 100%;
-                    filter: grayscale(100%);
+                    height: 200px;
                 }
 
                 .post_items_content {
                     margin: 20px 20px 23px;
                     color: var(--text-color);
+                    display: flex;
+                    flex-direction: column;
 
                     .post_items_title {
                         font-size: 1.8rem;
                         font-weight: 700;
+                        line-height: 1.25;
+                        max-height: 45px;
+                        overflow: hidden;
                     }
 
                     .post_items_desc {
                         font-size: 1.6rem;
                         margin: 15px 0 20px;
                         line-height: 1.4;
+                        max-height: 114px;
+                        overflow: hidden;
                     }
 
                     .post_items_readmore {

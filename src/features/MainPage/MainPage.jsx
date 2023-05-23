@@ -13,6 +13,7 @@ import CreatePost from "../CreatePost/CreatePost";
 import MyProfile from "../MyProfile/MyProfile";
 import PostDetail from "../PostDetail/PostDetail";
 import EditPost from "../EditPost/EditPost";
+import RecentWatched from "../RecentWatched/RecentWatched";
 import { useState } from "react";
 
 const MainPage = () => {
@@ -40,6 +41,7 @@ const MainPage = () => {
                 <Route path="/createPost" element={<CreatePost />}></Route>
                 <Route path="/myProfile" element={<MyProfile />}></Route>
                 <Route path="/editPost" element={<EditPost />}></Route>
+                <Route path="/recentWatched" element={<RecentWatched />}></Route>
             </Routes>
             {/* <Footer></Footer> */}
         </div>

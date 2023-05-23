@@ -5,6 +5,7 @@ import Select from 'react-select';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import articleApi from '../../api/article';
 import { host } from "../../api/axiosClient";
 import {
@@ -36,12 +37,16 @@ const EditPost = () => {
     const [dateEvent, setDateEvent] = useState('');
     const [eventType, setEventType] = useState();
     const [post, setPost] = useState([]);
+    const navigate = useNavigate();
     const location = useLocation();
 
     const postTypeOptions = [
         { value: '0', label: 'Sự kiện lịch sử' },
         { value: '1', label: 'Tiểu sử nhân vật' }
     ];
+
+    console.log(location.state.idPost);
+    console.log(post);
 
     const eventTypeOptions = [
         { value: '0', label: 'Thời kỳ tiền sử' },
@@ -109,6 +114,7 @@ const EditPost = () => {
             console.log(res.status);
             if (res.status === 200) {
                 alert("Da xuat ban bai viet");
+                navigate('/myCreatePost');
             }
             throw Error("Create post failed")
         })

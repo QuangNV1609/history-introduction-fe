@@ -12,7 +12,6 @@ import photo2 from "../../resource/the-secret-of-skinwalker-ranch-s4-2048x1152-p
 import photo3 from "../../resource/gettyimages-1382828716.jpg";
 
 const HomePage = ({ input }) => {
-    console.log(input)
     const [results, setResults] = useState([]);
 
     const fetchSearchData = (value) => {
@@ -34,49 +33,84 @@ const HomePage = ({ input }) => {
     const posts = [
         {
             eventType: 0,
-            title: 'Tiêu đề',
+            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
             thumbnail: photo1,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         },
         {
             eventType: 0,
-            title: 'Tiêu đề 1',
-            thumbnail: photo2,
-            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        },
-        {
-            eventType: 0,
-            title: 'Tiêu đề 2',
-            thumbnail: photo3,
-            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        },
-        {
-            eventType: 0,
-            title: 'Tiêu đề 3',
+            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
             thumbnail: photo1,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         },
         {
             eventType: 0,
-            title: 'Tiêu đề 4',
-            thumbnail: photo2,
+            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
+            thumbnail: photo1,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         },
         {
             eventType: 0,
-            title: 'Tiêu đề 5',
-            thumbnail: photo3,
+            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
+            thumbnail: photo1,
+            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        },
+        {
+            eventType: 0,
+            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
+            thumbnail: photo1,
+            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        },
+        {
+            eventType: 0,
+            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
+            thumbnail: photo1,
             describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
         }
+        // {
+        //     eventType: 0,
+        //     title: 'Tiêu đề 1',
+        //     thumbnail: photo2,
+        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        // },
+        // {
+        //     eventType: 0,
+        //     title: 'Tiêu đề 2',
+        //     thumbnail: photo3,
+        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        // },
+        // {
+        //     eventType: 0,
+        //     title: 'Tiêu đề 3',
+        //     thumbnail: photo1,
+        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        // },
+        // {
+        //     eventType: 0,
+        //     title: 'Tiêu đề 4',
+        //     thumbnail: photo2,
+        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        // },
+        // {
+        //     eventType: 0,
+        //     title: 'Tiêu đề 5',
+        //     thumbnail: photo3,
+        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
+        // }
     ]
 
     const [post, setPost] = useState([]);
+    const [topViewPost, setTopViewPost] = useState([]);
 
     const fetchData = () => {
         console.log("hi");
         articleApi.getPostHome()
             .then(res => {
                 setPost(res.data);
+            })
+        articleApi.getTopView()
+            .then(res => {
+                setTopViewPost(res.data);
             })
     }
 
@@ -87,6 +121,7 @@ const HomePage = ({ input }) => {
 
     const [numOfElement, setNumOfElement] = useState(12);
     const slice = post.slice(0, numOfElement);
+    const slice1 = topViewPost.slice(0, numOfElement);
 
     const handlePostDetail = (e, id) => {
         navigate('/postDetail', { state: { idPost: id } });
@@ -96,7 +131,7 @@ const HomePage = ({ input }) => {
         <div>
             {(input === undefined || input === '') && (
                 <div className={styles.container}>
-                    <Slider posts={posts}/>
+                    <Slider posts={posts} />
 
                     <div className={`${styles.article_container} ${styles.new_article}`}>
                         <p>
@@ -117,11 +152,11 @@ const HomePage = ({ input }) => {
                                         <div className={styles.article_items_title} onClick={e => handlePostDetail(e, item.id)}>{item.title}</div>
                                         <div className={styles.article_items_bonus}>
                                             <span className={styles.article_item_view}>
-                                                33.123 lượt xem
+                                                {item.quantity === null ? 0 : item.quantity} lượt xem
                                             </span>
                                             <i className="fa-solid fa-circle"></i>
                                             <span className={styles.article_item_date}>
-                                                {`${item.lastModifiedDate.substring(8, 10)}` + ` thg ` + `${item.lastModifiedDate.substring(6, 7)}` + `, ` + `${item.lastModifiedDate.substring(0, 4)}`}
+                                                {`${item.lastModifiedDate.substring(8, 10)}` + ` thg ` + `${item.lastModifiedDate.substring(5, 7)}` + `, ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc `+ `${item.lastModifiedDate.substring(11, 16)}`}
                                             </span>
                                         </div>
                                     </div>
@@ -132,18 +167,25 @@ const HomePage = ({ input }) => {
                     <div className={`${styles.article_container} ${styles.view_article}`}>
                         <p><i className="fa-solid fa-fire"></i>Xem Nhiều Nhất</p>
                         <div className={`${styles.article_grid} `}>
-                            {posts.map((item, index) => {
+                            {slice1.map((item, index) => {
                                 return (
-                                    <div className={styles.article_items} key={index}>
-                                        <img src={sample} alt="post thumbnail" className={styles.article_items_img} />
-                                        <div className={styles.article_items_title}>{item.title}</div>
+                                    <div className={styles.article_items} key={index} onClick={e => handlePostDetail(e, item.articleID)}>
+                                        <div className={styles.img_container} >
+                                            <img
+                                                src={host + '/api/file/download/' + item.coverImage}
+                                                alt="post thumbnail"
+                                                className={styles.article_items_img}
+                                                onClick={e => handlePostDetail(e, item.articleID)}
+                                            />
+                                        </div>
+                                        <div className={styles.article_items_title}>{item.articleTitle}</div>
                                         <div className={styles.article_items_bonus}>
                                             <span className={styles.article_item_view}>
-                                                33.123 lượt xem
+                                                {item.quantity} lượt xem
                                             </span>
                                             <i className="fa-solid fa-circle"></i>
                                             <span className={styles.article_item_date}>
-                                                2 giờ trước
+                                            {`${item.lastModifiedDate.substring(8, 10)}` + ` thg ` + `${item.lastModifiedDate.substring(5, 7)}` + `, ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc `+ `${item.lastModifiedDate.substring(11, 16)}`}
                                             </span>
                                         </div>
                                     </div>
@@ -164,7 +206,7 @@ const HomePage = ({ input }) => {
                             {results.map((item, index) => {
                                 return (
                                     <li className={styles.suggestion_item} key={index}>
-                                        <a href="">{item.title.substring(0, 40)}...</a>
+                                        <a href="" onClick={(e) => handlePostDetail(e, item.id)}>{item.title.substring(0, 40)}...</a>
                                     </li>
                                 )
                             })}
@@ -173,12 +215,12 @@ const HomePage = ({ input }) => {
                     <div className={styles.result_article_container}>
                         {results.map((item, index) => {
                             return (
-                                <div className={styles.result_article_items} key={index}>
+                                <a href="" className={styles.result_article_items} key={index} onClick={(e) => handlePostDetail(e, item.id)}>
                                     <div className={styles.img_container}>
                                         <img src={host + '/api/file/download/' + item.thumbnailImage} alt="post thumbnail" className={styles.article_items_img} />
                                     </div>
                                     <div className={styles.article_items_title}>{item.title}</div>
-                                </div>
+                                </a>
                             )
                         })}
                     </div>

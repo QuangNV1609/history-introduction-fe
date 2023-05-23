@@ -86,8 +86,10 @@
                 .post_items_content {
                     margin: 20px 20px 23px;
                     color: var(--text-color);
-                    display: flex;
-                    flex-direction: column;
+                    // display: flex;
+                    // flex-direction: column;
+                    display: grid;
+                    grid-template-rows: 0.7fr 2.2fr 0.3fr;
 
                     .post_items_title {
                         font-size: 1.8rem;

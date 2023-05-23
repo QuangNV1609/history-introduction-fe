@@ -6,16 +6,16 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import userApi from '../../api/user';
-import { host } from '../../api/axiosClient';
 
 const HeaderAdmin2 = ({ getInputValue }) => {
     const navigate = useNavigate();
     const [role, setRole] = useState('');
     const [searchState, setSearchState] = useState(false);
     const [inputSearch, setInputSearch] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
     const userToken = window.localStorage.getItem('jwtToken');
 
-    const [userInfo, setUserInfo] = useState('');
     const titleNavbar = [["TRANG CHỦ", "home"], ["NGÀY NÀY TRONG LỊCH SỬ", "historyDay"], ["THỜI KỲ", "period"], ["NHÂN VẬT", "figure"], ["Q&A", "qa"]]
     const link = window.location.href.split("/")
     const currentPage = link[link.length - 1]
@@ -39,7 +39,8 @@ const HeaderAdmin2 = ({ getInputValue }) => {
         if (userToken !== null) {
             userApi.getInfo()
                 .then(res => {
-                    setUserInfo(res.data);
+                    setFirstName(res.data.firstName);
+                    setLastName(res.data.lastName);
                     setRole(res.data.roleName[0]);
                 })
         }
@@ -49,17 +50,13 @@ const HeaderAdmin2 = ({ getInputValue }) => {
         fetchData()
     }, [])
 
-
     const handleBackHome = () => {
         window.location.href = '/';
         navigate('/');
     }
 
-    
-
     const handleSearchChange = (value) => {
         setInputSearch(value);
-        // fetchSearchData(value);
         getInputValue(value);
     }
 
@@ -113,13 +110,16 @@ const HeaderAdmin2 = ({ getInputValue }) => {
                             {(userToken !== null) && (
                                 <div>
                                     <img src={avatar} alt="avatar" className={styles.header_user_img} />
-                                    <span className={styles.header_user_name}>{userInfo.firstName + ' ' + userInfo.lastName}</span>
+                                    <span className={styles.header_user_name}>{firstName + ' ' + lastName}</span>
                                     <i className="fa-solid fa-chevron-down"></i>
 
                                     {(role === 'ROLE_ADMIN_2') && (
                                         <ul className={styles.header_user_list}>
                                             <li className={styles.header_user_item}>
-                                                <a href="#">Hồ sơ của tôi</a>
+                                                <a href="/myProfile">Hồ sơ của tôi</a>
+                                            </li>
+                                            <li className={styles.header_user_item}>
+                                                <a href="/recentWatched">Đã xem gần đây</a>
                                             </li>
                                             <li className={styles.header_user_item}>
                                                 <div className={styles.user_item_line}></div>
@@ -151,7 +151,10 @@ const HeaderAdmin2 = ({ getInputValue }) => {
                                     {(role === 'ROLE_ADMIN') && (
                                         <ul className={styles.header_user_list}>
                                             <li className={styles.header_user_item}>
-                                                <a href="#">Hồ sơ của tôi</a>
+                                                <a href="/myProfile">Hồ sơ của tôi</a>
+                                            </li>
+                                            <li className={styles.header_user_item}>
+                                                <a href="/recentWatched">Đã xem gần đây</a>
                                             </li>
                                             <li className={styles.header_user_item}>
                                                 <div className={styles.user_item_line}></div>
@@ -176,13 +179,13 @@ const HeaderAdmin2 = ({ getInputValue }) => {
                                             </li>
                                         </ul>
                                     )}
-                                    {(role === '') && (
+                                    {(role === undefined) && (
                                         <ul className={styles.header_user_list}>
                                             <li className={styles.header_user_item}>
-                                                <a href="#">Hồ sơ của tôi</a>
+                                                <a href="/myProfile">Hồ sơ của tôi</a>
                                             </li>
                                             <li className={styles.header_user_item}>
-                                                <a href="#">Đã xem gần đây</a>
+                                                <a href="/recentWatched">Đã xem gần đây</a>
                                             </li>
                                             <li className={styles.header_user_item}>
                                                 <div className={styles.user_item_line}></div>

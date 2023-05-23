@@ -20,6 +20,8 @@ const MyCreatePost = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(12);
 
+    console.log(post);
+
     const fetchNumPost = () => {
         articleApi.getPostApproved(0)
             .then(res => {
@@ -109,8 +111,11 @@ const MyCreatePost = () => {
                                                 </div>
                                             </div>
                                             <div className={styles.post_title} onClick={e => handlePostDetail(e, item.id)}>{item.title}</div>
-                                            <div>
-                                                <h4><i className="fa-solid fa-clock"></i>{`${item.lastModifiedDate.substring(8,10)}` + ` thg ` + `${item.lastModifiedDate.substring(6,7)}` + `, ` + `${item.lastModifiedDate.substring(0,4)}`}</h4>
+                                            <div className={styles.post_items_bonus}>
+                                                <i className="fa-regular fa-clock"></i>
+                                                <span className={styles.article_item_date}>
+                                                    {`Ngày ` + `${item.lastModifiedDate.substring(8, 10)}` + ` tháng ` + `${item.lastModifiedDate.substring(6, 7)}` + ` năm ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc ` + `${item.lastModifiedDate.substring(11, 16)}`}
+                                                </span>
                                             </div>
                                         </div>
                                     )
@@ -142,8 +147,11 @@ const MyCreatePost = () => {
                                                 </div>
                                             </div>
                                             <div className={styles.post_title} onClick={e => handlePostDetail(e, item.id)}>{item.title}</div>
-                                            <div>
-                                                <h4><i className="fa-solid fa-clock"></i>{`Ngày ` + `${item.lastModifiedDate.substring(8,10)}` + ` tháng ` + `${item.lastModifiedDate.substring(5,7)}` + ` năm ` + `${item.lastModifiedDate.substring(0,4)}`}</h4>
+                                            <div className={styles.post_items_bonus}>
+                                                <i className="fa-regular fa-clock"></i>
+                                                <span className={styles.article_item_date}>
+                                                    {`Ngày ` + `${item.lastModifiedDate.substring(8, 10)}` + ` tháng ` + `${item.lastModifiedDate.substring(6, 7)}` + ` năm ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc ` + `${item.lastModifiedDate.substring(11, 16)}`}
+                                                </span>
                                             </div>
                                         </div>
                                     )

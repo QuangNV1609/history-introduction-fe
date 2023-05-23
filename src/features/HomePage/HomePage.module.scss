@@ -185,6 +185,8 @@
         .result_article_items {
             display: flex;
             flex-direction: column;
+            text-decoration: none;
+            color: #fff;
 
             .img_container {
                 max-height: 198px;

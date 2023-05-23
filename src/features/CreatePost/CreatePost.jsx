@@ -7,6 +7,8 @@ import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 import articleApi from '../../api/article';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
     align,
     font,
@@ -36,7 +38,32 @@ const CreatePost = () => {
     const [eventType, setEventType] = useState('');
     const navigate = useNavigate();
 
-    console.log(theme);
+    const notify = () => {
+        toast.success('Tạo bài viết mới thành công!', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
+
+    const errorToast = () => {
+        toast.error('Đăng bài không thành công, vui lòng thử lại!', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
+
     const postTypeOptions = [
         { value: '0', label: 'Sự kiện lịch sử' },
         { value: '1', label: 'Tiểu sử nhân vật' }
@@ -86,13 +113,16 @@ const CreatePost = () => {
 
         articleApi.create(fd).then(res => {
             if (res.status === 200) {
-                alert("Da xuat ban bai viet");
-                navigate('/myCreatePost');
-            }
-            throw Error("Create post failed")
+                notify();
+                const timer = setTimeout(() => {
+                    navigate('/myCreatePost');
+                }, 6000);
+                return () => clearTimeout(timer);
+            } 
         })
             .catch(function (error) {
                 console.log(error);
+                errorToast();
             });
     }
 
@@ -120,7 +150,7 @@ const CreatePost = () => {
                     <div className={styles.content}>
                         <input
                             type="text"
-                            placeholder='Nhập tiêu đề'
+                            placeholder='Nhập tiêu đề (*)'
                             value={title}
                             className={styles.title_input}
                             onChange={(e) => setTitle(e.target.value)}
@@ -134,7 +164,7 @@ const CreatePost = () => {
                                         className={styles.content_post_type_select}
                                         options={postTypeOptions}
                                         defaultValue={postType}
-                                        placeholder="Thể loại bài viết"
+                                        placeholder="Thể loại bài viết (*)"
                                         onChange={setPostType}
                                         styles={{
                                             control: (baseStyles) => ({
@@ -156,7 +186,7 @@ const CreatePost = () => {
                                         className={styles.content_post_type_select}
                                         options={eventTypeOptions}
                                         defaultValue={eventType}
-                                        placeholder="Thời kỳ lịch sử"
+                                        placeholder="Thời kỳ lịch sử (*)"
                                         onChange={setEventType}
                                         styles={{
                                             control: (baseStyles) => ({
@@ -175,6 +205,18 @@ const CreatePost = () => {
                                     Xuất bản bài viết
                                     <i className="fa-solid fa-chevron-right"></i>
                                 </button>
+                                <ToastContainer
+                                    position="top-center"
+                                    autoClose={5000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover
+                                    theme="light"
+                                />
                             </div>
                         </div>
 
@@ -188,7 +230,7 @@ const CreatePost = () => {
                                     height: 'auto',
                                     minHeight: '300px',
                                     maxHeight: '400px',
-                                    placeholder: "Bắt đầu viết...",
+                                    placeholder: "Bắt đầu viết... (*)",
                                     plugins: [
                                         align,
                                         font,

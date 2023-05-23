@@ -7,6 +7,7 @@ import { host } from "../../api/axiosClient";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import userApi from "../../api/user";
+import 'suneditor/dist/css/suneditor.min.css';
 
 const PostDetail = () => {
 
@@ -41,13 +42,40 @@ const PostDetail = () => {
         fetchUserData()
         window.scrollTo(0, 0)
     }, [])
-    console.log(role);
+    console.log(post);
 
     const handlePeriod = () => {
         navigate('/seeMore', { state: { idPeriod: post.historicalPeriod } })
     }
 
     console.log(location.state.idPost);
+
+    const handleApprove = (e) => {
+        articleApi.approve(location.state.idPost).then(res => {
+            if (res.status === 200) {
+                alert("Da duyet bai viet");
+                navigate('/approvePost');
+            }
+            throw Error("Approve post failed")
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    const handleDelete = () => {
+        articleApi.deleteOnePost(location.state.idPost).then(res => {
+            if (res.status === 200) {
+                alert("Da xoa bai viet");
+                navigate('/approvePost');
+            }
+            throw Error("Delete post failed")
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     return (
         <div className={styles.main}>
             <div className={styles.heading}>
@@ -83,11 +111,12 @@ const PostDetail = () => {
                             </p>
                             <p>
                                 <span className={styles.article_info_key}>Ngày cập nhật</span>
-                                <span className={styles.article_info_value}>{String(post.lastModifiedDate).substring(0, 10)}</span>
+                                
+                                <span className={styles.article_info_value}>{post.lastModifiedDate !== undefined ? `${post.lastModifiedDate.substring(8, 10)}` + ` tháng ` + `${post.lastModifiedDate.substring(5, 7)}` + ` năm ` + `${post.lastModifiedDate.substring(0, 4)}` : ''}</span>
                             </p>
                             <p>
                                 <span className={styles.article_info_key}>Ngày xuất bản</span>
-                                <span className={styles.article_info_value}>{String(post.creatAt).substring(0, 10)}</span>
+                                <span className={styles.article_info_value}>{post.lastModifiedDate !== undefined ? `${post.lastModifiedDate.substring(8, 10)}` + ` tháng ` + `${post.lastModifiedDate.substring(5, 7)}` + ` năm ` + `${post.lastModifiedDate.substring(0, 4)}` : ''}</span>
                             </p>
                             <span className={styles.print_btn}>
                                 <i className="fa-solid fa-print"></i>
@@ -105,9 +134,14 @@ const PostDetail = () => {
             </div>
             {(role === 'ROLE_ADMIN' && post.status === 0) && (
                 <div className={styles.approve_btn_container}>
-                <div className={styles.approve_btn}><i class="fa-solid fa-check"></i>Phê duyệt bài viết</div>
-                <div className={styles.delete_btn}><i class="fa-solid fa-trash"></i>Xóa bài viết</div>
-            </div>
+                    <div className={styles.approve_btn} onClick={handleApprove}><i className="fa-solid fa-check"></i>Phê duyệt bài viết</div>
+                    <div className={styles.delete_btn} onClick={handleDelete}><i className="fa-solid fa-trash"></i>Xóa bài viết</div>
+                </div>
+            )}
+            {(role === 'ROLE_ADMIN' && post.status === 1) && (
+                <div className={styles.approve_btn_container}>
+                    <div className={styles.delete_btn} onClick={handleDelete}><i className="fa-solid fa-trash"></i>Xóa bài viết</div>
+                </div>
             )}
         </div>
     )

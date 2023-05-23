@@ -50,8 +50,6 @@ body {
 
         img {
             min-width: 100%;
-            -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
         }
     }
 
@@ -126,6 +124,21 @@ body {
                     max-height: 100%;
                     margin: 10px auto;
                     display: flex;
+                }
+
+                figure {
+                    height: 397px !important;
+                    width: 705px !important;
+                    padding-bottom: 0% !important; 
+                    border: none !important;
+                    box-shadow: var(--shadow-box);
+                }
+
+                iframe {
+                    height: 396.5px !important;
+                    width: 705px !important;
+                    border: none !important;
+                    padding-bottom: 0% !important; 
                 }
             }
 

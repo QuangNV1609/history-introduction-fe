@@ -14,7 +14,7 @@ function SliderContent({ activeIndex, posts }) {
                         <div>
                             <span className={styles.tag}>Nổi bật</span>
                             <p className={styles.history_day_title}>{slide.title}</p>
-                            <p className={styles.history_day_update}>Mới cập nhật: <span>{slide.date}</span></p>
+                            <p className={styles.history_day_update}>Mới cập nhật: 18 thg 05, 2023<span>{slide.date}</span></p>
                         </div>
                     </div>
                     <div className={styles.history_day_img}>

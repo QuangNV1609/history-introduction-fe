@@ -51,10 +51,10 @@ const HistoryDay = () => {
                 setIdPost((Object.keys(res.data).length > 0) ? (Object.values(res.data)[0].id) : '');
             })
     }
-    console.log(typeof theme);
+    console.log(historyDay);
 
     const months = [
-        { value: 'Thời kỳ tiền sử', label: 'Tháng Một' },
+        { value: 0, label: 'Tháng Một' },
         { value: 1, label: 'Tháng Hai' },
         { value: 2, label: 'Tháng Ba' },
         { value: 3, label: 'Tháng Tư' },
@@ -89,6 +89,8 @@ const HistoryDay = () => {
             }
         })
     }
+
+    console.log(posts)
 
     useEffect(() => {
         fetchData()
@@ -137,7 +139,7 @@ const HistoryDay = () => {
                             <div>
                                 <span>{yearPost.substring(0,4)}</span>
                             </div>
-                            <p>{title.substring(0,50)}...</p>
+                            <p>{title.substring(0,63)}...</p>
                             <div className={styles.line}></div>
                             <a href='' className={styles.read_more}>
                                 Đọc thêm
