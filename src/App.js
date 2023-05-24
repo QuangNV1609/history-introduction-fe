@@ -3,6 +3,7 @@ import './App.css';
 import Login from './features/Login/Login';
 import MainPage from "./features/MainPage/MainPage";
 import HomePage from "./features/HomePage/HomePage";
+import OtpTest from "./features/OtpTest/OtpTest";
 import React from 'react'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Routes onUpdate={() => window.scrollTo(0, 0)} >
         <Route path="/*" element={<MainPage />}></Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/otpTest" element={<OtpTest />} />
         <Route path="/homePage" element={<HomePage />}></Route>
       </Routes>
       
