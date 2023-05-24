@@ -2,9 +2,8 @@ import { Route, Routes } from "react-router";
 import './App.css';
 import Login from './features/Login/Login';
 import MainPage from "./features/MainPage/MainPage";
-import PostDetail from "./features/PostDetail/PostDetail";
 import HomePage from "./features/HomePage/HomePage";
-import EditPost from "./features/EditPost/EditPost";
+import OtpTest from "./features/OtpTest/OtpTest";
 import React from 'react'
 
 function App() {
@@ -13,9 +12,8 @@ function App() {
       <Routes onUpdate={() => window.scrollTo(0, 0)} >
         <Route path="/*" element={<MainPage />}></Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/postDetail" element={<PostDetail />}></Route>
+        <Route path="/otpTest" element={<OtpTest />} />
         <Route path="/homePage" element={<HomePage />}></Route>
-        <Route path="/editPost" element={<EditPost />}></Route>
       </Routes>
       
     </>

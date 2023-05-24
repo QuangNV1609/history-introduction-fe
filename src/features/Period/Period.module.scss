@@ -70,7 +70,8 @@
                     box-shadow: var(--shadow-box);
 
                     .img_container {
-                        max-height: 200px;
+                        width: 300px;
+                        height: 200px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -79,15 +80,16 @@
                 }
 
                 .post_items_img {
-                    max-width: 100%;
-                    min-height: 200px;
+                    height: 200px;
                 }
 
                 .post_items_content {
                     margin: 20px 20px 23px;
                     color: var(--text-color);
-                    display: flex;
-                    flex-direction: column;
+                    // display: flex;
+                    // flex-direction: column;
+                    display: grid;
+                    grid-template-rows: 0.7fr 2.2fr 0.3fr;
 
                     .post_items_title {
                         font-size: 1.8rem;
@@ -101,7 +103,7 @@
                         font-size: 1.6rem;
                         margin: 15px 0 20px;
                         line-height: 1.4;
-                        max-height: 115px;
+                        max-height: 114px;
                         overflow: hidden;
                     }
 

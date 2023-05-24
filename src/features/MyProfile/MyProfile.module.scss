@@ -62,6 +62,10 @@
             }
         }
 
+        input[type=text] {
+            font-family: var(--text-font);
+        }
+
         .form_label {
             font-size: 1.6rem;
             font-weight: 600;
@@ -79,10 +83,24 @@
             margin-bottom: 12px;
         }
 
+        .form_input::placeholder {
+            color: #808080;
+            font-family: var(--text-font);
+        }
+
+        .form_password {
+            height: 47px;
+        }
+
+        .form_input_disable {
+            background-color: rgba(0, 0, 0, 0.03);
+            color: #798488;
+            cursor: not-allowed;
+        }
+
         .form_label_login {
             margin-top: 18px;
         }
-
 
         .form_btn_wrapper {
             display: flex;

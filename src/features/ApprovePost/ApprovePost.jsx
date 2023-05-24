@@ -16,17 +16,36 @@ const ApprovePost = () => {
     const navigate = useNavigate();
     const [toggleState, setToggleState] = useState(1);
     const [postState, setPostState] = useState(0);
-    
+
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(12);
 
-    console.log(listSelectPost);
+    const [aprrovePosts, setApprovePosts] = useState([]);
+    const [publishPosts, setPublishPosts] = useState([]);
+
+    console.log(publishPosts);
+
     const fetchData = () => {
         articleApi.getPostApproved(postState)
             .then(res => {
                 setPosts(res.data);
             })
     }
+
+    const fetchNumPost = () => {
+        articleApi.getPostApproved(0)
+            .then(res => {
+                setApprovePosts(res.data);
+            })
+        articleApi.getPostApproved(1)
+            .then(res => {
+                setPublishPosts(res.data);
+            })
+    }
+
+    useEffect(() => {
+        fetchNumPost()
+    }, [])
 
     useEffect(() => {
         fetchData()
@@ -123,13 +142,13 @@ const ApprovePost = () => {
                         className={toggleState === 1 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
                         onClick={() => (toggleTab(1), setPostState(0))}>
                         <span className={styles.body_navbar_key}>Phê duyệt bài viết</span>
-                        <span className={styles.body_navbar_value}>3</span>
+                        <span className={styles.body_navbar_value}>{Object.keys(aprrovePosts).length}</span>
                     </li>
                     <li
                         className={toggleState === 2 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
                         onClick={() => (toggleTab(2), setPostState(1))}>
                         <span className={styles.body_navbar_key}>Bài viết đã đăng</span>
-                        <span className={styles.body_navbar_value}>1</span>
+                        <span className={styles.body_navbar_value}>{Object.keys(publishPosts).length}</span>
                     </li>
                     <li
                         className={toggleState === 3 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
@@ -167,35 +186,49 @@ const ApprovePost = () => {
                         </div>
                     </div>
                     {toggleState === 1 && (
-                        <div className={styles.body_content_list}>
-                            {posts.map((item, index) => {
-                                return (
-                                    <div className={styles.post_items} key={index}>
-                                        <div className={styles.img_container}>
-                                            <img
-                                                src={host + '/api/file/download/' + item.thumbnailImage}
-                                                alt="thumbnail image"
+                        <div>
+                            <div className={styles.body_content_list}>
+                                {currentPostData.map((item, index) => {
+                                    return (
+                                        <div className={styles.post_items} key={index}>
+                                            <div className={styles.img_container}>
+                                                <img
+                                                    src={host + '/api/file/download/' + item.thumbnailImage}
+                                                    alt="thumbnail image"
+                                                    onClick={e => handlePostDetail(e, item.id)}
+                                                />
+                                                <input
+                                                    type="checkbox"
+                                                    id={item.id}
+                                                    checked={item?.isChecked || false}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+                                            <div
+                                                className={styles.post_items_title}
                                                 onClick={e => handlePostDetail(e, item.id)}
-                                            />
-                                            <input
-                                                type="checkbox"
-                                                id={item.id}
-                                                checked={item?.isChecked || false}
-                                                onChange={handleChange}
-                                            />
+                                            >
+                                                {item.title}
+                                            </div>
+                                            <div className={styles.post_items_bonus}>
+                                                <i className="fa-regular fa-clock"></i>
+                                                <span className={styles.article_item_date}>
+                                                    {`Ngày ` + `${item.lastModifiedDate.substring(8, 10)}` + ` tháng ` + `${item.lastModifiedDate.substring(5, 7)}` + ` năm ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc ` + `${item.lastModifiedDate.substring(11, 16)}`}
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div
-                                            className={styles.post_items_title}
-                                            onClick={e => handlePostDetail(e, item.id)}
-                                        >
-                                            {item.title}
-                                        </div>
-                                        <div>
-                                            <h4><i className="fa-solid fa-clock"></i>Ngày 30 tháng 4 năm 2023 lúc 22:10</h4>
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                                    )
+                                })}
+
+                            </div>
+                            <div className={styles.line}></div>
+                            <Pagination
+                                totalPosts={posts.length}
+                                postsPerPage={postsPerPage}
+                                setCurrentPage={setCurrentPage}
+                                currentPage={currentPage}
+                                lastPage={Math.ceil(posts.length / postsPerPage)}
+                            />
                         </div>
                     )}
 
@@ -224,8 +257,11 @@ const ApprovePost = () => {
                                             >
                                                 {item.title}
                                             </div>
-                                            <div>
-                                                <h4><i className="fa-solid fa-clock"></i>Ngày 30 tháng 4 năm 2023 lúc 22:10</h4>
+                                            <div className={styles.post_items_bonus}>
+                                                <i className="fa-regular fa-clock"></i>
+                                                <span className={styles.article_item_date}>
+                                                    {`Ngày ` + `${item.lastModifiedDate.substring(8, 10)}` + ` tháng ` + `${item.lastModifiedDate.substring(6, 7)}` + ` năm ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc ` + `${item.lastModifiedDate.substring(11, 16)}`}
+                                                </span>
                                             </div>
                                         </div>
                                     )

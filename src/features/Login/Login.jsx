@@ -5,7 +5,7 @@ import userApi from "../../api/user";
 import headerLogo from '../../assets/image/header-logo.png';
 import headerClose from '../../assets/image/header-close.png';
 import OtpInput from 'otp-input-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 const Login = () => {
     //Login
@@ -28,11 +28,9 @@ const Login = () => {
     const [showRegisterSuccess, setShowRegisterSuccess] = useState(false);
     const [showSpace, setShowSpace] = useState(true);
     const [passwordShown, setPasswordShown] = useState(false);
+    const [showValidation, setShowValidation] = useState(false);
 
     const navigate = useNavigate();
-
-
-    //console.log(location.pathname);
 
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
@@ -44,21 +42,26 @@ const Login = () => {
             username: loginUsername,
             password: loginPassword
         }
-        userApi.login(user).then(res => {
-            console.log(res);
-            if (res.status === 200) {
-                alert('dang nhap thanh cong')
-                window.localStorage.setItem("jwtToken", res.data);
-                navigate('/home');
-                return res.data.JSON;
-            }
-            throw Error("Sai tên email hoặc mật khẩu")
-        })
-            .catch(function (error) {
-                setShowSpace(false);
-                setShowLoginSuccess(true);
-                console.log(error);
-            });
+
+        if (loginUsername === '' || loginPassword === '') {
+            setShowValidation(true);
+        }
+        else {
+            userApi.login(user).then(res => {
+                
+                if (res.status === 200) {
+                    window.localStorage.setItem("jwtToken", res.data);
+                    navigate('/home');
+                    return res.data.JSON;
+                }
+                throw Error("Sai tên email hoặc mật khẩu")
+            })
+                .catch(function (error) {
+                    setShowSpace(false);
+                    setShowLoginSuccess(true);
+                    console.log(error);
+                });
+        }
     }
 
     const handleRegister = (e) => {
@@ -72,33 +75,35 @@ const Login = () => {
             username: registerUsername,
             password: registerPassword
         }
-        console.log(user);
-        console.log(userLogin);
-        // Dang ky 
-        userApi.signIn(user).then(res => {
-            console.log(res.status);
-            if (res.status === 201) {
-                // dang nhap
-                userApi.login(userLogin).then(res => {
-                    console.log(res.status);
-                    if (res.status === 200) {
-                        console.log(res.data);
-                        window.localStorage.setItem("jwtToken", res.data);
-                    }
-                })
-                setShowRegisterForm(false);
-                setShowLoginForm(false);
-                setShowRegisterProfileForm(true);
-                return res.data.JSON;
-            }
-            throw Error("Tài khoản đã tồn tại")
-        })
-            .catch(function (error) {
-                setShowSpace(false);
-                setShowRegisterSuccess(true);
-                console.log(error);
-            });
-
+        if (registerUsername === '' || registerPassword === '') {
+            setShowValidation(true);
+        }
+        else {
+            // Dang ky 
+            userApi.signIn(user).then(res => {
+                console.log(res.status);
+                if (res.status === 201) {
+                    // dang nhap
+                    userApi.login(userLogin).then(res => {
+                        console.log(res.status);
+                        if (res.status === 200) {
+                            console.log(res.data);
+                            window.localStorage.setItem("jwtToken", res.data);
+                        }
+                    })
+                    setShowRegisterForm(false);
+                    setShowLoginForm(false);
+                    setShowRegisterProfileForm(true);
+                    return res.data.JSON;
+                }
+                throw Error("Tài khoản đã tồn tại")
+            })
+                .catch(function (error) {
+                    setShowSpace(false);
+                    setShowRegisterSuccess(true);
+                    console.log(error);
+                });
+        }
     }
 
     const handleInsertInfo = (e) => {
@@ -107,18 +112,21 @@ const Login = () => {
             lastName: lastName,
             firstName: firstName
         }
-        console.log(userInfo);
-        userApi.insertInfo(userInfo).then(res => {
-            if (res.status === 200) {
-                alert("Dang ky thanh cong");
-                navigate('/home');
-                return res.data.JSON;
-            }
-            throw Error("Them ten loi")
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
+        if (lastName === '' && firstName === '') {
+            setShowValidation(true);
+        } else {
+            userApi.insertInfo(userInfo).then(res => {
+                if (res.status === 200) {
+                    alert("Dang ky thanh cong");
+                    navigate('/home');
+                    return res.data.JSON;
+                }
+                throw Error("Them ten loi")
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     }
 
     return (
@@ -135,14 +143,14 @@ const Login = () => {
                             <span className={styles.auth_span}>
                                 Chưa có tài khoản?
                                 <span className={`${styles.span_action}`}
-                                    onClick={() => (setShowLoginForm(false), setShowRegisterForm(true), setShowLoginSuccess(false), setShowSpace(true))}> Đăng ký</span>
+                                    onClick={() => (setShowLoginForm(false), setShowRegisterForm(true), setShowLoginSuccess(false), setShowSpace(true), setShowValidation(false))}> Đăng ký</span>
                             </span>
                         </div>
                         <input
                             type="text"
                             id="login_email"
                             value={loginUsername}
-                            onChange={(e) => (setLoginUserName(e.target.value), setShowLoginSuccess(false), setShowSpace(true))}
+                            onChange={(e) => (setLoginUserName(e.target.value), setShowLoginSuccess(false), setShowSpace(true), setShowValidation(false))}
                             className={styles.auth_input}
                         />
                         <div className={styles.label_container}>
@@ -167,9 +175,12 @@ const Login = () => {
                             type={passwordShown ? "text" : "password"}
                             id="login_password"
                             value={loginPassword}
-                            onChange={(e) => (setLoginPassword(e.target.value), setShowLoginSuccess(false), setShowSpace(true))}
+                            onChange={(e) => (setLoginPassword(e.target.value), setShowLoginSuccess(false), setShowSpace(true), setShowValidation(false))}
                             className={styles.auth_input}
                         />
+
+                        {showValidation && <p className={styles.login_success}><i className="fa-solid fa-triangle-exclamation"></i>Vui lòng nhập đầy đủ thông tin tài khoản và mật khẩu.</p>}
+
                         {showLoginSuccess && (<p className={styles.login_success}><i className="fa-solid fa-triangle-exclamation"></i>Email hoặc mật khẩu không chính xác, vui lòng thử lại.</p>)}
 
                         {showSpace && (<div style={{ height: 20 }}></div>)}
@@ -190,14 +201,14 @@ const Login = () => {
                             <span className={styles.auth_span}>
                                 Đã có tài khoản?
                                 <span className={`${styles.span_action}`}
-                                    onClick={() => (setShowRegisterForm(false), setShowLoginForm(true), setShowLoginSuccess(false), setShowSpace(true))}> Đăng nhập</span>
+                                    onClick={() => (setShowRegisterForm(false), setShowLoginForm(true), setShowLoginSuccess(false), setShowSpace(true), setShowValidation(false))}> Đăng nhập</span>
                             </span>
                         </div>
                         <input
                             type="text"
                             id="register_email"
                             value={registerUsername}
-                            onChange={(e) => (setRegisterUserName(e.target.value), setShowRegisterSuccess(false), setShowSpace(true))}
+                            onChange={(e) => (setRegisterUserName(e.target.value), setShowRegisterSuccess(false), setShowSpace(true), setShowValidation(false))}
                             className={styles.auth_input}
                         />
 
@@ -223,10 +234,10 @@ const Login = () => {
                             type={passwordShown ? "text" : "password"}
                             id="register_password"
                             value={registerPassword}
-                            onChange={(e) => (setRegisterPassword(e.target.value), setShowRegisterSuccess(false), setShowSpace(true))}
+                            onChange={(e) => (setRegisterPassword(e.target.value), setShowRegisterSuccess(false), setShowSpace(true), setShowValidation(false))}
                             className={styles.auth_input}
                         />
-
+                        {showValidation && <p className={styles.login_success}><i className="fa-solid fa-triangle-exclamation"></i>Vui lòng nhập đầy đủ thông tin tài khoản và mật khẩu.</p>}
                         {showRegisterSuccess && (<p className={styles.login_success}><i className="fa-solid fa-triangle-exclamation"></i>Email đã đăng ký tài khoản trước đó, vui lòng thử lại.</p>)}
 
                         {showSpace && (<div style={{ height: 20 }}></div>)}
@@ -253,7 +264,7 @@ const Login = () => {
                             id="auth_last_name"
                             placeholder="Điền họ của bạn"
                             className={styles.auth_input}
-                            onChange={e => setLastName(e.target.value)}
+                            onChange={e => (setLastName(e.target.value), setShowValidation(false))}
                         />
                         <div className={styles.label_container}>
                             <label htmlFor="auth_first_name" className={styles.auth_label}>Tên</label>
@@ -263,10 +274,10 @@ const Login = () => {
                             id="auth_first_name"
                             placeholder="Điền tên của bạn"
                             className={styles.auth_input}
-                            onChange={e => setFirstName(e.target.value)}
+                            onChange={e => (setFirstName(e.target.value), setShowValidation(false))}
                         />
                         {/* {showLoginSuccess && (<p className={styles.login_success}><i className="fa-solid fa-circle-exclamation"></i>Email đăng nhập hoặc Mật khẩu của bạn không chính xác, vui lòng thử lại.</p>)} */}
-
+                        {showValidation && <p className={styles.login_success}><i className="fa-solid fa-triangle-exclamation"></i>Vui lòng nhập đầy đủ thông tin họ tên của bạn.</p>}
                         {showSpace && (<div style={{ height: 20 }}></div>)}
                         <button className={styles.auth_form_btn}
                             onClick={handleInsertInfo}>Tiếp tục</button>

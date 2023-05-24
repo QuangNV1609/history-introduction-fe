@@ -23,6 +23,10 @@ const userApi = {
     test: () => {
         const url = baseUrl + '/test';
         return axiosClient.get(url);
+    },
+    changePassword: (updatePassword) => {
+        const url = baseUrl + '/change-password';
+        return axiosClient.put(url, updatePassword);
     }
 }
 

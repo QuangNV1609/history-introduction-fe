@@ -4,6 +4,7 @@ body {
 
 .main {
     margin-top: 75px;
+    position: relative;
 
     .heading {
         width: 100%;
@@ -49,8 +50,6 @@ body {
 
         img {
             min-width: 100%;
-            -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
         }
     }
 
@@ -77,7 +76,9 @@ body {
                     margin-bottom: 10px;
                 }
 
-                p, ul, li {
+                p,
+                ul,
+                li {
                     font-size: 2rem;
                     font-family: var(--text-font);
                     margin: 18px 0;
@@ -96,9 +97,10 @@ body {
                 div {
                     display: flex;
                     flex-direction: column;
+
                     figcaption {
-                        
-                    text-align: center;
+                        margin-bottom: 10px;
+                        text-align: center;
                         font-family: var(--text-font);
                         font-size: 1.4rem;
                     }
@@ -120,7 +122,23 @@ body {
                 img {
                     max-width: 100%;
                     max-height: 100%;
-                    margin: 10px 0;
+                    margin: 10px auto;
+                    display: flex;
+                }
+
+                figure {
+                    height: 397px !important;
+                    width: 705px !important;
+                    padding-bottom: 0% !important; 
+                    border: none !important;
+                    box-shadow: var(--shadow-box);
+                }
+
+                iframe {
+                    height: 396.5px !important;
+                    width: 705px !important;
+                    border: none !important;
+                    padding-bottom: 0% !important; 
                 }
             }
 
@@ -211,5 +229,38 @@ body {
             }
         }
     }
-
+    .approve_btn_container {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        left: 0; 
+        right: 0; 
+        bottom: 10px;
+        font-size: 1.4rem;
+        color: #fff;
+        i {
+            margin-right: 8px;
+        }
+        .approve_btn {
+            padding: 14px 45px;
+            background-color: #71be34;
+            border-radius: 40px;
+            margin-right: 10px;  
+            transition: background-color 0.2s ease;
+        }
+        .approve_btn:hover {
+            background-color: #8bc95b;
+            cursor: pointer;
+        }
+        .delete_btn {
+            padding: 14px 45px;
+            background-color: #ff623d;
+            border-radius: 40px;
+            transition: background-color 0.2s ease;
+        }
+        .delete_btn:hover {
+            background-color: #fd7f62;
+            cursor: pointer;
+        }
+    }
 }

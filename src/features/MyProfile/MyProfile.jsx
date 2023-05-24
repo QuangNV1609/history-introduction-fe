@@ -1,20 +1,98 @@
 import styles from './MyProfile.module.scss';
 import avatar from '../../resource/userImg.png'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import userApi from '../../api/user';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MyProfile = () => {
     const [passwordShown, setPasswordShown] = useState(false);
+    const [newPasswordShown, setNewPasswordShown] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [userName, setUserName] = useState('');
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const navigate = useNavigate();
+
+    const notify = () => {
+        toast.success('Đã cập nhật thông tin của bạn!', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
 
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
+
+    const toggleNewPassword = () => {
+        setNewPasswordShown(!newPasswordShown);
+    }
+
+    console.log(currentPassword, newPassword);
+    const fetchData = () => {
+        userApi.getInfo()
+            .then(res => {
+                setFirstName(res.data.firstName);
+                setLastName(res.data.lastName);
+                setUserName(res.data.username);
+            })
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    const handleSave = (e) => {
+        e.preventDefault();
+        const userInfo = {
+            lastName: lastName,
+            firstName: firstName
+        }
+
+        const updatePassword = {
+            password: currentPassword,
+            newPassword: newPassword
+        }
+
+        userApi.insertInfo(userInfo).then(res => {
+            if (res.status === 200) {
+                userApi.changePassword(updatePassword).then(res => {
+                    if (res.status === 200) {
+                        notify();
+                    }
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+            notify();
+
+            const timer = setTimeout(() => {
+                navigate('/home');
+                window.location.reload();
+            }, 6000);
+            return () => clearTimeout(timer);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     return (
         <div className={styles.container}>
             <div className={styles.avatar_wrapper}>
                 <h1>Hồ sơ của tôi</h1>
                 <img src={avatar} alt="" />
-                <h3>Họ Tên</h3>
+                <h3>{firstName} {lastName}</h3>
             </div>
             <div className={styles.user_info_wrapper}>
                 <form action="" className={styles.form}>
@@ -26,7 +104,9 @@ const MyProfile = () => {
                     <input
                         type="text"
                         id="form_last_name"
+                        value={lastName}
                         className={styles.form_input}
+                        onChange={(e) => setLastName(e.target.value)}
                     />
                     <div className={styles.label_container}>
                         <label htmlFor="form_first_name" className={styles.form_label}>Tên</label>
@@ -34,6 +114,8 @@ const MyProfile = () => {
                     <input
                         type="text"
                         id="form_first_name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                         className={styles.form_input}
                     />
                     <h2 className={styles.form_label_login}>Đăng nhập</h2>
@@ -44,10 +126,12 @@ const MyProfile = () => {
                     <input
                         type="text"
                         id="form_email"
-                        className={styles.form_input}
+                        value={userName}
+                        className={`${styles.form_input} ${styles.form_input_disable}`}
+                        disabled
                     />
                     <div className={styles.label_container}>
-                        <label htmlFor="form_password" className={styles.form_label}>Mật khẩu</label>
+                        <label htmlFor="form_current_password" className={styles.form_label}>Mật khẩu hiện tại</label>
                         <span className={styles.show_password}
                             onClick={togglePassword}>
                             {!passwordShown && (
@@ -66,11 +150,52 @@ const MyProfile = () => {
                     </div>
                     <input
                         type={passwordShown ? "text" : "password"}
-                        id="form_password"
-                        className={styles.form_input}
+                        id="form_current_password"
+                        value={currentPassword}
+                        placeholder='Nhập mật khẩu hiện tại'
+                        className={`${styles.form_input} ${styles.form_password}`}
+                        onChange={e => setCurrentPassword(e.target.value)}
+                    />
+                    <div className={styles.label_container}>
+                        <label htmlFor="form_new_password" className={styles.form_label}>Mật khẩu mới</label>
+                        <span className={styles.show_password}
+                            onClick={toggleNewPassword}>
+                            {!newPasswordShown && (
+                                <div>
+                                    <i className="fa-solid fa-eye"></i>
+                                    Xem
+                                </div>
+                            )}
+                            {newPasswordShown && (
+                                <div>
+                                    <i className="fa-solid fa-eye-slash"></i>
+                                    Ẩn
+                                </div>
+                            )}
+                        </span>
+                    </div>
+                    <input
+                        type={newPasswordShown ? "text" : "password"}
+                        id="form_new_password"
+                        placeholder='Nhập mật khẩu mới'
+                        value={newPassword}
+                        className={`${styles.form_input} ${styles.form_password}`}
+                        onChange={e => setNewPassword(e.target.value)}
                     />
                     <div className={styles.form_btn_wrapper}>
-                        <button className={styles.form_btn}>Lưu</button>
+                        <button className={styles.form_btn} onClick={handleSave}>Lưu</button>
+                        <ToastContainer
+                            position="top-center"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                        />
                     </div>
                 </form>
             </div>

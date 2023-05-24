@@ -1,6 +1,10 @@
 import styles from './HistoryDay.module.scss';
 import { useEffect, useState } from 'react';
-import image from '../../resource/gettyimages-1382828716.jpg'
+import image from '../../resource/gettyimages-1382828716.jpg';
+import articleApi from '../../api/article';
+import { useNavigate } from 'react-router-dom';
+import { host } from '../../api/axiosClient';
+
 const HistoryDay = () => {
     const postData = [
         {
@@ -30,12 +34,27 @@ const HistoryDay = () => {
     ]
 
     const [posts, setPosts] = useState([]);
-    useEffect(() => {
-        setPosts(postData);
-        window.scrollTo(0, 0)
-    }, []);
+    const [historyDay, setHistoryDay] = useState('');
+    const [title, setTitle] = useState('Tiêu đề mặc định');
+    const [yearPost, setYearPost] = useState('----');
+    const [theme, setTheme] = useState('259');
+    const [idPost, setIdPost] = useState('');
+    const navigate = useNavigate();
+
+    const fetchData = () => {
+        articleApi.getHistoryDay(historyDay)
+            .then((res) => {
+                setPosts(res.data);
+                setTitle((Object.keys(res.data).length > 0) ? (Object.values(res.data)[0].title) : 'Tiêu đề mặc định');
+                setYearPost((Object.keys(res.data).length > 0) ? (Object.values(res.data)[0].historyDay) : '----');
+                setTheme((Object.keys(res.data).length > 0) ? (Object.values(res.data)[0].coverImage) : '259');
+                setIdPost((Object.keys(res.data).length > 0) ? (Object.values(res.data)[0].id) : '');
+            })
+    }
+    console.log(historyDay);
+
     const months = [
-        { value: 'Thời kỳ tiền sử', label: 'Tháng Một' },
+        { value: 0, label: 'Tháng Một' },
         { value: 1, label: 'Tháng Hai' },
         { value: 2, label: 'Tháng Ba' },
         { value: 3, label: 'Tháng Tư' },
@@ -52,7 +71,6 @@ const HistoryDay = () => {
     var curr = new Date();
     curr.setDate(curr.getDate());
     var date = curr.toISOString().substring(0, 10);
-    console.log(curr.getDate());
 
     const [selectedDate, setSelectedDate] = useState(curr.getDate());
     const [selectedMonth, setSelectedMonth] = useState(months.map(item => {
@@ -62,6 +80,7 @@ const HistoryDay = () => {
     }));
 
     const onChangeDate = (e) => {
+        setHistoryDay(e.target.value);
         var selectedDay = new Date(e.target.value);
         setSelectedDate(selectedDay.getDate());
         months.map(month => {
@@ -70,6 +89,18 @@ const HistoryDay = () => {
             }
         })
     }
+
+    console.log(posts)
+
+    useEffect(() => {
+        fetchData()
+        window.scrollTo(0, 0)
+    }, [historyDay]);
+
+    const handlePostDetail = (e, id) => {
+        navigate('/postDetail', { state: { idPost: id } });
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -102,13 +133,13 @@ const HistoryDay = () => {
             </div>
             <div className={styles.primary_post}>
                 <div className={styles.primary_post_theme}>
-                    <img className={styles.theme_img} src="https://www.history.com/editorial/_next/image?url=https%3A%2F%2Fassets.editorial.aetnd.com%2Fuploads%2F2012%2F05%2Fthis-day-in-history-04-29-1992-riots-erupt-in-los-angeles.jpg&w=1920&q=75" alt="theme history post" />
-                    <div className={styles.primary_post_container}>
+                    <img className={styles.theme_img} src={host + '/api/file/download/' + theme} alt="theme history post" />
+                    <div className={styles.primary_post_container} onClick={e => handlePostDetail (e, parseInt(idPost))}>
                         <div className={styles.post_info}>
                             <div>
-                                <span>1975</span>
+                                <span>{yearPost.substring(0,4)}</span>
                             </div>
-                            <p>Giải phóng miền Nam, Thống nhất Đất nước</p>
+                            <p>{title.substring(0,63)}...</p>
                             <div className={styles.line}></div>
                             <a href='' className={styles.read_more}>
                                 Đọc thêm
@@ -116,7 +147,7 @@ const HistoryDay = () => {
                             </a>
                         </div>
                         <div className={styles.post_img}>
-                            <img src="https://www.history.com/editorial/_next/image?url=https%3A%2F%2Fassets.editorial.aetnd.com%2Fuploads%2F2012%2F05%2Fthis-day-in-history-04-29-1992-riots-erupt-in-los-angeles.jpg&w=1920&q=75" alt="img history post" />
+                            <img src={host + '/api/file/download/' + theme} alt="img history post" />
                         </div>
                     </div>
                 </div>
@@ -135,7 +166,7 @@ const HistoryDay = () => {
                 </p>
 
                 <div className={styles.another_posts}>
-                    {posts.map((item, index) => {
+                    {postData.map((item, index) => {
                         return (
                             <div className={styles.post_items} key={index}>
                                 <div className={styles.post_items_cover_img}>
@@ -151,9 +182,7 @@ const HistoryDay = () => {
                                 </div>
                             </div>
                         )
-                    })
-
-                    }
+                    })}
                 </div>
             </div>
         </div>

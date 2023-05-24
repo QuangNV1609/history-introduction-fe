@@ -11,12 +11,31 @@ import Pagination from '../Pagination/Pagination';
 const MyCreatePost = () => {
     const [toggleState, setToggleState] = useState(1);
     const [post, setPost] = useState([]);
+    const [aprrovePosts, setApprovePosts] = useState([]);
+    const [publishPosts, setPublishPosts] = useState([]);
 
     const [postState, setPostState] = useState(0);
     const navigate = useNavigate();
 
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(12);
+
+    console.log(post);
+
+    const fetchNumPost = () => {
+        articleApi.getPostApproved(0)
+            .then(res => {
+                setApprovePosts(res.data);
+            })
+        articleApi.getPostApproved(1)
+            .then(res => {
+                setPublishPosts(res.data);
+            })
+    }
+
+    useEffect(() => {
+        fetchNumPost()
+    }, [])
 
     const fetchData = () => {
         articleApi.getPostApproved(postState)
@@ -60,13 +79,13 @@ const MyCreatePost = () => {
                         className={toggleState === 1 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
                         onClick={() => (toggleTab(1), setPostState(0))}>
                         <span className={styles.body_navbar_key}>Chờ Phê Duyệt</span>
-                        <span className={styles.body_navbar_value}>3</span>
+                        <span className={styles.body_navbar_value}>{Object.keys(aprrovePosts).length}</span>
                     </li>
                     <li
                         className={toggleState === 2 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
                         onClick={() => (toggleTab(2), setPostState(1))}>
                         <span className={styles.body_navbar_key}>Đã đăng</span>
-                        <span className={styles.body_navbar_value}>1</span>
+                        <span className={styles.body_navbar_value}>{Object.keys(publishPosts).length}</span>
                     </li>
                     <li
                         className={toggleState === 3 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
@@ -92,8 +111,11 @@ const MyCreatePost = () => {
                                                 </div>
                                             </div>
                                             <div className={styles.post_title} onClick={e => handlePostDetail(e, item.id)}>{item.title}</div>
-                                            <div>
-                                                <h4><i className="fa-solid fa-clock"></i>08 tháng 03 năm 2023</h4>
+                                            <div className={styles.post_items_bonus}>
+                                                <i className="fa-regular fa-clock"></i>
+                                                <span className={styles.article_item_date}>
+                                                    {`Ngày ` + `${item.lastModifiedDate.substring(8, 10)}` + ` tháng ` + `${item.lastModifiedDate.substring(6, 7)}` + ` năm ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc ` + `${item.lastModifiedDate.substring(11, 16)}`}
+                                                </span>
                                             </div>
                                         </div>
                                     )
@@ -125,8 +147,11 @@ const MyCreatePost = () => {
                                                 </div>
                                             </div>
                                             <div className={styles.post_title} onClick={e => handlePostDetail(e, item.id)}>{item.title}</div>
-                                            <div>
-                                                <h4><i className="fa-solid fa-clock"></i>08 tháng 03 năm 2023</h4>
+                                            <div className={styles.post_items_bonus}>
+                                                <i className="fa-regular fa-clock"></i>
+                                                <span className={styles.article_item_date}>
+                                                    {`Ngày ` + `${item.lastModifiedDate.substring(8, 10)}` + ` tháng ` + `${item.lastModifiedDate.substring(6, 7)}` + ` năm ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc ` + `${item.lastModifiedDate.substring(11, 16)}`}
+                                                </span>
                                             </div>
                                         </div>
                                     )

@@ -42,6 +42,30 @@ const articleApi = {
     getPeriodPost: (period) => {
         const url = baseUrl + '/search-article?historicalPeriod=' + period
         return axiosClient.get(url);
+    },
+    getHistoryDay: (date) => {
+        const url = baseUrl + '/search-article?historyDay=' + date
+        return axiosClient.get(url);
+    },
+    getPostHome: () => {
+        const url = baseUrl + '/search-article?status=1'
+        return axiosClient.get(url);
+    },
+    getFigurePost: () => {
+        const url = baseUrl + '/search-article?postType=1'
+        return axiosClient.get(url);
+    },
+    deleteOnePost: (id) => {
+        const url = baseUrl + '/delete-list-by-id?articleId'
+        return axiosClient.delete(url, {data: id});
+    },
+    getTopView: () => {
+        const url = baseUrl + "-user/get-article-many-view"
+        return axiosClient.get(url);
+    },
+    getRecentWatched: () => {
+        const url = baseUrl + "-user/get-article-by-user"
+        return axiosClient.get(url);
     }
 }
 
