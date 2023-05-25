@@ -31,19 +31,20 @@
     top: 0;
     right: 0;
     left: 0;
-    bottom: 0;
     display: flex;
-    align-items: center;
     justify-content: center;
 
     &_form {
+        margin-top: 70px;
         width: 480px;
         border: 1px solid #e3e3e3;
         border-radius: 16px;
-        padding: 48px;
+        padding: 40px 48px;
+        margin-bottom: 70px;
 
         h2 {
             font-size: 26px;
+            margin-top: 15px;
         }
 
         .label_container {
@@ -51,7 +52,7 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            margin-top: 35px;
+            margin-top: 25px;
             margin-bottom: 6px;
 
             .auth_label {
@@ -59,8 +60,13 @@
                 font-weight: 700;
             }
 
+            .first_label {
+                margin-top: 15px;
+            }
+
             .auth_span {
                 font-size: 1.3rem;
+                transform: translateY(1px);
             }
 
             .span_action {
@@ -87,6 +93,10 @@
             border: 1px solid #ced4da;
             border-radius: 4px;
             margin-bottom: 6px;
+        }
+
+        .auth_input::placeholder{
+            font-family: var(--text-font);
         }
 
         .login_success {
@@ -151,21 +161,21 @@
         .fullName_desc {
             font-size: 13px;
             color: #6C757D;
-            margin-top: 8px;
-            margin-bottom: 40px;
+            margin-top: 4px;
         }
 
         .verify_desc {
             font-size: 14px;
             background-color: #ededed;
             padding: 16px;
-            margin-top: 8px;
+            margin-top: 15px;
             border-radius: 4px;
         }
 
         h4 {
-            margin-top: 40px;
+            margin-top: 30px;
             text-align: center;
+            font-size: 1.8rem;
         }
 
         .otp_inputs {

@@ -91,6 +91,9 @@ const Period = () => {
         fetchData()
     }, [])
 
+    
+    console.log(posts0);
+
     const slice0 = posts0.slice(0, 3);
     const slice1 = posts1.slice(0, 3);
     const slice2 = posts2.slice(0, 3);
@@ -140,7 +143,7 @@ const Period = () => {
                                     <div className={styles.post_items_content}>
                                         <div className={styles.post_items_title}>{item.title}</div>
                                         <div className={styles.post_items_desc}>
-                                            {Parser(item.content.substring(0, 230) + '...')}
+                                            {Parser(item.content?.substring(0, 230) + '...')}
                                         </div>
                                         <div>
                                             <a className={styles.post_items_readmore}>

@@ -1,4 +1,3 @@
-import HeaderAdmin2 from "../HeaderAdmin2/HeaderAdmin2";
 import styles from "./PostDetail.module.scss";
 import { useState, useEffect } from "react";
 import "../../assets/scss/base.scss";
@@ -7,6 +6,7 @@ import { host } from "../../api/axiosClient";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import userApi from "../../api/user";
+import { toast, Toaster } from "react-hot-toast";
 import 'suneditor/dist/css/suneditor.min.css';
 
 const PostDetail = () => {
@@ -51,25 +51,31 @@ const PostDetail = () => {
     console.log(location.state.idPost);
 
     const handleApprove = (e) => {
+        e.preventDefault();
         articleApi.approve(location.state.idPost).then(res => {
             if (res.status === 200) {
-                alert("Da duyet bai viet");
-                navigate('/approvePost');
+                toast.success('Đã phê duyệt bài viết!');
+                const timer = setTimeout(() => {
+                    navigate('/approvePost');
+                }, 1000);
+                return () => clearTimeout(timer);
             }
-            throw Error("Approve post failed")
         })
             .catch(function (error) {
                 console.log(error);
             });
     }
 
-    const handleDelete = () => {
+    const handleDelete = (e) => {
+        e.preventDefault();
         articleApi.deleteOnePost(location.state.idPost).then(res => {
             if (res.status === 200) {
-                alert("Da xoa bai viet");
-                navigate('/approvePost');
+                toast.success('Đã xóa bài viết!');
+                const timer = setTimeout(() => {
+                    navigate('/approvePost');
+                }, 1000);
+                return () => clearTimeout(timer);
             }
-            throw Error("Delete post failed")
         })
             .catch(function (error) {
                 console.log(error);
@@ -78,6 +84,7 @@ const PostDetail = () => {
 
     return (
         <div className={styles.main}>
+            <Toaster toastOptions={{ duration: 1000 }} />
             <div className={styles.heading}>
                 <div className={styles.heading_link}>
                     <a href="/home">Trang chủ</a><span> / </span>

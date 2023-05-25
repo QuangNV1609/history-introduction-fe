@@ -1,4 +1,3 @@
-import Header from '../HeaderAdmin2/HeaderAdmin2';
 import React, { useRef } from 'react';
 import styles from './ApprovePost.module.scss';
 import { useState, useEffect } from "react";
@@ -7,6 +6,7 @@ import articleApi from '../../api/article';
 import { host } from '../../api/axiosClient';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../Pagination/Pagination';
+import { toast, Toaster } from "react-hot-toast";
 
 const ApprovePost = () => {
 
@@ -95,12 +95,15 @@ const ApprovePost = () => {
     }
 
     const handleApprove = (e) => {
+        e.preventDefault();
         articleApi.approveMultiple(listSelectPost).then(res => {
             if (res.status === 200) {
-                alert("Da duyet bai viet");
-                window.location.reload();
+                toast.success('Đã phê duyệt bài viết!');
+                const timer = setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+                return () => clearTimeout(timer);
             }
-            throw Error("Approve post failed")
         })
             .catch(function (error) {
                 console.log(error);
@@ -108,13 +111,15 @@ const ApprovePost = () => {
     }
 
     const handleDelete = (e) => {
-        console.log(listSelectPost);
+        e.preventDefault();
         articleApi.deletePost(listSelectPost).then(res => {
             if (res.status === 200) {
-                alert("Da xoa bai viet");
-                window.location.reload();
+                toast.success('Đã xóa bài viết!');
+                const timer = setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+                return () => clearTimeout(timer);
             }
-            throw Error("Delete post failed")
         })
             .catch(function (error) {
                 console.log(error);
@@ -130,8 +135,8 @@ const ApprovePost = () => {
     const currentPostData = posts.slice(firstPostIndex, lastPostIndex);
 
     return (
-        <div>
-            <Header></Header>
+        <div className={styles.container}>
+            <Toaster toastOptions={{ duration: 1000 }} />
             <div className={styles.body}>
                 <div className={styles.body_heading}>
                     <h2>Quản lý bài viết</h2>

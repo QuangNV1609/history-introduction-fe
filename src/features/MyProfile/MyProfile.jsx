@@ -3,8 +3,7 @@ import avatar from '../../resource/userImg.png'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userApi from '../../api/user';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, Toaster } from "react-hot-toast";
 
 const MyProfile = () => {
     const [passwordShown, setPasswordShown] = useState(false);
@@ -15,19 +14,6 @@ const MyProfile = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const navigate = useNavigate();
-
-    const notify = () => {
-        toast.success('Đã cập nhật thông tin của bạn!', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-    }
 
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
@@ -65,21 +51,24 @@ const MyProfile = () => {
 
         userApi.insertInfo(userInfo).then(res => {
             if (res.status === 200) {
-                userApi.changePassword(updatePassword).then(res => {
-                    if (res.status === 200) {
-                        notify();
-                    }
-                })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                if(currentPassword === '' || newPassword === '') {
+                    toast.success('Cập nhật thông tin tài khoản thành công!');
+                } else {
+                    userApi.changePassword(updatePassword).then(res => {
+                        if (res.status === 200) {
+                            toast.success('Cập nhật thông tin tài khoản thành công!');
+                        }
+                    })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
             }
-            notify();
 
             const timer = setTimeout(() => {
                 navigate('/home');
                 window.location.reload();
-            }, 6000);
+            }, 3000);
             return () => clearTimeout(timer);
         })
             .catch(function (error) {
@@ -89,6 +78,7 @@ const MyProfile = () => {
 
     return (
         <div className={styles.container}>
+            <Toaster toastOptions={{ duration: 4000 }} />
             <div className={styles.avatar_wrapper}>
                 <h1>Hồ sơ của tôi</h1>
                 <img src={avatar} alt="" />
@@ -184,18 +174,6 @@ const MyProfile = () => {
                     />
                     <div className={styles.form_btn_wrapper}>
                         <button className={styles.form_btn} onClick={handleSave}>Lưu</button>
-                        <ToastContainer
-                            position="top-center"
-                            autoClose={5000}
-                            hideProgressBar={false}
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                            theme="light"
-                        />
                     </div>
                 </form>
             </div>

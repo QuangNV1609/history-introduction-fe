@@ -95,7 +95,7 @@
         &_theme {
             position: relative;
             display: flex;
-            height: 530px;
+            height: 510px;
             width: 100%;
             justify-content: center;
             align-items: center;
@@ -111,11 +111,13 @@
                 top: 45px;
                 display: flex;
                 margin: 0 32px;
+                cursor: pointer;
 
                 .post_info {
-                    flex: 2;
+                    width: 480px;
+                    height: 405px;
                     background-color: #222222;
-                    padding: 0 32px;
+                    padding: 32px;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -136,6 +138,7 @@
                         font-family: var(--heading-font);
                         color: #fff;
                         font-weight: 700;
+                        line-height: 1.2;
                     }
 
                     p:hover {
@@ -147,7 +150,7 @@
                         display: inline-block;
                         margin: 8px 0px 20px;
                         width: 60px;
-                        border-bottom: 1px solid #4f4e5b;
+                        border-bottom: 1.5px solid #4f4e5b;
                     }
 
                     .read_more {
@@ -186,14 +189,16 @@
                 }
 
                 .post_img {
-                    flex: 3;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     overflow: hidden;
+                    width: 720px;
+                    height: 405px;
 
                     img {
                         width: 100%;
+                        min-height: 405px;
                     }
                 }
 
@@ -250,6 +255,7 @@
             column-gap: 24px;
             row-gap: 24px;
             background-color: #fff;
+            cursor: pointer;
 
             .post_items {
                 box-shadow: var(--shadow-box);
@@ -297,10 +303,6 @@
                     flex-grow: 1;
                     min-height: 40px;
                     margin-bottom: 20px;
-                }
-
-                &_title:hover {
-                    cursor: pointer;
                 }
 
                 &_period {
