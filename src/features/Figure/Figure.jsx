@@ -22,6 +22,7 @@ const Figure = () => {
         window.scrollTo(0, 0)
     }, [])
 
+
     const [numOfElement, setNumOfElement] = useState(3);
     const slice = posts.slice(0, numOfElement);
 

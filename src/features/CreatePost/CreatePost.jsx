@@ -2,13 +2,11 @@ import styles from './CreatePost.module.scss';
 import React, { useRef } from 'react';
 import { useState } from "react";
 import Select from 'react-select';
-import HeaderAdmin2 from '../HeaderAdmin2/HeaderAdmin2';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 import articleApi from '../../api/article';
+import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {
     align,
     font,
@@ -37,32 +35,6 @@ const CreatePost = () => {
     const [dateEvent, setDateEvent] = useState('');
     const [eventType, setEventType] = useState('');
     const navigate = useNavigate();
-
-    const notify = () => {
-        toast.success('Tạo bài viết mới thành công!', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-    }
-
-    const errorToast = () => {
-        toast.error('Đăng bài không thành công, vui lòng thử lại!', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-    }
 
     const postTypeOptions = [
         { value: '0', label: 'Sự kiện lịch sử' },
@@ -113,22 +85,22 @@ const CreatePost = () => {
 
         articleApi.create(fd).then(res => {
             if (res.status === 200) {
-                notify();
+                toast.success('Xuất bản bài viết thành công!');
                 const timer = setTimeout(() => {
                     navigate('/myCreatePost');
-                }, 6000);
+                }, 1000);
                 return () => clearTimeout(timer);
             } 
         })
             .catch(function (error) {
                 console.log(error);
-                errorToast();
+                toast.error("Xuất bản không thành công, vui lòng thử lại!")
             });
     }
 
     return (
         <div className={styles.container}>
-
+            <Toaster toastOptions={{ duration: 2000 }} />
             <div className={styles.body}>
                 <div className={styles.theme_container}>
                     {theme && (
@@ -205,18 +177,6 @@ const CreatePost = () => {
                                     Xuất bản bài viết
                                     <i className="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <ToastContainer
-                                    position="top-center"
-                                    autoClose={5000}
-                                    hideProgressBar={false}
-                                    newestOnTop={false}
-                                    closeOnClick
-                                    rtl={false}
-                                    pauseOnFocusLoss
-                                    draggable
-                                    pauseOnHover
-                                    theme="light"
-                                />
                             </div>
                         </div>
 

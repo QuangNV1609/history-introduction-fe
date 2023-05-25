@@ -6,35 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { host } from '../../api/axiosClient';
 
 const HistoryDay = () => {
-    const postData = [
-        {
-            eventType: 'Thời kỳ tiền sử',
-            title: 'More than 1,000 schoolchildren protest segregation in the Children’s Crusade',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
-            year: '1963'
-        },
-        {
-            eventType: 'Thời kỳ tiền sử',
-            title: 'Tieu de so 2',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
-            year: '2005'
-        },
-        {
-            eventType: 'Thời kỳ tiền sử',
-            title: 'Tieu de so 3',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
-            year: '2005'
-        },
-        {
-            eventType: 'Thời kỳ tiền sử',
-            title: 'Tieu de so 4',
-            thumbnail: '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg',
-            year: '2005'
-        }
-    ]
-
+    const eventTypeOptions = ['Thời kỳ tiền sử', 'Thời kỳ cổ đại', 'Thời kỳ Bắc Thuộc', 'Thời kỳ Bắc Thuộc lần thứ III',
+        'Thời kỳ tự chủ', 'Thời kỳ quân chủ', 'Thời kỳ Bắc Thuộc lần thứ IV', 'Thời kỳ Trung Hưng - Nhà Hậu Lê',
+        'Thời kỳ chia cắt', 'Thời kỳ Bắc Triều - Nam Triều', 'Thời kỳ Trịnh - Nguyễn', 'Thời kỳ thống nhất', 'Thời kỳ hiện đại'];
+    var curr = new Date();
+    curr.setDate(curr.getDate());
+    var date = curr.toISOString().substring(0, 10);
     const [posts, setPosts] = useState([]);
-    const [historyDay, setHistoryDay] = useState('');
+    const [historyDay, setHistoryDay] = useState(date);
     const [title, setTitle] = useState('Tiêu đề mặc định');
     const [yearPost, setYearPost] = useState('----');
     const [theme, setTheme] = useState('259');
@@ -51,7 +30,6 @@ const HistoryDay = () => {
                 setIdPost((Object.keys(res.data).length > 0) ? (Object.values(res.data)[0].id) : '');
             })
     }
-    console.log(historyDay);
 
     const months = [
         { value: 0, label: 'Tháng Một' },
@@ -68,9 +46,7 @@ const HistoryDay = () => {
         { value: 11, label: 'Tháng Mười Hai' }
     ]
 
-    var curr = new Date();
-    curr.setDate(curr.getDate());
-    var date = curr.toISOString().substring(0, 10);
+
 
     const [selectedDate, setSelectedDate] = useState(curr.getDate());
     const [selectedMonth, setSelectedMonth] = useState(months.map(item => {
@@ -89,8 +65,6 @@ const HistoryDay = () => {
             }
         })
     }
-
-    console.log(posts)
 
     useEffect(() => {
         fetchData()
@@ -111,7 +85,7 @@ const HistoryDay = () => {
                         <a href="" className={styles.last_link}>Ngày này trong lịch sử</a>
                     </div>
                     <div>
-                    <p>Ngày Này Trong Lịch Sử</p>
+                        <p>Ngày Này Trong Lịch Sử</p>
                     </div>
                 </div>
                 <div className={styles.gradient_line}></div>
@@ -134,12 +108,12 @@ const HistoryDay = () => {
             <div className={styles.primary_post}>
                 <div className={styles.primary_post_theme}>
                     <img className={styles.theme_img} src={host + '/api/file/download/' + theme} alt="theme history post" />
-                    <div className={styles.primary_post_container} onClick={e => handlePostDetail (e, parseInt(idPost))}>
+                    <div className={styles.primary_post_container} onClick={e => handlePostDetail(e, parseInt(idPost))}>
                         <div className={styles.post_info}>
                             <div>
-                                <span>{yearPost.substring(0,4)}</span>
+                                <span>{yearPost.substring(0, 4)}</span>
                             </div>
-                            <p>{title.substring(0,63)}...</p>
+                            <p>{title.substring(0, 64)}</p>
                             <div className={styles.line}></div>
                             <a href='' className={styles.read_more}>
                                 Đọc thêm
@@ -165,25 +139,27 @@ const HistoryDay = () => {
                     với các bài viết khác của Lịch Sử Việt Nam về các <br /> sự kiện lớn, ngày kỉ niệm, tưởng nhớ và tri ân các anh hùng, liệt sỹ.
                 </p>
 
-                <div className={styles.another_posts}>
-                    {postData.map((item, index) => {
+                {posts.length > 1 && (
+                    <div className={styles.another_posts}>
+                    {posts.map((item, index) => {
                         return (
                             <div className={styles.post_items} key={index}>
                                 <div className={styles.post_items_cover_img}>
-                                    <img src={image} alt="img thumb" />
+                                    <img src={host + '/api/file/download/' + item.coverImage} alt="img thumb" />
                                 </div>
-                                <div className={styles.post_items_info}>
-                                    <span className={styles.post_items_years}>{item.year}</span>
+                                <div className={styles.post_items_info} onClick={e => handlePostDetail(e, item.id)}>
+                                    <span className={styles.post_items_years}>{item.historyDay.substring(0, 4)}</span>
                                     <p className={styles.post_items_title}>{item.title}</p>
                                     <a href='' className={styles.post_items_period}>
                                         <i className="fa-solid fa-bolt-lightning"></i>
-                                        {item.eventType}
+                                        {eventTypeOptions[item.historicalPeriod]}
                                     </a>
                                 </div>
                             </div>
                         )
                     })}
                 </div>
+                )}
             </div>
         </div>
     )

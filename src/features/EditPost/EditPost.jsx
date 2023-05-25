@@ -8,6 +8,8 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import articleApi from '../../api/article';
 import { host } from "../../api/axiosClient";
+import { toast, Toaster } from "react-hot-toast";
+
 import {
     align,
     font,
@@ -113,10 +115,14 @@ const EditPost = () => {
         articleApi.create(fd).then(res => {
             console.log(res.status);
             if (res.status === 200) {
-                alert("Da xuat ban bai viet");
-                navigate('/myCreatePost');
+                toast.success('Cập nhật bài viết thành công!');
+                
+                const timer = setTimeout(() => {
+                    navigate('/myCreatePost');
+                    window.location.reload();
+                }, 3000);
+                return () => clearTimeout(timer);
             }
-            throw Error("Create post failed")
         })
             .catch(function (error) {
                 console.log(error);
@@ -125,6 +131,7 @@ const EditPost = () => {
 
     return (
         <div className={styles.container}>
+            <Toaster toastOptions={{ duration: 4000 }} />
             <div className={styles.body}>
                 <div className={styles.theme_container}>
                     {theme && (

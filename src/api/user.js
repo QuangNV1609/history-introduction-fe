@@ -27,6 +27,10 @@ const userApi = {
     changePassword: (updatePassword) => {
         const url = baseUrl + '/change-password';
         return axiosClient.put(url, updatePassword);
+    },
+    checkUsername: (username) => {
+        const url = baseUrl + '/check-user-exits?username=' + username
+        return axiosClient.get(url);
     }
 }
 

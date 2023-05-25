@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import styles from "./HomePage.module.scss";
 import "../../assets/scss/base.scss";
-import sample from '../../resource/alone-s9-2048x1152-promo-16x9-1.jpg';
 import articleApi from '../../api/article';
 import { host } from "../../api/axiosClient";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import Slider from "../Slider/Slider";
-import photo1 from "../../resource/ho-chi-minh-gettyimages-89865152.jpg";
-import photo2 from "../../resource/the-secret-of-skinwalker-ranch-s4-2048x1152-priority-feature-16x9-1.jpg";
-import photo3 from "../../resource/gettyimages-1382828716.jpg";
 
 const HomePage = ({ input }) => {
+    var curr = new Date();
+    curr.setDate(curr.getDate());
+    var date = curr.toISOString().substring(0, 10);
     const [results, setResults] = useState([]);
+    const [historyDayPost, setHistoryDayPost] = useState([]);
 
     const fetchSearchData = (value) => {
         fetch(`${host}` + `/api/article/search-article`)
@@ -30,74 +30,6 @@ const HomePage = ({ input }) => {
     }, [input])
 
     const navigate = useNavigate();
-    const posts = [
-        {
-            eventType: 0,
-            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
-            thumbnail: photo1,
-            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        },
-        {
-            eventType: 0,
-            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
-            thumbnail: photo1,
-            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        },
-        {
-            eventType: 0,
-            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
-            thumbnail: photo1,
-            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        },
-        {
-            eventType: 0,
-            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
-            thumbnail: photo1,
-            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        },
-        {
-            eventType: 0,
-            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
-            thumbnail: photo1,
-            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        },
-        {
-            eventType: 0,
-            title: 'Kỉ niệm lần thứ 103 Ngày sinh Chủ tịch Hồ Chí Minh',
-            thumbnail: photo1,
-            describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        }
-        // {
-        //     eventType: 0,
-        //     title: 'Tiêu đề 1',
-        //     thumbnail: photo2,
-        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        // },
-        // {
-        //     eventType: 0,
-        //     title: 'Tiêu đề 2',
-        //     thumbnail: photo3,
-        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        // },
-        // {
-        //     eventType: 0,
-        //     title: 'Tiêu đề 3',
-        //     thumbnail: photo1,
-        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        // },
-        // {
-        //     eventType: 0,
-        //     title: 'Tiêu đề 4',
-        //     thumbnail: photo2,
-        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        // },
-        // {
-        //     eventType: 0,
-        //     title: 'Tiêu đề 5',
-        //     thumbnail: photo3,
-        //     describe: 'Con người xuất hiện từ khoảng từ 10.000 - 30.000 năm về trước, với các dấu tích của nền văn hóa núi Đọ, Thần Sa và Sơn Vi. Thời đại đồ đá cũ được đặc trưng bằng việc s...'
-        // }
-    ]
 
     const [post, setPost] = useState([]);
     const [topViewPost, setTopViewPost] = useState([]);
@@ -111,6 +43,10 @@ const HomePage = ({ input }) => {
         articleApi.getTopView()
             .then(res => {
                 setTopViewPost(res.data);
+            })
+        articleApi.getHistoryDay(date)
+            .then((res) => {
+                setHistoryDayPost(res.data);
             })
     }
 
@@ -131,7 +67,7 @@ const HomePage = ({ input }) => {
         <div>
             {(input === undefined || input === '') && (
                 <div className={styles.container}>
-                    <Slider posts={posts} />
+                    {historyDayPost.length > 0 && (<Slider posts={historyDayPost} />)}
 
                     <div className={`${styles.article_container} ${styles.new_article}`}>
                         <p>
@@ -156,7 +92,7 @@ const HomePage = ({ input }) => {
                                             </span>
                                             <i className="fa-solid fa-circle"></i>
                                             <span className={styles.article_item_date}>
-                                                {`${item.lastModifiedDate.substring(8, 10)}` + ` thg ` + `${item.lastModifiedDate.substring(5, 7)}` + `, ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc `+ `${item.lastModifiedDate.substring(11, 16)}`}
+                                                {`${item.lastModifiedDate.substring(8, 10)}` + ` thg ` + `${item.lastModifiedDate.substring(5, 7)}` + `, ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc ` + `${item.lastModifiedDate.substring(11, 16)}`}
                                             </span>
                                         </div>
                                     </div>
@@ -185,7 +121,7 @@ const HomePage = ({ input }) => {
                                             </span>
                                             <i className="fa-solid fa-circle"></i>
                                             <span className={styles.article_item_date}>
-                                            {`${item.lastModifiedDate.substring(8, 10)}` + ` thg ` + `${item.lastModifiedDate.substring(5, 7)}` + `, ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc `+ `${item.lastModifiedDate.substring(11, 16)}`}
+                                                {`${item.lastModifiedDate.substring(8, 10)}` + ` thg ` + `${item.lastModifiedDate.substring(5, 7)}` + `, ` + `${item.lastModifiedDate.substring(0, 4)}` + ` lúc ` + `${item.lastModifiedDate.substring(11, 16)}`}
                                             </span>
                                         </div>
                                     </div>

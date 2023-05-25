@@ -6,7 +6,6 @@ import Figure from "../Figure/Figure";
 import Period from "../Period/Period";
 import Qa from "../Qa/Qa";
 import SeeMore from "../SeeMore/SeeMore";
-import SearchPage from "../SearchPage/SearchPage";
 import ApprovePost from "../ApprovePost/ApprovePost";
 import MyCreatePost from "../MyCreatePost/MyCreatePost";
 import CreatePost from "../CreatePost/CreatePost";
@@ -34,7 +33,6 @@ const MainPage = () => {
                 <Route path="/figure" element={<Figure />}></Route>
                 <Route path="/qa" element={<Qa />}></Route>
                 <Route path="/seeMore" element={<SeeMore />}></Route>
-                <Route path="/searchPage" element={<SearchPage />}></Route>
                 <Route path="/approvePost" element={<ApprovePost />}></Route>
                 <Route path="/myCreatePost" element={<MyCreatePost />}></Route>
                 <Route path="/postDetail" element={<PostDetail />}></Route>
