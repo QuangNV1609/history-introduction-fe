@@ -149,7 +149,7 @@ const HistoryDay = () => {
                                 </div>
                                 <div className={styles.post_items_info} onClick={e => handlePostDetail(e, item.id)}>
                                     <span className={styles.post_items_years}>{item.historyDay.substring(0, 4)}</span>
-                                    <p className={styles.post_items_title}>{item.title}</p>
+                                    <p className={styles.post_items_title}>{item.title.substring(0,84)}</p>
                                     <a href='' className={styles.post_items_period}>
                                         <i className="fa-solid fa-bolt-lightning"></i>
                                         {eventTypeOptions[item.historicalPeriod]}

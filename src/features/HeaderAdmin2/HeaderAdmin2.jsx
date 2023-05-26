@@ -55,9 +55,10 @@ const HeaderAdmin2 = ({ getInputValue }) => {
         navigate('/');
     }
 
-    const handleSearchChange = (value) => {
-        setInputSearch(value);
-        getInputValue(value);
+    const handleSearchChange = (e, value) => {
+        if (e.key === 'Enter') {
+            getInputValue(value);
+        }
     }
 
     return (
@@ -87,7 +88,8 @@ const HeaderAdmin2 = ({ getInputValue }) => {
                             type="text"
                             placeholder='Tìm kiếm bài viết'
                             value={inputSearch}
-                            onChange={(e) => handleSearchChange(e.target.value)}
+                            onChange={(e) => setInputSearch(e.target.value)}
+                            onKeyDown={(e) => handleSearchChange(e, e.target.value)}
                         />
                         <i className="fa-solid fa-xmark" onClick={() => (setSearchState(!searchState), setInputSearch(''), getInputValue(''))}></i>
                     </div>

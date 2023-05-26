@@ -52,11 +52,11 @@ const MyProfile = () => {
         userApi.insertInfo(userInfo).then(res => {
             if (res.status === 200) {
                 if(currentPassword === '' || newPassword === '') {
-                    toast.success('Cập nhật thông tin tài khoản thành công!');
+                    toast.success('Cập nhật thông tin hồ sơ thành công!');
                 } else {
                     userApi.changePassword(updatePassword).then(res => {
                         if (res.status === 200) {
-                            toast.success('Cập nhật thông tin tài khoản thành công!');
+                            toast.success('Cập nhật thông tin hồ sơ thành công!');
                         }
                     })
                         .catch(function (error) {
@@ -68,7 +68,7 @@ const MyProfile = () => {
             const timer = setTimeout(() => {
                 navigate('/home');
                 window.location.reload();
-            }, 3000);
+            }, 2000);
             return () => clearTimeout(timer);
         })
             .catch(function (error) {
@@ -78,7 +78,13 @@ const MyProfile = () => {
 
     return (
         <div className={styles.container}>
-            <Toaster toastOptions={{ duration: 4000 }} />
+            <Toaster toastOptions={{
+                duration: 2000,
+                style: {
+                    padding: '16px 25px',
+                    fontSize: '1.4rem'
+                }
+            }} />
             <div className={styles.avatar_wrapper}>
                 <h1>Hồ sơ của tôi</h1>
                 <img src={avatar} alt="" />

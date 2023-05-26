@@ -1,5 +1,5 @@
 import styles from './CreatePost.module.scss';
-import React, { useRef } from 'react';
+import React from 'react';
 import { useState } from "react";
 import Select from 'react-select';
 import SunEditor from 'suneditor-react';
@@ -100,7 +100,13 @@ const CreatePost = () => {
 
     return (
         <div className={styles.container}>
-            <Toaster toastOptions={{ duration: 2000 }} />
+            <Toaster toastOptions={{
+                duration: 3000,
+                style: {
+                    padding: '16px 25px',
+                    fontSize: '1.4rem',
+                }
+            }} />
             <div className={styles.body}>
                 <div className={styles.theme_container}>
                     {theme && (

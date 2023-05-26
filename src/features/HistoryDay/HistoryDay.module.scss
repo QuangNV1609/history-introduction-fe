@@ -1,6 +1,6 @@
 .container {
     margin-top: 75px;
-
+    background-color: #222;
     .header {
         background-color: #222222;
         display: flex;
@@ -212,6 +212,7 @@
     .also_post {
         padding: 40px 32px;
         color: var(--text-color);
+        background-color: #fff;
 
         &_title {
             text-align: center;
