@@ -7,6 +7,7 @@ import { host } from '../../api/axiosClient';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../Pagination/Pagination';
 import { toast, Toaster } from "react-hot-toast";
+import Swal from 'sweetalert2';
 
 const ApprovePost = () => {
 
@@ -23,7 +24,13 @@ const ApprovePost = () => {
     const [aprrovePosts, setApprovePosts] = useState([]);
     const [publishPosts, setPublishPosts] = useState([]);
 
-    console.log(publishPosts);
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
 
     const fetchData = () => {
         articleApi.getPostApproved(postState)
@@ -112,18 +119,31 @@ const ApprovePost = () => {
 
     const handleDelete = (e) => {
         e.preventDefault();
-        articleApi.deletePost(listSelectPost).then(res => {
-            if (res.status === 200) {
-                toast.success('Đã xóa bài viết!');
-                const timer = setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-                return () => clearTimeout(timer);
+        Swal.fire({
+            title: 'Bạn chắc chắn muốn xóa?',
+            text: "Lựa chọn sẽ không được hoàn tác!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+                articleApi.deletePost(listSelectPost).then(res => {
+                    if (res.status === 200) {
+                        window.location.reload();
+                    }
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
 
     const handlePostDetail = (e, id) => {
@@ -155,12 +175,6 @@ const ApprovePost = () => {
                         <span className={styles.body_navbar_key}>Bài viết đã đăng</span>
                         <span className={styles.body_navbar_value}>{Object.keys(publishPosts).length}</span>
                     </li>
-                    <li
-                        className={toggleState === 3 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
-                        onClick={() => toggleTab(3)}>
-                        <span className={styles.body_navbar_key}>Yêu cầu chỉnh sửa</span>
-                        <span className={styles.body_navbar_value}>2</span>
-                    </li>
                 </ul>
 
                 <div className={styles.body_content}>
@@ -176,12 +190,14 @@ const ApprovePost = () => {
                             <label htmlFor="allSelect" >Chọn tất cả</label>
                         </div>
                         <div className={styles.approve_tool_right}>
-                            <span
-                                className={styles.approve_btn}
-                                onClick={handleApprove}
-                            >
-                                <i className="fa-solid fa-check"></i>Phê duyệt bài viết
-                            </span>
+                            {toggleState === 1 && (
+                                <span
+                                    className={styles.approve_btn}
+                                    onClick={handleApprove}
+                                >
+                                    <i className="fa-solid fa-check"></i>Phê duyệt bài viết
+                                </span>
+                            )}
                             <span
                                 className={styles.delete_btn}
                                 onClick={handleDelete}
@@ -224,8 +240,10 @@ const ApprovePost = () => {
                                         </div>
                                     )
                                 })}
-
                             </div>
+                            {posts.length === 0 && (
+                                <p className={styles.message}>Không có bài viết nào cần phê duyệt!</p>
+                            )}
                             <div className={styles.line}></div>
                             <Pagination
                                 totalPosts={posts.length}

@@ -87,12 +87,6 @@ const MyCreatePost = () => {
                         <span className={styles.body_navbar_key}>Đã đăng</span>
                         <span className={styles.body_navbar_value}>{Object.keys(publishPosts).length}</span>
                     </li>
-                    <li
-                        className={toggleState === 3 ? `${styles.body_navbar_item_active}` : `${styles.body_navbar_item}`}
-                        onClick={() => toggleTab(3)}>
-                        <span className={styles.body_navbar_key}>Đang chờ</span>
-                        <span className={styles.body_navbar_value}>2</span>
-                    </li>
                 </ul>
                 <div className={styles.body_content}>
                     {toggleState === 1 && (
@@ -121,6 +115,9 @@ const MyCreatePost = () => {
                                     )
                                 })}
                             </div>
+                            {post.length === 0 && (
+                                <p className={styles.message}>Không có bài viết nào chờ phê duyệt!</p>
+                            )}
                             <div className={styles.line}></div>
                             <Pagination
                                 totalPosts={post.length}

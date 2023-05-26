@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import userApi from "../../api/user";
 import { toast, Toaster } from "react-hot-toast";
 import 'suneditor/dist/css/suneditor.min.css';
+import Swal from 'sweetalert2';
 
 const PostDetail = () => {
 
@@ -68,18 +69,31 @@ const PostDetail = () => {
 
     const handleDelete = (e) => {
         e.preventDefault();
-        articleApi.deleteOnePost(location.state.idPost).then(res => {
-            if (res.status === 200) {
-                toast.success('Đã xóa bài viết!');
-                const timer = setTimeout(() => {
-                    navigate('/approvePost');
-                }, 1000);
-                return () => clearTimeout(timer);
+        Swal.fire({
+            title: 'Bạn chắc chắn muốn xóa?',
+            text: "Lựa chọn sẽ không được hoàn tác!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+                articleApi.deleteOnePost(location.state.idPost).then(res => {
+                    if (res.status === 200) {
+                        navigate('/approvePost');
+                    }
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
 
     return (
