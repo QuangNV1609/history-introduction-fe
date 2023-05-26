@@ -127,18 +127,18 @@ body {
                 }
 
                 figure {
-                    height: 397px !important;
-                    width: 705px !important;
+                    // height: 397px !important;
+                    // width: 705px !important;
                     padding-bottom: 0% !important; 
                     border: none !important;
-                    box-shadow: var(--shadow-box);
                 }
 
                 iframe {
-                    height: 396.5px !important;
+                    height: 397px !important;
                     width: 705px !important;
                     border: none !important;
                     padding-bottom: 0% !important; 
+                    box-shadow: var(--shadow-box);
                 }
             }
 
