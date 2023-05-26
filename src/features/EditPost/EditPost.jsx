@@ -131,7 +131,13 @@ const EditPost = () => {
 
     return (
         <div className={styles.container}>
-            <Toaster toastOptions={{ duration: 4000 }} />
+            <Toaster toastOptions={{
+                duration: 3000,
+                style: {
+                    padding: '16px 25px',
+                    fontSize: '1.4rem',
+                }
+            }} />
             <div className={styles.body}>
                 <div className={styles.theme_container}>
                     {theme && (

@@ -103,7 +103,6 @@ const Login = () => {
 
     function onSignup() {
         if (lastName === '' || firstName === '' || phone === '') {
-            // setShowSpace(false);
             setShowValidation(true)
         } else {
             onCaptchVerify();
@@ -178,7 +177,13 @@ const Login = () => {
 
     return (
         <div className={styles.container}>
-            <Toaster toastOptions={{ duration: 4000 }} />
+            <Toaster toastOptions={{
+                duration: 3000,
+                style: {
+                    padding: '16px 25px',
+                    fontSize: '1.4rem',
+                }
+            }} />
             <div id='recaptcha-container'></div>
             <div className={styles.auth}>
                 <img src={headerLogo} alt="logo" className={styles.header_logo_img} onClick={e => navigate('/')} />

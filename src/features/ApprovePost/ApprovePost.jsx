@@ -130,8 +130,8 @@ const ApprovePost = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
+                    'Đã xóa!',
+                    'Đã xóa bài viết thành công!',
                     'success'
                 )
                 articleApi.deletePost(listSelectPost).then(res => {
@@ -156,7 +156,13 @@ const ApprovePost = () => {
 
     return (
         <div className={styles.container}>
-            <Toaster toastOptions={{ duration: 1000 }} />
+            <Toaster toastOptions={{
+                duration: 1500,
+                style: {
+                    padding: '16px 25px',
+                    fontSize: '1.4rem',
+                }
+            }} />
             <div className={styles.body}>
                 <div className={styles.body_heading}>
                     <h2>Quản lý bài viết</h2>
