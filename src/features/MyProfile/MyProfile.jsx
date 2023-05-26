@@ -117,7 +117,7 @@ const MyProfile = () => {
                     <h2 className={styles.form_label_login}>Đăng nhập</h2>
                     <p className={styles.desc}>Thông tin đăng nhập website lichsuvietnam.com của bạn.</p>
                     <div className={styles.label_container}>
-                        <label htmlFor="form_email" className={styles.form_label}>Email</label>
+                        <label htmlFor="form_email" className={styles.form_label}>Tài khoản</label>
                     </div>
                     <input
                         type="text"
