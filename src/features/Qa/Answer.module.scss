@@ -1,0 +1,43 @@
+.container {
+    background-color: #F1F1F1;
+    display: flex;
+    padding: 14px;
+    align-items: center;
+    margin-bottom: 2px;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    .select {
+        width: 20px;
+        height: 20px;
+        background-color: #2196F3;
+        border-radius: 10px;
+    }
+
+    .non_select {
+        width: 20px;
+        height: 20px;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    .inside {
+        width: 5px;
+        height: 5px;
+        background-color: white;
+        border-radius: 2px;
+        margin: 7.5px auto;
+    }
+
+    span {
+        font-size: 1.8rem;
+        margin-left: 18px;
+        color: black;
+    }
+}
+
+.chosen {
+    background-color: #DDDDDD;
+}

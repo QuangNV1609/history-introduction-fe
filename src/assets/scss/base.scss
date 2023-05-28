@@ -21,3 +21,13 @@ html {
     line-height: 1.6rem;
     box-sizing: border-box;
 }
+
+body {
+    background-color: white;
+}
+
+input {
+    &::placeholder {
+        color: #C0C4CC;
+    }
+}

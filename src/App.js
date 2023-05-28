@@ -8,6 +8,7 @@ import PostDetail from "./features/PostDetail/PostDetail";
 import HomePage from "./features/HomePage/HomePage";
 import React from 'react'
 import { useState } from "react";
+import { useEffect } from "react";
 
 function App() {
   const [isShowLoading, setShowLoading] = useState(false)
@@ -18,14 +19,23 @@ function App() {
     } else {
       document.body.style.overflow = "auto"
     }
-    setShowLoading(true)
+    setShowLoading(isShow)
+    console.log(`isShow: ${isShow}`)
   }
+
+  // useEffect(() => {
+  //   if (isShowLoading) {
+  //     document.body.style.overflow = "hidden"
+  //   } else {
+  //     document.body.style.overflow = "auto"
+  //   }
+  // }, [isShowLoading])
 
 
   return (
     <>
       <div className={style.loading_container}>
-        <Routes onUpdate={() => window.scrollTo(0, 0)>
+        <Routes onUpdate={() => window.scrollTo(0, 0)}>
           <Route path="/*" element={<MainPage />}></Route>
           <Route path="/login" element={<Login />} />
           <Route path="/createPost" element={<CreatePost />}></Route>

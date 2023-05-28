@@ -19,6 +19,10 @@ import { host } from "../../api/axiosClient";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import articleApi from '../../api/article';
+import ListQa from "../Manage/ManageQa/ListQa";
+import ManageQa from "../Manage/ManageQa/ManageQa"
+import Result from "../Qa/result/Result";
+import ResultDetail from "../Qa/result/resultDetail/resultDetail";
 
 const MainPage = () => {
     const [input, setInput] = useState();
@@ -59,6 +63,10 @@ const MainPage = () => {
                 <Route path="/period" element={<Period />}></Route>
                 <Route path="/figure" element={<Figure />}></Route>
                 <Route path="/qa" element={<Qa />}></Route>
+                <Route path="/manageQa" element={<ManageQa />}></Route>
+                <Route path="/result" element={<Result />}></Route>
+                <Route path="/resultDetail" element={<ResultDetail />}></Route>
+                <Route path="/listQa" element={<ListQa />}></Route>
                 <Route path="/seeMore" element={<SeeMore />}></Route>
                 <Route path="/approvePost" element={<ApprovePost />}></Route>
                 <Route path="/myCreatePost" element={<MyCreatePost />}></Route>

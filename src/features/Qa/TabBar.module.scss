@@ -1,0 +1,29 @@
+.container {
+    flex: 1;
+
+    .tab_bar {
+        display: flex;
+        flex-direction: column;
+        background-color: #F1F1F1;
+
+        h2 {
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .link_quest {
+            color: black;
+            font-size: 1.5rem;
+            width: 100%;
+            padding: 10px 0 10px 20px;
+            font-weight: 300;
+            text-decoration: none;
+
+            &[active="true"] {
+                color: white;
+                background-color: black;
+            }
+        }
+    }
+}

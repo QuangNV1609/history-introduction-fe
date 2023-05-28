@@ -3,7 +3,8 @@ import userSample from "../../../../resource/user_default.svg"
 import deleteIcon from "../../../../resource/delete.svg"
 import lockIcon from "../../../../resource/icon_lock.svg"
 
-const AccountItem = ({ name, email, isActive }) => {
+const AccountItem = ({ name, email, isActive, blockAccount, deleteAccount }) => {
+
     return (
         <div className={style.item}>
             <div className={style.item_before}>
@@ -15,10 +16,10 @@ const AccountItem = ({ name, email, isActive }) => {
                 </div>
             </div>
             <div className={style.item_after}>
-                <img src={lockIcon} alt="lock" />
-                <span className={style.lock_span}>Khóa tài khoản</span>
-                <img src={deleteIcon} alt="delete" />
-                <span>Xóa tài khoản</span>
+                <img src={lockIcon} alt="lock" onClick={(e) => blockAccount(e)} />
+                <span className={isActive ? style.lock_span : style.unlock} onClick={(e) => blockAccount(e)} >Khóa tài khoản</span>
+                <img src={deleteIcon} alt="delete" onClick={(e) => deleteAccount(e)} />
+                <span onClick={(e) => deleteAccount(e)}>Xóa tài khoản</span>
             </div>
         </div>
     )

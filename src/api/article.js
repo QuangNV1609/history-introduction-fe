@@ -66,6 +66,9 @@ const articleApi = {
     getRecentWatched: () => {
         const url = baseUrl + "-user/get-article-by-user"
         return axiosClient.get(url);
+    },
+    getArticleFollowPeriod: (periodId) => {
+        return axiosClient.get("article/search-article?historicalPeriod=" + periodId)
     }
 }
 
