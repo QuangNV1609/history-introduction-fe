@@ -8,6 +8,7 @@ import { toast, Toaster } from "react-hot-toast";
 const MyProfile = () => {
     const [passwordShown, setPasswordShown] = useState(false);
     const [newPasswordShown, setNewPasswordShown] = useState(false);
+    const [disabledBtn, setDisabledBtn] = useState(true);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [userName, setUserName] = useState('');
@@ -102,7 +103,7 @@ const MyProfile = () => {
                         id="form_last_name"
                         value={lastName}
                         className={styles.form_input}
-                        onChange={(e) => setLastName(e.target.value)}
+                        onChange={(e) => (setLastName(e.target.value), setDisabledBtn(false))}
                     />
                     <div className={styles.label_container}>
                         <label htmlFor="form_first_name" className={styles.form_label}>Tên</label>
@@ -111,7 +112,7 @@ const MyProfile = () => {
                         type="text"
                         id="form_first_name"
                         value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        onChange={(e) => (setFirstName(e.target.value), setDisabledBtn(false))}
                         className={styles.form_input}
                     />
                     <h2 className={styles.form_label_login}>Đăng nhập</h2>
@@ -150,7 +151,7 @@ const MyProfile = () => {
                         value={currentPassword}
                         placeholder='Nhập mật khẩu hiện tại'
                         className={`${styles.form_input} ${styles.form_password}`}
-                        onChange={e => setCurrentPassword(e.target.value)}
+                        onChange={e => (setCurrentPassword(e.target.value), setDisabledBtn(false))}
                     />
                     <div className={styles.label_container}>
                         <label htmlFor="form_new_password" className={styles.form_label}>Mật khẩu mới</label>
@@ -176,10 +177,14 @@ const MyProfile = () => {
                         placeholder='Nhập mật khẩu mới'
                         value={newPassword}
                         className={`${styles.form_input} ${styles.form_password}`}
-                        onChange={e => setNewPassword(e.target.value)}
+                        onChange={e => (setNewPassword(e.target.value), setDisabledBtn(false))}
                     />
                     <div className={styles.form_btn_wrapper}>
-                        <button className={styles.form_btn} onClick={handleSave}>Lưu</button>
+                        <button 
+                            className={disabledBtn === true ? `${styles.form_btn_disable}` : `${styles.form_btn}`} 
+                            onClick={handleSave}
+                            disabled={disabledBtn}
+                        >Lưu</button>
                     </div>
                 </form>
             </div>
