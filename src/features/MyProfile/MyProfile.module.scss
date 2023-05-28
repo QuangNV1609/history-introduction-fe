@@ -119,6 +119,21 @@
                 font-weight: 700;
             }
 
+            .form_btn_disable {
+                cursor: default;
+                opacity: 0.8;
+                margin: auto;
+                padding: 0 60px;
+                background: #000;
+                font-family: var(--text-font);
+                color: #fff;
+                font-size: 16px;
+                border-radius: 25px;
+                border: none;
+                height: 50px;
+                font-weight: 700;
+            }
+
             .form_btn:hover {
                 opacity: 0.8;
                 cursor: pointer;

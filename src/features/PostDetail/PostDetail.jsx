@@ -128,7 +128,7 @@ const PostDetail = () => {
                             </p>
                             <p>
                                 <span className={styles.article_info_key}>Tác giả</span>
-                                <span className={styles.article_info_value}>Biên tập viên Lịch Sử Việt Nam</span>
+                                <span className={styles.article_info_value}>{post.lastName + ' '+ post.firstName}</span>
                             </p>
                             <p>
                                 <span className={styles.article_info_key}>Ngày cập nhật</span>

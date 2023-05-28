@@ -40,7 +40,7 @@ const articleApi = {
         return axiosClient.get(url);
     },
     getPeriodPost: (period) => {
-        const url = baseUrl + '/search-article?historicalPeriod=' + period + '&content=1'
+        const url = baseUrl + '/search-article?historicalPeriod=' + period + '&postType=0&content=1'
         return axiosClient.get(url);
     },
     getHistoryDay: (date) => {
