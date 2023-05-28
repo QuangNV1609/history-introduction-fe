@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router";
 import style from './App.module.scss';
 import Login from './features/Login/Login';
 import MainPage from "./features/MainPage/MainPage";
-import ManageAccount from "./features/Manage/ManageAccount";
 import CreatePost from "./features/CreatePost/CreatePost";
 import PostDetail from "./features/PostDetail/PostDetail";
 import HomePage from "./features/HomePage/HomePage";
@@ -36,10 +35,9 @@ function App() {
     <>
       <div className={style.loading_container}>
         <Routes onUpdate={() => window.scrollTo(0, 0)}>
-          <Route path="/*" element={<MainPage />}></Route>
+          <Route path="/*" element={<MainPage showLoading={(isShow) => showLoading(isShow)}/>}></Route>
           <Route path="/login" element={<Login />} />
           <Route path="/createPost" element={<CreatePost />}></Route>
-          <Route path="/admin" element={<ManageAccount showLoading={(isShow) => showLoading(isShow)} />}/>
         </Routes>
         {
           isShowLoading &&

@@ -156,24 +156,6 @@ const ManageAccount = ({ showLoading }) => {
     }
     return (
         <div className={style.relative}>
-            <div className={style.header}>
-                <div className={style.header_container}>
-                    <div className={style.header_container_logo}>
-                        <div className={style.header_container_logo_line}>
-                            <img src={favicon} alt="logo" />
-                            <div />
-                        </div>
-                        <span>LỊCH SỬ VIỆT NAM</span>
-                    </div>
-                </div>
-                <div className={style.header_info}>
-                    <span>Cường</span>
-                    <img src={arrowDown} alt="drop down" />
-                    <div className={style.line} />
-                    <img src={search} alt="search" className={style.search} />
-                    <img src={menu} alt="menu" className={style.menu} />
-                </div>
-            </div>
             <div className={style.content}>
                 <div className={style.content_container}>
                     <div className={style.content_container_header}>

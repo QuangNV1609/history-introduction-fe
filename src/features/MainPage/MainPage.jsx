@@ -18,13 +18,13 @@ import { useState } from "react";
 import { host } from "../../api/axiosClient";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import articleApi from '../../api/article';
 import ListQa from "../Manage/ManageQa/ListQa";
 import ManageQa from "../Manage/ManageQa/ManageQa"
 import Result from "../Qa/result/Result";
 import ResultDetail from "../Qa/result/resultDetail/resultDetail";
+import ManageAccount from "../Manage/ManageAccount";
 
-const MainPage = () => {
+const MainPage = ({showLoading}) => {
     const [input, setInput] = useState();
     const [results, setResults] = useState([]);
     const navigate = useNavigate();
@@ -75,6 +75,7 @@ const MainPage = () => {
                 <Route path="/myProfile" element={<MyProfile />}></Route>
                 <Route path="/editPost" element={<EditPost />}></Route>
                 <Route path="/recentWatched" element={<RecentWatched />}></Route>
+                <Route path="/admin" element={<ManageAccount showLoading={(isShow) => showLoading(isShow)} />} />
             </Routes>
 
             {(input !== undefined && input !== '') && (
