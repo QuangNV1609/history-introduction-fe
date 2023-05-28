@@ -23,6 +23,7 @@ import ManageQa from "../Manage/ManageQa/ManageQa"
 import Result from "../Qa/result/Result";
 import ResultDetail from "../Qa/result/resultDetail/resultDetail";
 import ManageAccount from "../Manage/ManageAccount";
+import ApproveQuizz from "../ApproveQuizz/ApproveQuizz";
 
 const MainPage = ({showLoading}) => {
     const [input, setInput] = useState();
@@ -73,6 +74,7 @@ const MainPage = ({showLoading}) => {
                 <Route path="/postDetail" element={<PostDetail />}></Route>
                 <Route path="/createPost" element={<CreatePost />}></Route>
                 <Route path="/myProfile" element={<MyProfile />}></Route>
+                <Route path="/approveQuizz" element={<ApproveQuizz />}></Route>
                 <Route path="/editPost" element={<EditPost />}></Route>
                 <Route path="/recentWatched" element={<RecentWatched />}></Route>
                 <Route path="/admin" element={<ManageAccount showLoading={(isShow) => showLoading(isShow)} />} />
