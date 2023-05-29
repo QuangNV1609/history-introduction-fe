@@ -13,6 +13,7 @@ const qaApi = {
         if (period > -1) {
             params.historicalPeriod = period
         }
+        console.log(params, period)
         return axiosClient.get("question/search-question", {
             params: params
         })

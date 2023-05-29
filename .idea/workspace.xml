@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7603647d-5593-41e9-9ea9-3b22ce380f04" name="Changes" comment="" />
+    <list default="true" id="7603647d-5593-41e9-9ea9-3b22ce380f04" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/api/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/article.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/qa.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/qa.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/Manage/ManageQa/ListQa.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/Manage/ManageQa/ListQa.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

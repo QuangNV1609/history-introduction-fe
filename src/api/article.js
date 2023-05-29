@@ -68,7 +68,7 @@ const articleApi = {
         return axiosClient.get(url);
     },
     getArticleFollowPeriod: (periodId) => {
-        return axiosClient.get("article/search-article?historicalPeriod=" + periodId)
+        return axiosClient.get("article/search-article-by-username?historicalPeriod=" + periodId)
     }
 }
 

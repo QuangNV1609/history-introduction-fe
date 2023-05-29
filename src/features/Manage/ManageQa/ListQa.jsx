@@ -1,8 +1,7 @@
 import { useEffect } from "react"
 import style from "./ListQa.module.scss"
 import ItemListQa from "./itemList/ItemListQa"
-import { Link, useNavigate } from "react-router-dom";
-import articleApi from "../../../api/article";
+import { useNavigate } from "react-router-dom";
 import qaApi from "../../../api/qa";
 import { useState } from "react";
 
@@ -16,10 +15,7 @@ const ListQa = () => {
     const eventTypeOptions = ['Thời kỳ tiền sử', 'Thời kỳ cổ đại', 'Thời kỳ Bắc Thuộc', 'Thời kỳ Bắc Thuộc lần thứ III',
         'Thời kỳ tự chủ', 'Thời kỳ quân chủ', 'Thời kỳ Bắc Thuộc lần thứ IV', 'Thời kỳ Trung Hưng - Nhà Hậu Lê',
         'Thời kỳ chia cắt', 'Thời kỳ Bắc Triều - Nam Triều', 'Thời kỳ Trịnh - Nguyễn', 'Thời kỳ thống nhất', 'Thời kỳ hiện đại'];
-    const item = {
-        title: "Bộ câu hỏi 1",
-        time: "19 tháng 3 năm 2001 lúc 14:00"
-    }
+
     useEffect(() => {
         document.body.style = 'background: #f1f1f1;';
         return (() => {
@@ -74,17 +70,13 @@ const ListQa = () => {
                                 <option value="2">ChFờ duyệt</option>
                             </select>
                         </div>
-                        <div className={style.period_container} onChange={(e) => {
-                            const selectedIndex = e.target.options.selectedIndex
-                            if (selectedIndex > 0) {
-                                setPeriodFilter(eventTypeOptions[selectedIndex - 1])
-                            } else {
-                                setPeriodFilter("")
-                            }
-                        }}>
+                        <div className={style.period_container}>
                             <label htmlFor="period">Thời kỳ</label>
-                            <select id="period" className={style.period_selector}>
-                                <option value="0">Tất cả</option>
+                            <select id="period" className={style.period_selector} onChange={(e) => {
+                                const selectedIndex = e.target.options.selectedIndex
+                                setPeriodFilter(selectedIndex - 1)
+                            }}>
+                                <option value="-1">Tất cả</option>
                                 {
                                     eventTypeOptions.map((item, index) => (
                                         <option key={index} value={index}>{item}</option>
@@ -121,7 +113,7 @@ const ListQa = () => {
                                 if (period > -1) {
                                     navigate("/manageQa", {
                                         state: {
-                                            period: period - 1
+                                            period: period
                                         }
                                     })
                                 } else {
