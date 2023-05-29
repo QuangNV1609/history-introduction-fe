@@ -196,6 +196,10 @@ const ApprovePost = () => {
                             <label htmlFor="allSelect" >Chọn tất cả</label>
                         </div>
                         <div className={styles.approve_tool_right}>
+                            <div className={styles.input_wrapper}>
+                                <i className="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" placeholder='Tìm kiếm bài viết'/>
+                            </div>
                             {toggleState === 1 && (
                                 <span
                                     className={styles.approve_btn}

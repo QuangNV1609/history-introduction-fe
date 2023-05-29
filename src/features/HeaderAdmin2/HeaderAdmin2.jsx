@@ -39,8 +39,13 @@ const HeaderAdmin2 = ({ getInputValue }) => {
         if (userToken !== null) {
             userApi.getInfo()
                 .then(res => {
-                    setFirstName(res.data.firstName);
-                    setLastName(res.data.lastName);
+                    if(res.data.firstName === null || res.data.lastName === null) {
+                        setFirstName("NEW");
+                        setLastName("USER")
+                    } else {
+                        setFirstName(res.data.firstName);
+                        setLastName(res.data.lastName)
+                    }
                     setRole(res.data.roleName[0]);
                 })
         }
