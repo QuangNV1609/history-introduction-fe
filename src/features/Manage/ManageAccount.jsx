@@ -88,7 +88,7 @@ const ManageAccount = ({ showLoading }) => {
     }, [])
 
     useEffect(() => {
-        showLoading(true)
+        //showLoading(true)
         console.log("reload data")
         adminApi.getListAdmin2()
             .then(response => {
@@ -197,7 +197,8 @@ const ManageAccount = ({ showLoading }) => {
                             key={index}
                             blockAccount={(e) => blockAccount(item[nameIndex], item[activeIndex])}
                             deleteAccount={(e) => deleteAccount(item[nameIndex])}
-                            isActive={item[activeIndex]} />
+                            isActive={item[activeIndex]} 
+                            className={style.accountItem}/>
                     ))
                 }
                 <div className={style.footer}>
@@ -237,7 +238,7 @@ const ManageAccount = ({ showLoading }) => {
                 <div className={style.dialog_add_account}>
                     <div className={style.dialog}>
                         <span>Thêm tài khoản admin</span>
-                        <label htmlFor="input_add_email">Email</label>
+                        <label htmlFor="input_add_email">Tài khoản</label>
                         <input
                             type="text"
                             className={style.input_email}

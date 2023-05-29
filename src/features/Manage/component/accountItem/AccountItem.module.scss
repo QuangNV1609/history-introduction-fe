@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 10px 20px 30px;
+    padding: 10px 30px;
 
     &:hover {
         cursor: pointer;
@@ -52,12 +52,16 @@
         }
 
         .unlock {
-            color: #636E72;
             margin-right: 29px;
         }
 
         span {
-            font-size: 1.9rem;
+            font-size: 1.4rem;
+        }
+
+        i {
+            font-size: 1.4rem;
+            margin-right: 8px;
         }
     }
 }
