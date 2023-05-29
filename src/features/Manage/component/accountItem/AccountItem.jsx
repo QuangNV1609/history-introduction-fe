@@ -2,10 +2,13 @@ import style from "./AccountItem.module.scss"
 import userSample from "../../../../resource/user_default.svg"
 import deleteIcon from "../../../../resource/delete.svg"
 import lockIcon from "../../../../resource/icon_lock.svg"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const AccountItem = ({ name, email, isActive, blockAccount, deleteAccount }) => {
     const [lock, setLock] = useState(true);
+    useEffect(() => {
+        setLock(isActive)
+    }, [])
 
     return (
         <div className={style.item}>
