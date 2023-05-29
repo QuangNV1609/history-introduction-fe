@@ -1,7 +1,10 @@
 import style from "./ItemListQa.module.scss"
-import icClock from "../../../../resource/clock.svg"
+import icView from "../../../../resource/ic_view.svg"
+import icEdit from "../../../../resource/ic_edit.svg"
+import Tippy from "@tippyjs/react"
+import 'tippy.js/dist/tippy.css'
 
-const ItemListQa = ({ item }) => {
+const ItemListQa = ({ item, showDetailPopUp, navigateToEdit }) => {
     return (
         <div className={style.container}>
             <div className={style.data}>
@@ -12,11 +15,16 @@ const ItemListQa = ({ item }) => {
                 </div> */}
             </div>
             <div className={style.menu_container}>
-                <span>&#8942;</span>
-                <div className={style.menu}>
-                    <span>Chi tiết</span>
-                    <span>Chỉnh sửa</span>
-                    <span>Xóa</span>
+                <div>
+                    <Tippy content="Xem chi tiết">
+                        <img src={icView} alt="view detail" onClick={() => showDetailPopUp()} />
+                    </Tippy>
+                    {
+                        !item.status &&
+                        <Tippy content="Chỉnh sửa">
+                            <img src={icEdit} alt="edit" onClick={() => navigateToEdit()} />
+                        </Tippy>
+                    }
                 </div>
             </div>
         </div>

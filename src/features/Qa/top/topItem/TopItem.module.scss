@@ -1,0 +1,17 @@
+.container {
+    padding: 20px;
+    background-color: white;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+        font-size: medium;
+    }
+
+    img {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

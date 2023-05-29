@@ -1,0 +1,110 @@
+.container {
+    width: 100%;
+    margin-top: 75px;
+    position: relative;
+
+    .content{
+        width: 60%;
+        margin: auto;
+    }
+
+    .title {
+        font-size: xx-large;
+    }
+
+    .filter {
+        display: flex;
+        justify-content: left;
+        padding: 20px;
+        background-color: white;
+        margin-top: 5px;
+
+        div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .period_container {
+            flex: 1;
+        }
+
+        .period_selector {
+            flex: 1;
+        }
+
+        select {
+            margin-left: 10px;
+            margin-right: 50px;
+            display: block;
+            padding: 0;
+            font-size: medium;
+            border: none;
+            border-bottom: #C9C9C9 2px solid;
+            outline: none;
+
+            &:focus {
+                border-bottom: black 2px solid;
+            }
+        }
+
+        label {
+            font-size: 1.4rem;
+
+            &::after {
+                content: ":";
+            }
+        }
+    }
+
+    .popup {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba($color: #f6f6f7, $alpha: 0.9);
+        z-index: 100;
+        top: 0;
+
+        .container {
+            width: 60%;
+            margin: auto;
+            background-color: white;
+            margin-top: 100px;
+            padding: 30px;
+            border: #C9C9C9 solid 1px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            
+            .period {
+                font-size: xx-large;
+            }
+
+            span {
+                font-size: medium;
+                margin-top: 5px;
+            }
+        }
+
+        .line {
+            width: 80%;
+            margin: 10px auto;
+            height: 1px;
+            background-color: #C9C9C9;
+        }
+
+        button {
+            padding: 10px;
+            background-color: black;
+            border-radius: 8px;
+            align-self: center;
+            color: white;
+            margin-top: 10px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

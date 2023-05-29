@@ -5,7 +5,7 @@ const Answer = ({ text, index, indexItem, isShowRemove, isChosen, onAnswerChange
     return (
         <div className={style.answer}>
 
-            <input type="radio" name={`answer${indexItem}`} onChange={() => onAnswerChosen(index)} checked={isChosen}/>
+            <input type="radio" name={`answer${indexItem}`} onChange={() => onAnswerChosen(index)} checked={isChosen || false}/>
 
             <input
                 type="text"

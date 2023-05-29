@@ -33,13 +33,11 @@ const ManageAccount = ({ showLoading }) => {
     const activeIndex = 2
 
     const blockAccount = (name, isActive) => {
-        if (isActive) {
-            showLoading(true)
-            adminApi.blockAccount(name)
-                .then(res => {
-                    setRefreshData(refreshData + 1)
-                })
-        }
+        showLoading(true)
+        adminApi.blockAccount(name)
+            .then(res => {
+                setRefreshData(refreshData + 1)
+            })
     }
 
     const deleteAccount = (name) => {
@@ -197,8 +195,8 @@ const ManageAccount = ({ showLoading }) => {
                             key={index}
                             blockAccount={(e) => blockAccount(item[nameIndex], item[activeIndex])}
                             deleteAccount={(e) => deleteAccount(item[nameIndex])}
-                            isActive={item[activeIndex]} 
-                            className={style.accountItem}/>
+                            isActive={item[activeIndex]}
+                            className={style.accountItem} />
                     ))
                 }
                 <div className={style.footer}>

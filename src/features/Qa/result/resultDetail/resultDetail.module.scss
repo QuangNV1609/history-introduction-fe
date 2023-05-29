@@ -53,6 +53,12 @@
                 .button_container {
                     margin-top: 20px;
 
+                    button {
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+
                     .button_black {
                         padding: 10px;
                         color: white;

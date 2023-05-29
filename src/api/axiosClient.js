@@ -1,7 +1,7 @@
 import axios from "axios";
 import { parse, stringify } from 'qs'
 
-export const host = 'localhost:8080'
+export const host = 'https://f9fd-14-248-225-234.ngrok-free.app'
 
 const axiosClient = axios.create({
     baseURL: host + '/api',
@@ -12,7 +12,6 @@ const axiosClient = axios.create({
         encode: parse,
         serialize: stringify,
     },
-
 })
 
 axiosClient.interceptors.request.use(async (config) => {

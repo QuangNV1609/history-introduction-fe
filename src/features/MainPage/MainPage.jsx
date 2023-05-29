@@ -24,6 +24,8 @@ import Result from "../Qa/result/Result";
 import ResultDetail from "../Qa/result/resultDetail/resultDetail";
 import ManageAccount from "../Manage/ManageAccount";
 import ApproveQuizz from "../ApproveQuizz/ApproveQuizz";
+import Exam from "../Qa/exam/exam";
+import TopScore from "../Qa/top/TopScore";
 
 const MainPage = ({showLoading}) => {
     const [input, setInput] = useState();
@@ -64,6 +66,7 @@ const MainPage = ({showLoading}) => {
                 <Route path="/period" element={<Period />}></Route>
                 <Route path="/figure" element={<Figure />}></Route>
                 <Route path="/qa" element={<Qa />}></Route>
+                <Route path="/exam" element={<Exam />}></Route>
                 <Route path="/manageQa" element={<ManageQa />}></Route>
                 <Route path="/result" element={<Result />}></Route>
                 <Route path="/resultDetail" element={<ResultDetail />}></Route>
@@ -78,6 +81,8 @@ const MainPage = ({showLoading}) => {
                 <Route path="/editPost" element={<EditPost />}></Route>
                 <Route path="/recentWatched" element={<RecentWatched />}></Route>
                 <Route path="/admin" element={<ManageAccount showLoading={(isShow) => showLoading(isShow)} />} />
+                <Route path="/topscore" element={<TopScore />} />
+                <Route path="/historyscore" element={<TopScore isHistory={true}/>} />
             </Routes>
 
             {(input !== undefined && input !== '') && (

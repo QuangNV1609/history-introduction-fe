@@ -138,10 +138,7 @@ const HeaderAdmin2 = ({ getInputValue }) => {
                                                 <a href="/myCreatePost">Bài viết của tôi</a>
                                             </li>
                                             <li className={styles.header_user_item}>
-                                                <a href="#">Tạo Quiz mới</a>
-                                            </li>
-                                            <li className={styles.header_user_item}>
-                                                <a href="#">Quiz của tôi</a>
+                                                <a href="/listqa">Tạo Quiz mới</a>
                                             </li>
                                             <li className={styles.header_user_item}>
                                                 <div className={styles.user_item_line}></div>
@@ -167,13 +164,13 @@ const HeaderAdmin2 = ({ getInputValue }) => {
                                                 <div className={styles.user_item_line}></div>
                                             </li>
                                             <li className={styles.header_user_item}>
-                                                <a href="#">Quản lý tài khoản</a>
+                                                <a href="/admin">Quản lý tài khoản</a>
                                             </li>
                                             <li className={styles.header_user_item}>
                                                 <a href="/approvePost">Quản lý bài viết</a>
                                             </li>
                                             <li className={styles.header_user_item}>
-                                                <a href="#">Quản lý quizzes</a>
+                                                <a href="/approveQuizz">Quản lý quizzes</a>
                                             </li>
                                             <li className={styles.header_user_item}>
                                                 <div className={styles.user_item_line}></div>
@@ -196,6 +193,9 @@ const HeaderAdmin2 = ({ getInputValue }) => {
                                             </li>
                                             <li className={styles.header_user_item}>
                                                 <div className={styles.user_item_line}></div>
+                                            </li>
+                                            <li className={styles.header_user_item}>
+                                                <a href="/historyscore">Lịch sử Quizz</a>
                                             </li>
                                             <li className={styles.header_user_item}>
                                                 <a href="#">Trợ giúp</a>

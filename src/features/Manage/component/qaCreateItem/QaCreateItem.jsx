@@ -6,21 +6,21 @@ import { useEffect } from "react"
 import { json } from "react-router-dom"
 import { useState } from "react"
 
-const QaCreateItem = ({ 
-    item, 
+const QaCreateItem = ({
+    item,
     index,
-    listArticle, 
-    isShowRemoveQuest, 
+    isUpdate,
+    listArticle,
+    isShowRemoveQuest,
     onAddQuestionClick,
-    onQuestionChange, 
-    onAnswerChange, 
-    onAddAnswer, 
+    onQuestionChange,
+    onAnswerChange,
+    onAddAnswer,
     onRemoveQuest,
     onRemoveAns,
     onAnswerChosen,
-    onArticleChange 
+    onArticleChange
 }) => {
-    const [idArticle, setIdArticle] = useState(-1)
     let listAnswer = [...item.answers]
     const count = 2 - listAnswer.length
     if (count > 0) {
@@ -39,31 +39,31 @@ const QaCreateItem = ({
 
     return (
         <div className={style.container}>
-            <img 
-            src={icClose} 
-            className={`${style.close} ${isShowRemoveQuest ? style.show : style.hidden}`}
-            onClick={() => onRemoveQuest(index)}
+            <img
+                src={icClose}
+                className={`${style.close} ${isShowRemoveQuest ? style.show : style.hidden}`}
+                onClick={() => onRemoveQuest(index)}
             ></img>
             <input
                 type="text"
                 className={style.question}
                 placeholder="Nhập câu hỏi"
                 onChange={(e) => onQuestionChange(index, e.target.value)}
-                value={item.question} />
-                <select type="text" className={`${style.article} ${idArticle == -1 ? style.placeholder : style.a}`}
+                value={item.content || ""} />
+            <select type="text" className={`${style.article}`}
                 onChange={(e) => {
                     const selectedIndex = e.target.options.selectedIndex
                     console.log(e.target.options[selectedIndex].value)
                     onArticleChange(index, e.target.options[selectedIndex].value)
                 }}
-                >
-                    <option value="" defaultValue className={style.option_disable}>Bài viết liên quan</option>
-                    {
-                        listArticle.map((item, index) => (
-                            <option key={index} value={item.id}>{item.title}</option>
-                        ))
-                    }
-                </select>
+            >
+                <option value="" defaultValue className={style.option_disable}>Bài viết liên quan</option>
+                {
+                    listArticle.map((item, index) => (
+                        <option key={index} value={item.id}>{item.title}</option>
+                    ))
+                }
+            </select>
             {
                 listAnswer.map((answer, indexItem) => (
                     <Answer
@@ -72,17 +72,20 @@ const QaCreateItem = ({
                         onAnswerChange={answerChange}
                         onRemoveAns={removeAns}
                         onAnswerChosen={(indexChosen) => onAnswerChosen(index, indexChosen)}
-                        index={indexItem} 
+                        index={indexItem}
                         indexItem={index}
-                        isChosen={answer.answerTrue === 1}
-                        isShowRemove={item.answers.length > 2}/>
+                        isChosen={answer.answerTrue}
+                        isShowRemove={item.answers.length > 2} />
                 ))
             }
             <span className={style.addQuestion} onClick={() => onAddAnswer(index, listAnswer.length)}>+ Thêm đáp án</span>
-            <div className={style.add_container} onClick={() => onAddQuestionClick(index)}>
-                <img src={icAdd} alt="" />
-                <span>Thêm câu hỏi</span>
-            </div>
+            {
+                !isUpdate &&
+                <div className={style.add_container} onClick={() => onAddQuestionClick(index)}>
+                    <img src={icAdd} alt="" />
+                    <span>Thêm câu hỏi</span>
+                </div>
+            }
         </div>
     )
 }

@@ -6,16 +6,29 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import Select from 'react-select';
 import DataTable from 'react-data-table-component';
+import qaApi from '../../api/qa';
 
 
 const ApproveQuizz = () => {
     const [toggleState, setToggleState] = useState(1);
-    const [postState, setPostState] = useState(0);
+    const [period, setPostState] = useState(0);
+    const [refresh, setRefresh] = useState(0);
+    const [listData, setListData] = useState([]);
+    const [listId, setListId] = useState([]);
     const [eventType, setEventType] = useState('');
 
     const toggleTab = (index) => {
         setToggleState(index);
     }
+
+    const rowClicked = (row, event) => { 
+        console.log(row, "clicked")
+    };
+
+    useEffect(() => {
+        qaApi.findAllQuizz()
+        .then(res => setListData(res.data))
+    }, [refresh])
 
     const eventTypeOptions = [
         { value: '0', label: 'Thời kỳ tiền sử' },
@@ -36,67 +49,26 @@ const ApproveQuizz = () => {
     const columns = [
         {
             name: 'Nội dung câu hỏi',
-            selector: row => row.quizzContent
+            selector: row => row.content
         },
         {
             name: 'Đáp án',
-            selector: row => row.answer
+            selector: row => {
+                let result = ""
+                row.answers.forEach((item) => {
+                    if (item.answerTrue) {
+                        result = item.content
+                    }
+                })
+                return result
+            }
         },
         {
-            name: 'Ngày đăng',
-            selector: row => row.creatAt,
-            sortable: true
-        },
-        {
-            name: 'Tác giả',
-            selector: row => row.author
+            name: 'Bài viết',
+            selector: row => row.articleTitle
         },
     ];
 
-    const data = [
-        {
-            idQuizz: 1,
-            quizzContent: "Bác Hồ sinh vào ngày tháng năm nào?",
-            answer: "19-05-1890",
-            creatAt: "20-02-2023",
-            author: "Nguyễn A"
-        },
-        {
-            idQuizz: 2,
-            quizzContent: "Bác Hồ sinh vào ngày tháng năm nào?",
-            answer: "19-05-1890",
-            creatAt: "21-02-2023",
-            author: "Nguyễn A"
-        },
-        {
-            idQuizz: 3,
-            quizzContent: "Bác Hồ sinh vào ngày tháng năm nào?",
-            answer: "19-05-1890",
-            creatAt: "01-01-2021",
-            author: "Nguyễn A"
-        },
-        {
-            idQuizz: 4,
-            quizzContent: "Bác Hồ sinh vào ngày tháng năm nào?",
-            answer: "19-05-1890",
-            creatAt: "21-06-2023",
-            author: "Nguyễn A"
-        },
-        {
-            idQuizz: 5,
-            quizzContent: "Bác Hồ sinh vào ngày tháng năm nào?",
-            answer: "19-05-1890",
-            creatAt: "20-02-2023",
-            author: "Nguyễn A"
-        },
-        {
-            idQuizz: 6,
-            quizzContent: "Bác Hồ sinh vào ngày tháng năm nào?",
-            answer: "19-05-1890",
-            creatAt: "20-02-2023",
-            author: "Nguyễn A"
-        }
-    ]
     return (
         <div className={styles.container}>
             <div className={styles.body}>
@@ -127,12 +99,27 @@ const ApproveQuizz = () => {
                             {toggleState === 1 && (
                                 <span
                                     className={styles.approve_btn}
+                                    onClick={ () => {
+                                        console.log(listId)
+                                        qaApi.approveQuizz(listId)
+                                        .then(res => {
+                                            setRefresh(refresh + 1)
+                                            setListId([])
+                                        })
+                                    }}
                                 >
                                     <i className="fa-solid fa-check"></i>Phê duyệt câu hỏi
                                 </span>
                             )}
                             <span
                                 className={styles.delete_btn}
+                                onClick={() => {
+                                    qaApi.removeQuizz(listId)
+                                    .then(res => {
+                                        setRefresh(refresh + 1)
+                                        setListId([])
+                                    })
+                                }}
                             >
                                 <i className="fa-solid fa-trash"></i>Xóa câu hỏi
                             </span>
@@ -142,11 +129,17 @@ const ApproveQuizz = () => {
                     <div>
                         <DataTable
                             columns={columns}
-                            data={data}
+                            data={listData}
                             selectableRows
                             fixedHeader
                             pagination
                             className={styles.table}
+                            onSelectedRowsChange={(data) => {
+                                const newList = [...listId]
+                                newList.push(data.selectedRows[0].id)
+                                console.log(data.selectedRows[0].id)
+                                setListId(newList)
+                            }}
                         ></DataTable>
                     </div>
                 </div>

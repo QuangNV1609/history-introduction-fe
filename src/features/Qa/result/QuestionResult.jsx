@@ -1,7 +1,7 @@
 import style from "./QuestionResult.module.scss"
 import AnswerResult from "./AnswerResult"
 
-const QuestionResult = ({ question, index }) => {
+const QuestionResult = ({ question, index, userAnswer }) => {
     return (
         <div className={style.container}>
             <div className={style.line}></div>
@@ -10,9 +10,9 @@ const QuestionResult = ({ question, index }) => {
             {
                 question.answers.map((item, index) => (
                     <AnswerResult
-                        isCorrect={index === question.correctAnswers}
-                        isSelect={index === question.selectAnswers}
-                        answer={item} />
+                        isCorrect={item.answerTrue}
+                        isSelect={index === userAnswer}
+                        answer={item.content} />
                 ))
             }
         </div>

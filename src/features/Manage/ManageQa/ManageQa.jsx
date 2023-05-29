@@ -8,6 +8,7 @@ import qaApi from "../../../api/qa"
 const ManageQa = () => {
     const navigate = useNavigate()
     const location = useLocation()
+    const [update, setUpdate] = useState(false)
     const [article, setArticle] = useState([])
     useEffect(() => {
         document.body.style = 'background: #f1f1f1;';
@@ -16,18 +17,13 @@ const ManageQa = () => {
         })
     }, [])
     const [listQuestion, setListQuestion] = useState([
-        // {
-        //     question: "",
-        //     listAnswer: [],
-        //     trueAnswer: null
-        // }
         {
-            content:"",
-            articleId:-1,
-            answers:[
+            content: "",
+            articleId: -1,
+            answers: [
                 {
-                    content:"",
-                    answerTrue:-1
+                    content: "",
+                    answerTrue: 0
                 }
             ]
         }
@@ -36,12 +32,12 @@ const ManageQa = () => {
     const onAddQuestion = (index) => {
         let newList = [...listQuestion]
         newList.splice(index + 1, 0, {
-            content:"",
-            articleId:-1,
-            answers:[
+            content: "",
+            articleId: -1,
+            answers: [
                 {
-                    content:"",
-                    answerTrue:0
+                    content: "",
+                    answerTrue: 0
                 }
             ]
         })
@@ -58,8 +54,8 @@ const ManageQa = () => {
         const newList = [...listQuestion]
         while (count >= newList[index].answers.length) {
             newList[index].answers.push({
-                content:"",
-                answerTrue:0
+                content: "",
+                answerTrue: 0
             })
         }
         setListQuestion(newList)
@@ -69,8 +65,8 @@ const ManageQa = () => {
         let newList = [...listQuestion]
         while (indexAnswer >= newList[indexQuest].answers.length) {
             newList[indexQuest].answers.push({
-                content:"",
-                answerTrue:0
+                content: "",
+                answerTrue: 0
             })
         }
         newList[indexQuest].answers[indexAnswer].content = answer
@@ -96,8 +92,8 @@ const ManageQa = () => {
         const newList = [...listQuestion]
         while (indexChosen >= newList[indexQuest].answers.length) {
             newList[indexQuest].answers.push({
-                content:"",
-                answerTrue:0
+                content: "",
+                answerTrue: 0
             })
         }
         const length = newList[indexQuest].answers.length
@@ -117,42 +113,42 @@ const ManageQa = () => {
 
     const saveQa = () => {
         console.log(listQuestion)
-        qaApi.saveQa(listQuestion)
-        .then(res => {
-            if (res.status == 200) {
-                navigate("/listqa")
-            }
-        })
-        .catch(res => {
-            alert(res.response.data.message)
-            console.log(res)
-        })   
+        if (!location.state.isUpdate) {
+            qaApi.saveQa(listQuestion)
+            .then(res => {
+                if (res.status == 200) {
+                    navigate("/listqa")
+                }
+            })
+            .catch(res => {
+                alert(res.response.data.message)
+                console.log(res)
+            })
+        } else {
+            navigate("/listqa")
+        }
     }
 
     useEffect(() => {
-        const period = location.state.period
-        articleApi.getArticleFollowPeriod(period)
-        // .then(result => JSON.parse(result))
-        .then(result => setArticle(result.data))
+        if (location.state.isUpdate) {
+            setUpdate(true)
+            console.log(location.state.itemRequest)
+            setListQuestion([location.state.itemRequest])
+            setArticle([{
+                id:location.state.itemRequest.articleId,
+                title:location.state.itemRequest.articleTitle
+            }])
+        } else {
+            const period = location.state.period
+            articleApi.getArticleFollowPeriod(period)
+                .then(result => setArticle(result.data))
+        }
     }, [])
 
     return (
         <div className={style.container}>
             <div className={style.empty} />
             <div className={style.content}>
-                {/* <div className={style.title}>
-                    <input type="text" className={style.in_title} placeholder="Tiêu đề bộ câu hỏi" onChange={(e) => setTitle(e.target.value)} />
-                    <select type="text" className={style.   } onChange={(e) => {
-                        const selectedIndex = e.target.options.selectedIndex
-                        setTheme(e.target.options[selectedIndex].value)
-                    }}>
-                        <option value="" disabled defaultValue>Chọn chủ đề</option>
-                        <option value="aaaaa">aaaaaaaaaaa</option>
-                        <option value="vvvvvvvvvvv">vvvvvvvvvvv</option>
-                        <option value="dddddd">dddddd</option>
-                        <option value="eeeeeeeeeee">eeeeeeeeeee</option>
-                    </select>
-                </div> */}
                 <div>
                     {
                         listQuestion.map((item, index) => (
@@ -167,7 +163,8 @@ const ManageQa = () => {
                                 onAnswerChosen={onAnswerChosen}
                                 onArticleChange={onArticleChange}
                                 index={index} item={item} key={index}
-                                listArticle={article} />
+                                listArticle={article}
+                                isUpdate={update} />
                         ))
                     }
                 </div>

@@ -121,6 +121,7 @@
             padding: 30px;
             border: #C9C9C9 solid 1px;
             border-radius: 8px;
+            overflow-y: scroll;
 
             .qa_title {
                 font-size: 1.4rem;
@@ -141,7 +142,7 @@
                 }
             }
 
-            .button_container{
+            .button_container {
                 margin: auto;
             }
 
@@ -159,6 +160,40 @@
                     cursor: pointer;
                 }
             }
+
+            .title {
+                font-size: x-large;
+                margin: auto;
+            }
+
+            .ques {
+                font-size: large;
+                margin-bottom: 10px;
+            }
+
+            .default {
+                font-size: medium;
+                padding: 20px;
+                background-color: #C9C9C9;
+                margin-top: 5px;
+                border-radius: 8px;
+            }
+
+            .ans_true {
+                font-size: medium;
+                padding: 20px;
+                background-color: rgb(46, 241, 46);
+                color: white;
+                margin-top: 5px;
+                border-radius: 8px;
+            }
         }
     }
+}
+
+.line {
+    width: 60%;
+    height: 2px;
+    background-color: #C9C9C9;
+    margin: 10px auto;
 }

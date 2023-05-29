@@ -9,9 +9,19 @@ const ListQa = () => {
     const navigate = useNavigate()
     const [qas, setListQa] = useState([])
     const [periodChoose, setShowPeriod] = useState(false)
+    const [itemDetail, setItemDetail] = useState(null)
     const [period, setPeriod] = useState(-1)
     const [status, setStatus] = useState(-1)
     const [periodFilter, setPeriodFilter] = useState(-1)
+    const navigateToEdit = (item) => {
+        console.log("navigate")
+        navigate("/manageQa", {
+            state: {
+                itemRequest: item,
+                isUpdate: true
+            }
+        })
+    }
     const eventTypeOptions = ['Thời kỳ tiền sử', 'Thời kỳ cổ đại', 'Thời kỳ Bắc Thuộc', 'Thời kỳ Bắc Thuộc lần thứ III',
         'Thời kỳ tự chủ', 'Thời kỳ quân chủ', 'Thời kỳ Bắc Thuộc lần thứ IV', 'Thời kỳ Trung Hưng - Nhà Hậu Lê',
         'Thời kỳ chia cắt', 'Thời kỳ Bắc Triều - Nam Triều', 'Thời kỳ Trịnh - Nguyễn', 'Thời kỳ thống nhất', 'Thời kỳ hiện đại'];
@@ -66,8 +76,8 @@ const ListQa = () => {
                                 setStatus(selectedIndex - 1)
                             }}>
                                 <option value="0">Tất cả</option>
-                                <option value="1">Đã duyệt</option>
-                                <option value="2">ChFờ duyệt</option>
+                                <option value="1">Chờ duyệt</option>
+                                <option value="2">Đã duyệt</option>
                             </select>
                         </div>
                         <div className={style.period_container}>
@@ -88,7 +98,11 @@ const ListQa = () => {
                 </div>
                 {
                     qas.map((item, index) => (
-                        <ItemListQa item={item} key={index} />
+                        <ItemListQa
+                            item={item} key={index}
+                            showDetailPopUp={() => setItemDetail(item)}
+                            navigateToEdit={() => navigateToEdit(item)}
+                        />
                     ))
                 }
             </div>
@@ -113,7 +127,8 @@ const ListQa = () => {
                                 if (period > -1) {
                                     navigate("/manageQa", {
                                         state: {
-                                            period: period
+                                            period: period,
+                                            isUpdate: false
                                         }
                                     })
                                 } else {
@@ -123,6 +138,28 @@ const ListQa = () => {
                             <button onClick={() => {
                                 setShowPeriod(false)
                             }}>Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            }
+            {
+                itemDetail &&
+                <div className={style.popup}>
+                    <div className={style.container}>
+                        <span className={style.title}>Chi tiết câu hỏi</span>
+                        <div className={style.line}></div>
+                        <span className={style.ques}>{`Câu hỏi: ${itemDetail.content}`}</span>
+                        {
+                            itemDetail.answers.map((item, index) => (
+                                <span key={index} className={item.answerTrue ? style.ans_true : style.default}>{item.content}</span>
+                            ))
+                        }
+                        <div className={style.button_container}>
+                            {
+                                !itemDetail.status && 
+                                <button onClick={() => navigateToEdit(itemDetail)}>Chỉnh sửa</button>
+                            }
+                            <button onClick={() => setItemDetail(null)}>Đóng</button>
                         </div>
                     </div>
                 </div>
